@@ -1,11 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.skypack.dev/@ionic/core/css/normalize.css"
+		/>
+		<link
+			rel="icon"
+			href="%sveltekit.assets%/favicon.ico"
+		/>
+		<link
+			href="http://fonts.googleapis.com/css?family=Rubik"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="http://fonts.googleapis.com/css?family=Roboto"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
 		%sveltekit.head%
 	</head>
+	<style>
+		body {
+			background-color: #f0f0f0;
+			font-family: "Roboto", sans-serif;
+			margin: 0;
+		}
+	</style>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
