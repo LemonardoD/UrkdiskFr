@@ -39,7 +39,7 @@
     p{
         font-family: inherit;
         font-size: 18px;
-        margin-top: 50px;
+        margin-top: 70px;
         color: #333333;
     }
     .dontFind{

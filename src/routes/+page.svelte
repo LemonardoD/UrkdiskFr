@@ -16,6 +16,8 @@
     import replicaImg from "../lib/icons/replica.webp"
     import Loader from "../lib/icons/loader.svelte"
 	import { onMount } from "svelte";
+	import { searchRims } from "$lib";
+	import type { RimInfo } from "../types";
 
     let loader = Loader
     let loaded = false
@@ -25,11 +27,22 @@
 
     let inputValue = ''
     let isInputFocused = false;
+    let searchResults: RimInfo[] =[]
 
-
-    function toggleInputFocus() {
+    const toggleInputFocus = () =>{
         isInputFocused = !isInputFocused;
         inputValue = isInputFocused ? inputValue : '';
+    }
+    const handleInput = async (event: Event)=> {
+        const inputEvent = event as InputEvent & { target: HTMLInputElement };
+        inputValue = inputEvent.target.value;
+        if(inputValue.length > 0){
+            searchResults = await searchRims(inputValue)
+        } else{
+            searchResults =[]
+        }
+        
+        
     }
 
     onMount(() => {
@@ -38,21 +51,36 @@
 </script>
 
 {#if isInputFocused}
-    <div class="dark-overlay"/>
+    <div class="darkOverlay">
+        {#if searchResults.length > 0}
+            <div class="searchResults">
+                {#each searchResults as result }
+                <a href={`/rim-by-id/${result.rimId}`}>
+                    <div class="suggestedResult">
+                            <img  class="suggestedImg" src={result.image} alt="rimImage">
+                            <div class=suggestedInfo>
+                                <p class="modelName">{result.name}</p>
+                                <p class="modelPrice">{result.minPrice[0] >0 ? `от ${result.minPrice[0]}`: "Нет в наличии"}</p>
+                            </div>
+                       
+                    </div>
+                </a>
+                {/each}
+            </div>
+        {/if}
+    </div>
 {/if}
 <Header ifMain={true}/>
     <div class="topBackground"/>
     <section class="searchSec">
         <search>
-            <div style="display: flex; align-items: center;">
-                <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-                <img class="searchIcon" src={searchIcon} alt="Search">
-                <input placeholder="Поиск по дискам" type="text" name="searchBar"
-                bind:value={inputValue}
-                on:focus={toggleInputFocus}
-                on:blur={toggleInputFocus}>
-                
-            </div>
+            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+            <img class="searchIcon" src={searchIcon} alt="Search">
+            <input placeholder="Поиск по дискам" type="text" name="searchBar"
+            bind:value={inputValue}
+            on:focus={toggleInputFocus}
+            on:blur={toggleInputFocus}
+            on:input={handleInput}>
         </search>
         <div class="selectByCar">
             <div>
@@ -128,6 +156,53 @@
 <Footer/>
 
 <style>
+    .modelPrice{
+        margin: 0;
+        display: block;
+        width: 100%;
+        line-height: 100%;
+        height: 50%;
+        font-size: 12px;
+        color: #939393;
+    }
+    .modelName{
+        margin: 0;
+        font-family: inherit;
+        font-size: 14px;
+        height: 50%;
+        width: 100%;
+        line-height: 100%;
+        color: #507299;
+    }
+    .suggestedInfo{
+        width: 100%;
+        margin-left: 10px;
+    }
+    .suggestedImg{
+        height: 36px;
+        width: 36px;
+    }
+    .suggestedResult{
+        display: flex;
+        padding: 4px 12px;
+        height: 40px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .searchResults{
+        max-height: calc(55vh - 50px);
+        top: 6.5%;
+        margin-top: 8px;
+        border-radius: 4px;
+        display: flex;
+        left: 50%;
+        transform: translateX(-47%);
+        position: relative;
+        overflow: hidden;
+        width: 380px;
+        background-color: #fff;
+        flex-direction: column;
+    }
     .loader{
         margin: 24px;
     }
@@ -314,11 +389,11 @@
     }
 
     search{
-        margin: 42px 0px 8px;
+        margin: 42px auto 8px;
         z-index:3;
     }
     input{
-        width: 302px;
+        width: 320px;
         height: 48px;
         border: none;
         padding-left: 60px;
@@ -372,21 +447,26 @@
         background: linear-gradient(0deg, #507299,#2d435c);
         width: 100%;
     }
-    .dark-overlay {
-        position: fixed;
+    .darkOverlay {
+        overflow-x: hidden;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 2200px;
         background: #00000080;
         z-index: 3;
     }
     @media(max-width: 500px){
+        .darkOverlay{
+            width: 100%;
+            height: 4961px;
+        }
         .makers a{
             margin-top: 20px;
         }
         input{
-            width: 80%;
+            width: 60%;
         }
         .selectImg{
             display: none;
@@ -436,6 +516,11 @@
             background-color: #ebf1f4;
             z-index: 1;
         }
+        .searchResults{
+            top: 2.9%;
+            width: 222px;
+            transform: translateX(-50%);
+        }
     }
     @media(min-width: 501px) and (max-width: 810px){
         .makers{ 
@@ -448,8 +533,21 @@
         .infoCard{
             margin: 0px auto;
         }
+        .darkOverlay{
+            width: 100%;
+            height: 3565px;
+        }
+        .searchResults{
+            top: 4%;
+        }
     }
-    @media(min-width: 811px) and (max-width: 1023px){
+    @media(min-width: 811px) and (max-width: 1044px){
+        .searchResults{
+            top: 5.1%;
+        }
+        .darkOverlay{
+            height: 2800px;
+        }
         .makers{
             width: 80%;
             display: grid;
@@ -458,7 +556,7 @@
             grid-template-columns: auto auto;
         }
     }
-    @media(min-width: 501px) and (max-width: 1023px){
+    @media(min-width: 501px) and (max-width: 1044px){
         .repBtn {
             display: none;
         }
@@ -496,7 +594,10 @@
             justify-content: flex-start;
         }
     }
-    @media(min-width: 1024px){
+    @media(min-width: 1045px){
+        .searchResults{
+            max-height: calc(80vh - 50px);
+        }
         .makers{ 
             padding: 32px 0px 0px;
             width: 100%;

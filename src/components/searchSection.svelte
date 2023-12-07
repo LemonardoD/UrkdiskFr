@@ -35,7 +35,7 @@
 
 <style>
     .diameterPick{
-        margin: 8px;
+        margin: 4px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -142,7 +142,6 @@
         }
         .diameterPick{
             width: 10%;
-            margin: 4px;
         }
     }
     @media(min-width: 1025px){

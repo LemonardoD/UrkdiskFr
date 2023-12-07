@@ -33,14 +33,14 @@
             grid-template-columns: auto auto; 
         }
     }
-    @media(min-width: 810px) and (max-width: 1023px){
+    @media(min-width: 810px) and (max-width: 1044px){
         .rimContent{
             width: 90%;
             justify-content: space-evenly;
             grid-template-columns: auto auto auto; 
         }
     }
-    @media(min-width: 1024px){
+    @media(min-width: 1045px){
         .rimContent{
             width: 1024px;
             justify-content: space-between;

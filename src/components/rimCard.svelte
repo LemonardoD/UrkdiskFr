@@ -8,7 +8,7 @@
     let diameters = diameter.length > 1 ? `${diameter[0]}-${diameter[diameter.length-1]}` : diameter[0]
 </script>
 
-<a href={rimId}>
+<a href={`/rim-by-id/${rimId}`}>
     <div class="rimCard">
         <div class="imgWrap">
             <img class="rimImage" src={img} alt="rim">
