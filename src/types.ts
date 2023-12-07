@@ -8,11 +8,16 @@ export interface RimInfo {
 	image: string;
 }
 
-export interface RImConfig {
+interface RImConfig {
 	width: number;
 	offset: number;
 	diameter: number;
 	boltPattern: string;
 	centralBore: number;
 	price: number;
+}
+
+export interface ConfigOptions {
+	pcd: string;
+	rims: { width: string; diameter: string }[];
 }

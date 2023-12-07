@@ -15,7 +15,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		if (apiResponse.status !== 200) {
 			throw error(apiResponse.status);
 		}
-		const apiInfo: { message: number[] } = await apiResponse.json();
+		const apiInfo: { message: string[] } = await apiResponse.json();
 
 		return { years: apiInfo.message };
 	};

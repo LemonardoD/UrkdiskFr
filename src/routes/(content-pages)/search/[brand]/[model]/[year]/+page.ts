@@ -1,6 +1,6 @@
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "../../../../.././$types";
-import type { RImConfig } from "../../../../../../types";
+import type { ConfigOptions } from "../../../../../../types";
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const getCarConfig = async (brand: string, model: string, year: string) => {
@@ -16,7 +16,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		if (apiResponse.status !== 200) {
 			throw error(apiResponse.status);
 		}
-		const apiInfo: { message: any } = await apiResponse.json();
+		const apiInfo: { message: ConfigOptions } = await apiResponse.json();
 
 		return { configs: apiInfo.message };
 	};
