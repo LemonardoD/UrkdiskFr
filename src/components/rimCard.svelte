@@ -1,14 +1,17 @@
 <script lang="ts">
+	import type { RimConfig } from "../types";
+
     export let rimId: string
     export let diameter: string[]
     export let price: number[]
     export let img: string
     export let brand: string
     export let name: string
+    export let config: RimConfig[]
     let diameters = diameter.length > 1 ? `${diameter[0]}-${diameter[diameter.length-1]}` : diameter[0]
 </script>
 
-<a href={`/rim-by-id/${rimId}`}>
+<a href={`/rim?id=${rimId}&diameter=${config[0].diameter}&width=${config[0].width}&pcd=${config[0].boltPattern}`}>
     <div class="rimCard">
         <div class="imgWrap">
             <img class="rimImage" src={img} alt="rim">

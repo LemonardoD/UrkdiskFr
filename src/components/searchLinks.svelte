@@ -3,7 +3,7 @@
     export let array= [""];
     export let configs = [{diameter: "", width: ""}];
     export let pcd = "";
-    export let rims = [{rimId: "", brand: "", name: ""}];
+    export let rims = [{rimId: "", brand: "", name: "", config: [{width: "",diameter: "", boltPattern: ""}]}];
     export let url ="";
 </script>
 
@@ -12,8 +12,9 @@
     {#if pcd.length && configs[0].diameter.length}
         <div class="linksGrid">
             {#each configs as rim}
-                <a href={`${url}/rim?diameter=${rim.diameter}&width=${rim.width}&pcd=${pcd}`} class="link">{`${rim.diameter}’’ - диаметр; ${rim.width} - ширина;
-                ${pcd} - крепежные отверстия`}</a>
+                <a href={`${url}/rim?diameter=${rim.diameter}&width=${rim.width}&pcd=${pcd}`} class="link">
+                    <pre>{`${rim.diameter}’’ - диаметр, ${rim.width} - ширина;\n${pcd} - крепежные отверстия`}</pre>
+                </a>
             {/each}
         </div>
     {:else if array.length >1}
@@ -25,7 +26,9 @@
     {:else if rims.length && rims[0].rimId.length}
         <div class="linksGrid">
             {#each rims as rim}
-                <a href={`/rim-by-id/${rim.rimId}`} class="link">{rim.brand +" - "+rim.name}</a>
+                <a href={`/rim?id=${rim.rimId}&diameter=${rim.config[0].diameter}&width=${rim.config[0].width}&pcd=${rim.config[0].boltPattern}`} class="link">
+                    {rim.brand +" - "+rim.name}
+                </a>
             {/each}
         </div>
     {:else}
@@ -36,6 +39,10 @@
 
 
 <style>
+    pre{
+        font-family: inherit;
+        font-size: 18px;
+    }
     p{
         font-family: inherit;
         font-size: 18px;

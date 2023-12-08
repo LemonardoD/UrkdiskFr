@@ -389,6 +389,8 @@
     }
 
     search{
+        display: flex;
+        align-items: center;
         margin: 42px auto 8px;
         z-index:3;
     }

@@ -8,7 +8,7 @@
 
 <div class="rimContent">
     {#each rimData as rim}
-        <RimCard rimId={rim.rimId} diameter={rim.diameters} price={rim.minPrice} img={rim.image} brand={rim.brand} name={rim.name} />
+        <RimCard rimId={rim.rimId} diameter={rim.diameters} price={rim.minPrice} img={rim.image} brand={rim.brand} name={rim.name} config={rim.config}/>
     {/each}
 </div>
 

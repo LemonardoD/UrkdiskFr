@@ -1,27 +1,28 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+	import { tick } from "svelte";
 
-     export let showModal: boolean;
-
-    onMount(() => {
-        document.body.style.overflow = 'hidden';
-
-        return () => {
-        document.body.style.overflow = '';
-        };
-    });
-
+    export let showModal: boolean
+    
     const clickModal = () =>{
         showModal = !showModal;
     }
 
+    $: {
+        if (typeof document !== 'undefined') {
+            tick().then(() => {
+                document.body.style.overflow = showModal ? 'hidden' : "auto";
+                document.body.style.margin = showModal ? '0 17px 0 0' : "0";
+            });
+        }
+    }
 </script>
+
 
 
 {#if showModal}
   <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="overlay" on:click={clickModal}/>
-    <div class="modal">
+    <div class={"modal"}>
         <div class="modalCard">
             <div class="header">
                 <p class="headerTitle">НАШИ КОНТАКТЫ</p>
@@ -96,7 +97,7 @@
         box-shadow: #00000040 0px 14px 45px, #00000038 0px 10px 18px;
     }
     .header{
-        width: 350px;
+        width: 100%;
         height: auto;
         font-family: inherit;
         background-color: #eceff1;
@@ -106,13 +107,14 @@
         z-index: 2;
     }
     .modalCard{
-        width: 350px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         border-radius: 4px;
     }
     .overlay {
+        overflow: hidden;
         z-index: 10;
         position: fixed;
         top: 0;
@@ -120,17 +122,25 @@
         width: 100%;
         height: 100%;
         background: #00000080;
+        transition: all 2s ease;
     }
 
     .modal {
         border-radius: 4px;
         position: fixed;
-        top: 50%;
+        opacity: 0.7;
+        top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: #fff;
         width: 350px;
         z-index: 1000;
-        transition: all 0.3s ease; 
+        animation: floatIn 0.3s ease-in-out 0s forwards;
+    }
+    @keyframes floatIn {
+        to {
+            opacity: 1;
+            top: 50%; 
+        }
     }
 </style>
