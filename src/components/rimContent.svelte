@@ -14,7 +14,7 @@
 
 </script>
 
-{#if rimInfo.length < 4}
+{#if rimInfo.length === 0}
     <div class="dontFind">
         <p>Диски не найдены</p>
     </div>
