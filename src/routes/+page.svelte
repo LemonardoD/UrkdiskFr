@@ -51,11 +51,12 @@
 </script>
 
 {#if isInputFocused}
-    <div class="darkOverlay">
+  <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions --> 
+    <div class="darkOverlay" on:click={toggleInputFocus}>
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
-                <a href={`/rim-by-id/${result.rimId}`}>
+                <a class="searchResult" target="_blank" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
                     <div class="suggestedResult">
                             <img  class="suggestedImg" src={result.image} alt="rimImage">
                             <div class=suggestedInfo>
@@ -71,22 +72,21 @@
     </div>
 {/if}
 <Header ifMain={true}/>
+    <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <div class="topBackground"/>
     <section class="searchSec">
         <search>
-            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
             <img class="searchIcon" src={searchIcon} alt="Search">
             <input placeholder="Поиск по дискам" type="text" name="searchBar"
             bind:value={inputValue}
             on:focus={toggleInputFocus}
-            on:blur={toggleInputFocus}
             on:input={handleInput}>
         </search>
         <div class="selectByCar">
             <div>
                 <img class="selectImg" src={searchImg} alt="carSelect">
             </div>
-            <CarSelector withHeader={true} brands={brands}/>
+            <CarSelector withHeader={true} brands={brands} rimBrand="all"/>
         </div>
     </section>
     <section class="rimMakers">
@@ -156,6 +156,9 @@
 <Footer/>
 
 <style>
+    .searchResult:hover{
+        background-color: #eceff1;
+    }
     .modelPrice{
         margin: 0;
         display: block;
