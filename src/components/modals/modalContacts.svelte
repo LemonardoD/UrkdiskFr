@@ -48,6 +48,7 @@
         opacity: 1;
     }
     .closeBtn{
+        cursor: pointer;
         margin-top: 26px;
         width: 100%;
         height: 36px;

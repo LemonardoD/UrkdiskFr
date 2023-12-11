@@ -441,7 +441,7 @@
         display: flex;
         font-family: 'Helvetica Neue', sans-serif;
         width: 320px;
-        height: 500px;
+        height: auto;
         margin: 0px;
         padding: 17px 16px 12px;
         border-radius: 4px;
@@ -453,6 +453,7 @@
         flex-wrap: wrap;
     }
     .sideCards{
+        height: 719px;
         display: flex;
         flex-direction: column;
     }
@@ -474,5 +475,70 @@
     }
     img{
         opacity: 0;
+    }
+    @media (min-width: 810px) and (max-width: 1044px){
+        .page{
+            flex-direction: column;
+            align-items: center;
+        }
+        .orderInfo{
+            width: 95%;
+        }
+        .orderRim{
+            width: 95%;
+        }
+        .sideCards{
+            width: 656px;
+            height: auto;
+        }
+    }
+    @media (min-width: 450px) and (max-width: 809px){
+        .page{
+            flex-direction: column;
+            align-items: center;
+        }
+        .orderInfo{
+            width: 92%;
+        }
+        .orderRim{
+            width: 92%;
+        }
+        .mainRimImg{
+            width: 420px;
+            height: 420px;
+        }
+        .mainCard{
+            width: 420px;
+            height: 440px;
+        }
+        .sideCards{
+            width: 420px;
+            height: auto;
+        }
+    }
+
+    @media (min-width: 350px) and (max-width: 449px){
+        .page{
+            flex-direction: column;
+            align-items: center;
+        }
+        .orderInfo{
+            width: 90%;
+        }
+        .orderRim{
+            width: 90%;
+        }
+        .mainRimImg{
+            width: 350px;
+            height: 350px;
+        }
+        .mainCard{
+            width: 350px;
+            height: 350px;
+        }
+        .sideCards{
+            width: 350px;
+            height: auto;
+        }
     }
 </style>

@@ -15,7 +15,7 @@
     import MKWIcon from "../lib/icons/mkw.webp"
     import replicaImg from "../lib/icons/replica.webp"
     import Loader from "../lib/icons/loader.svelte"
-	import { onMount } from "svelte";
+	import { onMount, tick } from "svelte";
 	import { searchRims } from "$lib";
 	import type { RimInfo } from "../types";
 
@@ -41,13 +41,20 @@
         } else{
             searchResults =[]
         }
-        
-        
     }
 
     onMount(() => {
         loaded = true
     });
+
+    $: {
+        if (typeof document !== 'undefined') {
+            tick().then(() => {
+                document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+                document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
+            });
+        }
+    }
 </script>
 
 {#if isInputFocused}
@@ -56,16 +63,15 @@
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
-                <a class="searchResult" target="_blank" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
-                    <div class="suggestedResult">
+                    <a class="searchResult" target="_blank" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
+                        <div class="suggestedResult">
                             <img  class="suggestedImg" src={result.image} alt="rimImage">
                             <div class=suggestedInfo>
                                 <p class="modelName">{result.name}</p>
                                 <p class="modelPrice">{result.minPrice[0] >0 ? `от ${result.minPrice[0]}`: "Нет в наличии"}</p>
                             </div>
-                       
-                    </div>
-                </a>
+                        </div>
+                    </a>
                 {/each}
             </div>
         {/if}
@@ -199,7 +205,7 @@
         border-radius: 4px;
         display: flex;
         left: 50%;
-        transform: translateX(-47%);
+        transform: translateX(-50%);
         position: relative;
         overflow: hidden;
         width: 380px;
@@ -524,7 +530,7 @@
         .searchResults{
             top: 2.9%;
             width: 222px;
-            transform: translateX(-50%);
+            transform: translateX(-55%);
         }
     }
     @media(min-width: 501px) and (max-width: 810px){
