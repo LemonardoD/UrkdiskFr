@@ -92,7 +92,7 @@
     <section class="rimMakers">
         <p class="mainTitle">Производители дисков</p>
         <div class="makers">
-            <a href="/rims/Kosei">
+            <a href="/rims/Kosei?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
                         <img  class="logoImage"src={koseiIcon} alt="Kosei">
@@ -101,7 +101,7 @@
                     <img  class="rimImages"src={koseiImage} alt="Kosei">
                 </div>
             </a>
-            <a href="/rims/Marcello">
+            <a href="/rims/Marcello?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
                         <img  class="logoImage"src={MarcIcon} alt="Marcello">
@@ -110,7 +110,7 @@
                     <img  class="rimImages"src={MarcImage} alt="Marcello">
                 </div>
             </a>
-            <a href="/rims/MKW">
+            <a href="/rims/MKW?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
                         <img  class="logoImage"src={MKWIcon} alt="MKW">
@@ -119,7 +119,7 @@
                     <img  class="rimImages"src={MKWImage} alt="MKW">
                 </div>
             </a>
-            <a href="/rims/InziAone">
+            <a href="/rims/InziAone?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
                         <img  class="logoImage"src={InziIcon} alt="InziAone">
@@ -150,7 +150,7 @@
         </div>
         {:else}
             <RimContent rimData={popularRims}/>
-            <a href="/rims" class="showAllBtn">Показать еще</a>
+            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать еще</a>
         {/if}
     </section>
 <Footer/>

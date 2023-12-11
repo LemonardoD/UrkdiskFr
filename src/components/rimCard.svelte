@@ -2,14 +2,24 @@
 	import type { RimConfig } from "../types";
 
     export let rimId: string
-    export let diameter: string[]
+    export let diameters: string[]
     export let price: number[]
     export let img: string
     export let brand: string
     export let name: string
     export let config: RimConfig[]
-    let diameters = diameter.length > 1 ? `${diameter[0]}-${diameter[diameter.length-1]}` : diameter[0]
+
+    let rimDiameters: string 
+    let rimName: string
+    let rimPrice: number
+
+    $:{
+        rimName = brand+" - "+name
+        rimDiameters = diameters.length > 2 ? `${diameters[0]}-${diameters[diameters.length-1]}` : diameters.length === 2 ? `${diameters[0]}’’, ⌀${diameters[diameters.length-1]}` : diameters[0]
+        rimPrice = price[0]
+    }
 </script>
+    
 
 <a href={`/rim?id=${rimId}&diameter=${config[0].diameter}&width=${config[0].width}&pcd=${config[0].boltPattern}`}>
     <div class="rimCard">
@@ -17,9 +27,9 @@
             <img class="rimImage" src={img} alt="rim">
         </div>
         <div class="rimInfo">
-            <p class="naming">{brand +" - "+name}</p>
-            <p class="price">от {price[0]} грн</p>
-            <p class="diameters">⌀{diameters}’’</p>
+            <p class="naming">{rimName}</p>
+            <p class="price">от {rimPrice} грн</p>
+            <p class="diameters">⌀{rimDiameters}’’</p>
         </div>
         <div class="orderBtn">Заказать</div>
     </div>

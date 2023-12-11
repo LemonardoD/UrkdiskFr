@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { error } from "@sveltejs/kit";
 	import { tick } from "svelte";
 
     export let showReqCall: boolean
@@ -6,38 +7,59 @@
     let phoneNumber =""
     let showError = false
     
-    const clickReqCall = () =>{
+    const clickOutside = () =>{
         showReqCall = !showReqCall;
         phoneNumber=""
         showError = false
     }
 
-    const phoneCall = () =>{
+    const sendQuestToApi = async (phone: string) => {
+        const requestData = {
+           phone
+        };
+
+        const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/order/phone-call`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+            referrerPolicy: "no-referrer",
+        });
+        if (apiResponse.status !== 200) {
+            throw error(apiResponse.status);
+        }
+    };
+
+    const phoneCall = async () =>{
         if (phoneNumber.length < 9) {
             showError = true
         } else{
-            showReqCall= !showReqCall
+            await sendQuestToApi(phoneNumber)
+            showReqCall = !showReqCall
+            phoneNumber = ""
             showError = false
-            console.log(phoneNumber)  
         }
     }
 
-    $: 
-        if (typeof document !== 'undefined') {
-            tick().then(() => {
-                document.body.style.overflow = showReqCall ? 'hidden' : "auto";
-                document.body.style.margin = showReqCall ? '0 17px 0 0' : "0";
-            });
-        }
-        if (phoneNumber.length >= 9) {
-            showError = false
+    $:  {
+            if (typeof document !== 'undefined') {
+                tick().then(() => {
+                    document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+                    document.body.style.margin = showReqCall ? '0 17px 0 0' : "0";
+                });
+            }
+            if (phoneNumber.length >= 9) {
+                showError = false
+            }
         }
 </script>
 
 
 {#if showReqCall}
     <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="overlay" on:click={clickReqCall}/>
+    <div class="overlay" on:click={clickOutside}/>
     <div class="modal">
         <div class="modalCard">
             <div class="modalHeader">
@@ -46,19 +68,23 @@
             <div class="content">
                 <input placeholder="Ваш номер телефона" required={true} maxlength="20" class={`inputField ${showError ? "error" : "normal"}`} type="tel" 
                 bind:value={phoneNumber} name="tel">
-                <p class={showError ? "errorMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
-                <button aria-label="submit-button" aria-labelledby="submit" class="searchByCarBtn" on:click={phoneCall}>Заказать звонок</button>
+                <p class={showError ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
+                <button aria-label="submit-button" aria-labelledby="submit" class="orderBtn" on:click={phoneCall}>Заказать звонок</button>
             </div>
         </div>
     </div>
 {/if}
 
 <style>
+    .phMessage{
+        bottom: 58px;
+    }
     .hideErrMessage{
         display: none;
     }
     .errorMessage{
-        margin: 0px 0px 0px 10px ;
+        position: absolute;
+        margin: 0;
         font-family: inherit;
         font-size: 10.5px;
         color: red;
@@ -95,13 +121,13 @@
         margin: 0px 12px;
         text-align: center;
     }
-     .searchByCarBtn:hover{
+    .orderBtn:hover{
         opacity: 1;
     }
-    .searchByCarBtn{
+    .orderBtn{
         align-self: flex-end;
         cursor: pointer;
-        margin-top: 12px;
+        margin-top: 16px;
         width: 50%;
         height: 32px;
         font-family:inherit;
@@ -115,6 +141,8 @@
         background-color: #507298;
     }
     .content{
+        position: relative;
+        align-items: center;
         padding: 24px;
         flex-direction: column;
         display: flex;

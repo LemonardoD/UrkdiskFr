@@ -15,11 +15,11 @@
         </div>
         <nav class="navList">
             <ul>
-                <li><a href="/rims/InziAone">Диски InziAone</a></li>
-                <li><a href="/rims/Kosei">Диски Kosei</a></li>
-                <li><a href="/rims/Marcello">Диски Marcello</a></li>
-                <li><a href="/rims/MKW">Диски MKW</a></li>
-                <li><a href="/rims/Replica">Диски Replica</a></li>
+                <li><a href="/rims/InziAone?selectedDiameters=all">Диски InziAone</a></li>
+                <li><a href="/rims/Kosei?selectedDiameters=all">Диски Kosei</a></li>
+                <li><a href="/rims/Marcello?selectedDiameters=all">Диски Marcello</a></li>
+                <li><a href="/rims/MKW?selectedDiameters=all">Диски MKW</a></li>
+                <li><a href="/rims/Replica?selectedDiameters=all">Диски Replica</a></li>
                 <li><a href="/search">Подбор дисков по авто</a></li>
                 <li><a href="/about-us">О нас</a></li>
             </ul>

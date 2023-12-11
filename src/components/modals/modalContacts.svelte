@@ -36,7 +36,7 @@
                     <span>Наши телефоны:</span> 
                     <a class="contactInfo" href="tel:+380503403726">(050) 340-37-26</a>
                 </div>
-                <button aria-label="submit-button" aria-labelledby="submit" class="searchByCarBtn" on:click={clickModal}>Закрыть</button>
+                <button aria-label="submit-button" aria-labelledby="submit" class="closeBtn" on:click={clickModal}>Закрыть</button>
             </div>
         </div>
     </div>
@@ -44,10 +44,10 @@
 
 
 <style>
-    .searchByCarBtn:hover{
+    .closeBtn:hover{
         opacity: 1;
     }
-    .searchByCarBtn{
+    .closeBtn{
         margin-top: 26px;
         width: 100%;
         height: 36px;

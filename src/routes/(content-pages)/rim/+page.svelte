@@ -7,6 +7,7 @@
     import questImg from "../../../lib/icons/questionsImg.webp";
     import ReqCall from "../../../components/modals/modalReqCall.svelte";
     import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
+    import OrderRim from "../../../components/modals/modalOrderRim.svelte";
     
     const diameter = $page.url.searchParams.get('diameter');
     const width = $page.url.searchParams.get('width');
@@ -18,6 +19,7 @@
     let crossfading = true
     let showReqCall = false
     let showAskQuest = false
+    let showOrderField = false
 
     rimInfo.config.forEach(el =>{
         if (el.boltPattern === pcd && el.diameter ===diameter && el.width === width) {
@@ -29,7 +31,7 @@
         newUrl.searchParams.set('diameter',config.diameter);
         newUrl.searchParams.set('width', config.width);
         newUrl.searchParams.set('pcd', config.boltPattern);
-        history.pushState({}, '', newUrl.toString());
+        history.replaceState({}, '', newUrl.toString());
 
         currentConfig = config
     };
@@ -69,11 +71,15 @@
     const clickAskQuest = () => {
         showAskQuest =  !showAskQuest;
     };
+    const clickOrderRim = () => {
+        showOrderField =  !showOrderField;
+    };
 
 </script>
 
-<AskQuestion bind:showAskQuest={showAskQuest}/>
-<ReqCall bind:showReqCall={showReqCall}/>
+<OrderRim bind:showOrderField = {showOrderField} rimInfo={rimInfo} rimConfig={currentConfig} rimlink={$page.url.href}/>
+<AskQuestion bind:showAskQuest = {showAskQuest}/>
+<ReqCall bind:showReqCall = {showReqCall}/>
 
 <div class=page>
     <!-- svelte-ignore a11y-missing-attribute -->
@@ -124,7 +130,7 @@
             <div class="priceInfo">
                 <p class="priceSingle">{`${currentConfig.price} грн/шт`}</p>
                 <p class="priceAll">{`${currentConfig.price*4} грн за комплект*`}</p>
-                <button  class="order product" on:click>Заказать в 1 клик</button>
+                <button  class="order product" on:click={clickOrderRim}>Заказать в 1 клик</button>
                 <p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
             </div>
         </div>

@@ -1,15 +1,32 @@
 <script lang="ts">
+	import { createEventDispatcher, onMount } from "svelte";
     import CarSelector from "../components/carSelector.svelte"
+	import { page } from "$app/stores";
 
     export let title: string
     export let brands: string[]
     export let diameters: string[]
+
+    
+	let selected = diameters.map(() => false)
+
+    const dispatch = createEventDispatcher();
+
+    onMount(() => {
+        const urlDiameters = $page.url.searchParams.get("selectedDiameters") || "all";
+        selected = diameters.map((diameter) => urlDiameters.split(',').includes(diameter));
+        dispatch('diameterChange', { selected });
+    });
+
+    $: {
+        dispatch('diameterChange', { selected });
+    }
 </script>
 
 <div class="card">
     <div class="cardContent">
         <div class="cardTitle">
-            <p class="title">Литие диски {title}<br></p>
+            <p class="title">Литые диски {title}<br></p>
             <p class="text">Вы можете выбрать ваш автомобиль в фильтрах</p>
         </div>
         <div class="searchBycar">
@@ -21,9 +38,14 @@
         <div class="diameters">
             <div class="fieldTitle">Диаметр</div>
             <div class="fieldSection">
-                {#each diameters as diameter}
+                {#each diameters as diameter, index}
                     <div class="diameterPick">
-                        <input id={diameter} class="checkBox" type="checkbox" value={diameter} name={diameter}>
+                        <input id={diameter} 
+                        class="checkBox" 
+                        type="checkbox" 
+                        value={diameter} 
+                        name={diameter}
+                        bind:checked={selected[index]}>
                         <label for={diameter}>{diameter}’’</label>
                     </div>
                 {/each}
@@ -97,13 +119,13 @@
     .fieldSection{
         padding: 12px 16px 16px 16px;
     }
-    @media(max-width: 1024px){
+    @media(max-width: 1044px){
         .text{
             text-align: center;
         }
         .card{
             margin: auto auto 16px auto;
-            width: 90%;
+            width: 100%;
         }
         .fieldSection{
             padding: 20px 8px;
@@ -144,7 +166,7 @@
             width: 10%;
         }
     }
-    @media(min-width: 1025px){
+    @media(min-width: 1045px){
         .diameterPick{
             width: 100%;
         }

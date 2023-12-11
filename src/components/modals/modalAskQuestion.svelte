@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { error } from "@sveltejs/kit";
 	import { tick } from "svelte";
 
     export let showAskQuest: boolean
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     let phoneNumber =""
     let email =""
     let question =""
@@ -12,16 +14,41 @@
     let emailError = false
     let questionError = false
 
-    const clickReqCall = () =>{
+    const sendQuestToApi = async (question: string, phone: string, email: string ) => {
+        let requestData:{
+            question: string, phone: string, email?: string 
+        };
+
+        if (email.length > 0) {
+            requestData = {question, phone, email}
+        } else {
+            requestData = {question, phone}
+        }
+        const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/order/question`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+            referrerPolicy: "no-referrer",
+        });
+        if (apiResponse.status !== 200) {
+            throw error(apiResponse.status);
+        }
+    };
+
+    const clickOutside = () =>{
         showAskQuest = !showAskQuest;
         phoneNumber=""
+        question =""
         email=""
-        showPhoneError = false
         questionError = false
-        
+        showPhoneError = false
+        emailError = false
     }
 
-    const askQuest = () =>{
+    const askQuest = async () =>{
         if (question.length < 5) {
             questionError = true
         } else if (email.length > 0 && !emailRegex.test(email)) {
@@ -29,6 +56,7 @@
         } else if (phoneNumber.length < 9) {
             showPhoneError = true
         } else {
+            await sendQuestToApi(question, phoneNumber, email)
             showAskQuest= !showAskQuest
             emailError = false
             showPhoneError = false
@@ -36,7 +64,7 @@
             phoneNumber=""
             question =""
             email=""
-            console.log(question)  
+
         }
     }
 
@@ -62,7 +90,7 @@
 
 {#if showAskQuest}
     <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="overlay" on:click={clickReqCall}/>
+    <div class="overlay" on:click={clickOutside}/>
     <div class="modal">
         <div class="modalCard">
             <div class="modalHeader">
@@ -71,19 +99,19 @@
             <div class="content">
                 <textarea placeholder="Напишите ваш вопрос" required={true}  minlength="5" class={`inputFieldText ${questionError ? "error" : "normal"}`} 
                 bind:value={question} name="quest"/>
-                <p class={questionError ? "errorMessage" : "hideErrMessage"}>Пожалуйста, введите больше символов</p>
+                <p class={questionError ? "errorMessage questMessage" : "hideErrMessage"}>Пожалуйста, введите больше символов</p>
                 <input placeholder="Ваш email(не обязательно)" maxlength="90" class={`inputField ${emailError ? "error" : "normal"}`} type="email" 
                 bind:value={email} name="email">
-                <p class={emailError ? "errorMessage" : "hideErrMessage"}>Пожалуйста, введите  верний формат почты</p>
+                <p class={emailError ? "errorMessage emailMessage" : "hideErrMessage"}>Пожалуйста, введите  верний формат почты</p>
                 <div class="or">
                     <div class="line"/>
                     <p class="orText">ИЛИ</p>
                     <div class="line"/>
                 </div>
-                <input placeholder="Ваш номер телефона" required={true} maxlength="20" class={`inputField ${showPhoneError ? "error" : "normal"}`} type="text" 
+                <input placeholder="Ваш номер телефона" required={true} maxlength="30" class={`inputField ${showPhoneError ? "error" : "normal"}`} type="text" 
                 bind:value={phoneNumber} name="tel">
-                <p class={showPhoneError ? "errorMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
-                <button aria-label="submit-button" aria-labelledby="submit" class="searchByCarBtn" on:click={askQuest}>Заказать вопрос</button>
+                <p class={showPhoneError ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
+                <button aria-label="submit-button" aria-labelledby="submit" class="orderBtn" on:click={askQuest}>Задать вопрос</button>
             </div>
         </div>
     </div>
@@ -110,8 +138,18 @@
     .hideErrMessage{
         display: none;
     }
+    .emailMessage{
+        bottom: 158px;
+    }
+    .phMessage{
+        bottom: 62px;
+    }
+    .questMessage{
+        bottom: 206px;
+    }
     .errorMessage{
-        margin: 0px 0px 0px 10px ;
+        position: absolute;
+        margin: 0;
         font-family: inherit;
         font-size: 10.5px;
         color: red;
@@ -163,10 +201,10 @@
         margin: 0px 12px;
         text-align: center;
     }
-     .searchByCarBtn:hover{
+     .orderBtn:hover{
         opacity: 1;
     }
-    .searchByCarBtn{
+    .orderBtn{
         align-self: flex-end;
         cursor: pointer;
         margin-top: 12px;
@@ -184,6 +222,7 @@
         background-color: #507298;
     }
     .content{
+        position: relative;
         align-items: center;
         padding: 24px;
         flex-direction: column;
@@ -240,6 +279,24 @@
         to {
             opacity: 1;
             top: 50%; 
+        }
+    }
+
+    @media(max-width: 480px){
+        .orderBtn{
+            font-size: 12px;
+        }
+        .or{
+            width: 304px;
+        }
+        .line{
+            width: 110px;
+        }
+        .content{
+            width: 314px;
+        }
+        .modalCard{
+            width: 364px;
         }
     }
 </style>

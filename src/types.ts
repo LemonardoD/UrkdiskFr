@@ -7,7 +7,16 @@ export interface RimInfo {
 	diameters: string[];
 	image: string;
 }
-
+export interface OrderConfig {
+	width: string;
+	offset: number;
+	diameter: string;
+	boltPattern: string;
+	centralBore: number;
+	price: number;
+	rimId: string;
+	link: string;
+}
 export interface OneRimInfo {
 	rimId: string;
 	brand: string;
