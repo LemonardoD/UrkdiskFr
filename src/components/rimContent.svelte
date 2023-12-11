@@ -5,12 +5,20 @@
     export let rimData: RimInfo[]
 
     let rimInfo: RimInfo[]
+    let currentPage = 1
 
     $:{
         rimInfo = rimData
+        rimInfo = rimInfo.slice(0, currentPage*40)
     }
+
 </script>
+
 {#if rimInfo.length < 4}
+    <div class="dontFind">
+        <p>Диски не найдены</p>
+    </div>
+{:else if rimInfo.length < 4}
     <div class="rimContentSmall">
         {#each rimInfo as rim}
             <RimCard rimId={rim.rimId} diameters={rim.diameters} price={rim.minPrice} img={rim.image} brand={rim.brand} name={rim.name} config={rim.config}/>
@@ -23,11 +31,50 @@
         {/each}
     </div>
 {/if}
+{#if currentPage * 40 < rimData.length}
+    <div class="btnWraper">
+        <button class="showMoreBtn" on:click={ ()=>{currentPage+=1}}>Показать еще</button>
+    </div>
+{/if}
 
 
 
-
-<style>
+<style> 
+    .dontFind{
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        font-family: inherit;
+        font-size: 18px;
+        margin: 40px;
+        color: #333333;
+    }
+    .btnWraper{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+    .showMoreBtn:hover{
+        opacity: 0.8;
+    }
+    .showMoreBtn{
+        cursor: pointer;
+        text-decoration: none;
+        padding: 14px;
+        width: 488px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #425f80;
+        line-height: 12px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        overflow: hidden;
+        border: none;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: #51739833 0px 2px 4px 0px;
+    }
     .rimContentSmall{
         margin: 32px auto 10px;
         height: auto;
@@ -37,7 +84,7 @@
         justify-content: flex-start;
     }
     .rimContent{
-        margin: 32px auto 10px;
+        margin: 32px auto 16px;
         height: auto;
         display: grid;
     }

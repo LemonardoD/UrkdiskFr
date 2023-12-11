@@ -11,14 +11,13 @@
 
     export let data
     const {brands, rimInfo, rimBrand} = data
-    
 
     let urlDiameters = $page.url.searchParams.get("selectedDiameters") || "all"
 
     const changeDiameters = (diameters: string[]) => {
         const newUrl = new URL($page.url);
         newUrl.searchParams.set('selectedDiameters', diameters.join(',') || "all");
-        history.replaceState({}, '', newUrl.toString());
+        history.replaceState(history.state, '', newUrl.toString());
     };
 
     let selected: boolean[] = [];
@@ -62,9 +61,10 @@
 
 
 
-<SearchCard on:diameterChange={handleDiameterChange} title={rimBrand} brands={brands} diameters={rimInfo.diameters}/>
+<SearchCard on:diameterChange={handleDiameterChange} title={rimBrand} brands={brands} diameters={rimInfo.diameters} rimBrand={rimBrand}/>
 {#if !loaded}
     <svelte:component this={loader} />
 {:else}
-    <RimContent rimData={filteredRimList}/>         
+    <RimContent rimData={filteredRimList}/>   
 {/if}
+

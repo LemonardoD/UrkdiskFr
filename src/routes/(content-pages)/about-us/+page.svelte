@@ -51,7 +51,7 @@
         color: #000000de;
     }
     .content{
-        margin: 0px auto 16px;
+        margin: 16px auto 16px;
         padding: 2px 16px 16px;
         width: calc(100% - 16px);
         min-width: 230px;

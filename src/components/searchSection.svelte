@@ -6,8 +6,12 @@
     export let title: string
     export let brands: string[]
     export let diameters: string[]
+    export let rimBrand = "all"
+    export let ifSearch = false
 
-    
+    let selectedBrand =  $page.url.searchParams.get("brand");
+    let selectedModel = $page.url.searchParams.get("model");
+    let selectedYear = $page.url.searchParams.get("year");
 	let selected = diameters.map(() => false)
 
     const dispatch = createEventDispatcher();
@@ -27,12 +31,16 @@
     <div class="cardContent">
         <div class="cardTitle">
             <p class="title">Литые диски {title}<br></p>
-            <p class="text">Вы можете выбрать ваш автомобиль в фильтрах</p>
+            {#if ifSearch}
+                <p class="text">{`Диски на ${selectedBrand} ${selectedModel} ${selectedYear}`}</p>
+            {:else}
+                <p class="text">Вы можете выбрать ваш автомобиль в фильтрах</p>
+            {/if}
         </div>
         <div class="searchBycar">
             <div class="fieldTitle">Авто</div>
             <div class="fieldSection">
-                <CarSelector withHeader={false} brands={brands}/>
+                <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand}/>
             </div>
         </div>
         <div class="diameters">
@@ -57,7 +65,7 @@
 
 <style>
     .diameterPick{
-        margin: 4px;
+        margin: 1px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -86,16 +94,21 @@
     }
     
     .text{
+        font-size: 15px;
+        letter-spacing: 0.71px;
+        color: #404040;
         margin: 6px 0px 4px 16px;
-        color: #7d7d7d;
-        font-size: 14px;
     }
     .title{
-        font-family: inherit;
-        letter-spacing: 0.3px;
-        margin: 24px 0px 4px 16px;
-        color: black;
         font-size: 20px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 0.71px;
+        color: #181818;
+        font-family: "Roboto-Medium", sans-serif;
+        margin: 24px 0px 4px 16px;
     }
 
     .cardContent{

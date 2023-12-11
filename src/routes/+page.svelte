@@ -150,7 +150,7 @@
         </div>
         {:else}
             <RimContent rimData={popularRims}/>
-            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать еще</a>
+            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a>
         {/if}
     </section>
 <Footer/>

@@ -5,6 +5,9 @@
     export let pcd = "";
     export let rims = [{rimId: "", brand: "", name: "", config: [{width: "",diameter: "", boltPattern: ""}]}];
     export let url ="";
+    export let carBrand ="";
+    export let carModel ="";
+    export let carYear ="";
 </script>
 
 
@@ -17,7 +20,7 @@
                 </a>
             {/each}
         </div>
-    {:else if array.length >1}
+    {:else if array.length > 1}
         <div class="linksGrid">
             {#each array as el}
                 <a href={`${url}/${el}`} class="link">{el}</a>
@@ -26,7 +29,7 @@
     {:else if rims.length && rims[0].rimId.length}
         <div class="linksGrid">
             {#each rims as rim}
-                <a href={`/rim?id=${rim.rimId}&diameter=${rim.config[0].diameter}&width=${rim.config[0].width}&pcd=${rim.config[0].boltPattern}`} class="link">
+                <a href={`/rim?id=${rim.rimId}&diameter=${rim.config[0].diameter}&width=${rim.config[0].width}&pcd=${rim.config[0].boltPattern}&carBrand=${carBrand}&carModel=${carModel}&carYear=${carYear}`} class="link">
                     {rim.brand +" - "+rim.name}
                 </a>
             {/each}

@@ -14,6 +14,7 @@
     const {brands, rimInfo} = data
 
     let urlDiameters = $page.url.searchParams.get("selectedDiameters") || "all"
+    let rimBrand = $page.url.searchParams.get("rimBrand")
 
     const changeDiameters = (diameters: string[]) => {
         const newUrl = new URL($page.url);
@@ -66,7 +67,7 @@
 
 
 
-<SearchCard on:diameterChange={handleDiameterChange} title="на авто" brands={brands} diameters={rimInfo.diameters}/>
+<SearchCard on:diameterChange={handleDiameterChange} title={`${rimBrand === "all" ? "на авто" : rimBrand}`} brands={brands} diameters={rimInfo.diameters} ifSearch={true}/>
 {#if !loaded}
     <svelte:component this={loader} />
 {:else}

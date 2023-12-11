@@ -12,6 +12,12 @@
     const diameter = $page.url.searchParams.get('diameter');
     const width = $page.url.searchParams.get('width');
     const pcd = $page.url.searchParams.get('pcd');
+
+    const carBrand = $page.url.searchParams.get('carBrand') || '';
+    const carModel = $page.url.searchParams.get('carModel') || '';
+    const carYear = $page.url.searchParams.get('carYear') || '';
+
+    let rimByCar = carBrand.length > 0 ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all` :"/rims?selectedDiameters=all"
     let currentConfig: RimConfig
 
     export let data
@@ -93,18 +99,6 @@
                 <img  class="arrows" src={rghtArrow}>
             </button>
         {/if}
-        <div class="rimInfo">
-            <div class="images">
-                {#if rimInfo.images.length > 1}
-                    {#each  rimInfo.images as image }
-                        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-                        <img class="secondaryRimImg" src={image} alt="rim" on:click={() => setMainImage(image)}>
-                    {/each}
-                {/if}
-            </div>
-            <div>
-            </div>
-        </div>
     </div>
     <div class="sideCards">
         <div class="orderRim">
@@ -113,6 +107,13 @@
                 <p class="standartText">Цвет: </p>
                 <p class="rimTextSmall">{rimInfo.name}</p>
             </div>
+            <div class="images">
+                {#each  rimInfo.images as image }
+                <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                    <img class="secondaryRimImg" src={image} alt="rim" on:click={() => setMainImage(image)}>
+                {/each}
+            </div>
+           
             <div class="infoLine">
                 <p class="standartText">Размер: </p>
                 <p class="rimTextSmall">{`${currentConfig.diameter}’’ диаметр и ${currentConfig.width}’’ ширина`}</p>
@@ -125,8 +126,15 @@
                     </div>
                 {/each}
             </div>
-            <div class="fitToyourCar">
-            </div>
+            {#if carBrand.length && carModel.length && carYear.length}
+                <div class="fitToyourCar">
+                    <p class="standartText">Подходят для вашей машины</p>
+                    <div class="clientCar">
+                        <p class="carInfo">{`${carBrand} ${carModel} ${carYear}`}</p>
+                        <a href={rimByCar} class="standartText">изменить</a>
+                    </div>
+                </div>
+            {/if}
             <div class="priceInfo">
                 <p class="priceSingle">{`${currentConfig.price} грн/шт`}</p>
                 <p class="priceAll">{`${currentConfig.price*4} грн за комплект*`}</p>
@@ -147,12 +155,36 @@
 </div>
 
 <style>
-    .fitToyourCar{
+    a.standartText{
+        margin: 0;
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    .carInfo{
+        margin: 0px;
+        font-family: inherit;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #000;
+        font-weight: 600;
+    }
+    .clientCar{
         display: flex;
         align-items: center;
-        margin: 20px 10px;
-        padding: 12px 75px;
+        justify-content: space-between;
+        width: 70%;
+        padding: 12px;
         border-radius: 2px;
+        border: solid 1px #ccc;
+        background-color: #f7f7f7;
+    }
+    .fitToyourCar{
+        display: flex;
+        border-radius: 2px;
+        flex-direction: column;
     }
     .endBlocTxt{
         margin-top: 8px;
@@ -170,7 +202,7 @@
         color: #888888;
     }
     .priceSingle{
-        margin-top: 24px;
+        margin-top: 14px;
         margin-bottom: 4px;
         color: #000;
         font-family: inherit;
@@ -178,27 +210,27 @@
     }
     .priceInfo{
         text-align: center;
-        margin-top: 20px;
+        margin-top: 10px;
         border-top: solid 1px #ccc;
     }
     .configsForTwo{
         width: 100%;
-        margin: auto;
+        margin: 0px;
         display: grid;
         justify-content: flex-start;
         grid-template-columns: auto auto; 
-        margin-bottom: 80px;
+        margin-bottom: 12px;
     }
     .configsForOne{
         width: 100%;
-        margin: auto;
+        margin: 0px;
         display: grid;
         justify-content: flex-start;
-        margin-bottom: 80px;
+        margin-bottom: 12px;
     }
     .configs{
         width: 100%;
-        margin: auto;
+        margin: 0;
         display: grid;
         justify-content: space-evenly;
         grid-template-columns: auto auto auto; 
@@ -241,18 +273,20 @@
         font-weight: 500;
     }
     .rimTextSmall{
+        font-weight: 600;
         margin-left: 8px;
         color: #000000;
     }
     .standartText{
+        font-weight: 500;
         color: #888888;
     }
     .rimName{
         width: 100%;
         height: 35px;
-        margin: auto;
+        margin: 0;
         font-family: inherit;
-        font-size: 26px;
+        font-size: 23px;
         font-weight: 500;
         text-align: left;
         color: #000;
@@ -306,16 +340,12 @@
     .crossfading {
 		opacity: 1;
 	}
-   
-    .rimInfo{
-        height: 192px;
-        display: flex;
-    }
     .images{
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: auto auto auto auto auto;
         align-content: space-evenly;
-        margin: 36px;
+        justify-items: center;
+        justify-content: start;
     }
     .secondaryRimImg:hover{
         outline: 2px solid #7a8997;
@@ -395,11 +425,12 @@
         flex-direction: column;
     }
     .orderInfo{
+        margin: 0px;
         align-items: center;
         display: flex;
         width: 320px;
         height: 145px;
-        margin: 16px 144px 0px 16px;
+        margin: 16px 0px 0px 0px;
         padding: 17px 16px 12px;
         object-fit: contain;
         border-radius: 4px;
@@ -407,28 +438,36 @@
         background-color: #fff;
     }
     .orderRim{
+        display: flex;
+        font-family: 'Helvetica Neue', sans-serif;
         width: 320px;
-        height: 443px;
-        margin: 0px 144px 16px 16px;
+        height: 500px;
+        margin: 0px;
         padding: 17px 16px 12px;
         border-radius: 4px;
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        flex-wrap: wrap;
     }
     .sideCards{
         display: flex;
         flex-direction: column;
     }
     .page{
+        gap: 16px;
         display: flex;
         justify-content: center;
+        margin-top: 16px;
+        margin-bottom: 24px;
     }
     .mainCard{
+        margin: 0px;
         position: relative;
         width: 656px;
-        height: 824px;
-        margin: 0px 16px 16px 144px;
-        padding: 0 0 24px;
+        height: 719px;
         border-radius: 4px;
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;

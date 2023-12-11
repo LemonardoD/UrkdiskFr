@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import type { RimConfig } from "../types";
 
     export let rimId: string
@@ -13,6 +14,12 @@
     let rimName: string
     let rimPrice: number
 
+    let carBrand = $page.url.searchParams.get("brand") || "";
+	let carModel = $page.url.searchParams.get("model") || "";
+	let carYear = $page.url.searchParams.get("year") || "";
+
+    let hrefString = carBrand.length >0 ? `/rim?id=${rimId}&diameter=${config[0].diameter}&width=${config[0].width}&pcd=${config[0].boltPattern}&carBrand=${carBrand}&carModel=${carModel}&carYear=${carYear}` : `/rim?id=${rimId}&diameter=${config[0].diameter}&width=${config[0].width}&pcd=${config[0].boltPattern}`
+    
     $:{
         rimName = brand+" - "+name
         rimDiameters = diameters.length > 2 ? `${diameters[0]}-${diameters[diameters.length-1]}` : diameters.length === 2 ? `${diameters[0]}’’, ⌀${diameters[diameters.length-1]}` : diameters[0]
@@ -21,7 +28,7 @@
 </script>
     
 
-<a href={`/rim?id=${rimId}&diameter=${config[0].diameter}&width=${config[0].width}&pcd=${config[0].boltPattern}`}>
+<a href={hrefString}>
     <div class="rimCard">
         <div class="imgWrap">
             <img class="rimImage" src={img} alt="rim">

@@ -8,6 +8,8 @@
 
     export let data
     const {rims} = data
+    const carInfo = $page.url.pathname.replace("/search/", "").split("/")
+   
 </script>
 
 
@@ -16,5 +18,5 @@
     <svelte:component this={loader} />
 {:else}
     <OptButtons number={5} url={$page.url.pathname}/>
-    <LinkGroup rims={rims}/> 
+    <LinkGroup rims={rims} carBrand={carInfo[0]} carModel={carInfo[1]} carYear={carInfo[2]}/> 
 {/if}

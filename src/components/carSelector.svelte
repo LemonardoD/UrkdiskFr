@@ -1,29 +1,54 @@
 <script lang="ts">
     import drDownIcon from "../lib/icons/down-arrow.png"
 	import { getCarYears, getCarModels } from "$lib";
-    
+	import { page } from "$app/stores";
+	import { onMount } from "svelte";
+	import { goto } from "$app/navigation";
+
     export let brands: string[]
     export let withHeader: boolean
+    export let rimBrand: string
 
     let models: string[] = [];
     let years: number[] = [];
-    let selectedBrand = '';
-    let selectedModel = '';
-    let selectedYear = '';
+    let selectedBrand =  $page.url.searchParams.get("brand") || ""
+    let selectedModel = $page.url.searchParams.get("model") || "";
+    let selectedYear = $page.url.searchParams.get("year") || "";
+    let fieldsError = false
     
-    async function fetchModels() {
+    const fetchModels = async () =>{
         selectedModel = ''
         selectedYear = ''
         models = []
         years = []
         models = await getCarModels(selectedBrand);
     }
-    async function fetchYears() {
+    const fetchYears = async () => {
         selectedYear = ''
         years = []
         years = await getCarYears(selectedBrand, selectedModel);
     }
-    
+
+    const findByCar = async () =>{
+        if (selectedBrand.length === 0|| selectedModel.length === 0 || selectedYear.length === 0) {
+            fieldsError = true
+        } else {
+            await goto(`/rims-by-car?brand=${selectedBrand}&model=${selectedModel}&year=${selectedYear}&rimBrand=${rimBrand}`)
+            location.reload()
+        }
+    }
+
+    onMount(async () => {
+        if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.length > 0) {
+            models = await getCarModels(selectedBrand);
+            years = await getCarYears(selectedBrand, selectedModel);
+        }
+    })
+    $: {
+        if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.length > 0) {
+            fieldsError = false
+        }
+    }
 </script>
 
 
@@ -39,7 +64,6 @@
                     <option value={brand}>{brand}</option>
                 {/each}
             {/if}
-            
         </select>
         <img  class="drDownIcon" src={drDownIcon} alt="select">
     </div>
@@ -59,17 +83,30 @@
             <option value="" disabled selected>Год</option>
             {#if years.length > 0}
                 {#each years as year}
-                    <option value={year}>{year}</option>
+                    <option value={year.toString()}>{year}</option>
                 {/each}
             {/if}
         </select>
         <img  class="drDownIcon" src={drDownIcon} alt="select">
     </div>
-    <button aria-label="submit-button" aria-labelledby="submit" class="searchByCarBtn">Подобрать</button>
+    <p class={fieldsError ? "errorMessage message" : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
+    <button class="searchByCarBtn" on:click={findByCar}>Подобрать</button>
 </div>
 
 <style>
-
+    .message{
+        bottom: 64px;
+    }
+    .hideErrMessage{
+        display: none;
+    }
+    .errorMessage{
+        position: absolute;
+        margin: 0;
+        font-family: inherit;
+        font-size: 10.5px;
+        color: red;
+    }
     .selectTitle{
         margin: 8px 0px 2px;
         font-family: inherit;
@@ -94,6 +131,7 @@
         pointer-events: none;
     }
     .searchByCarBtn{
+        cursor: pointer;
         margin-top: 30px;
         width: 100%;
         height: 36px;
