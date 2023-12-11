@@ -96,8 +96,8 @@
                 <div class="blockNaming">
                     <img class="rimImg" src={rimInfo.images[0]} alt="rim">
                     <div class="naming">
-                        <p class="rimNaming">{rimInfo.brand}</p>
                         <p class="rimNaming">{rimInfo.name}</p>
+                        <p class="rimNaming">{rimInfo.brand}</p>
                     </div>
                     <div class="rimPrice">
                         <p class="rimCount price">{`${rimConfig.price} грн.`}</p>
@@ -107,7 +107,7 @@
                 <div class="total">
                     <div class="line"/>
                     <div class="rimPrice">
-                        <p class="rimCount price" style="font-weight: 800;">{`${rimConfig.price *4} грн.`}</p>
+                        <p class="rimCount price" style="font-weight: 700;">{`${rimConfig.price *4} грн.`}</p>
                         <p class="rimCount quant">Всего</p>
                     </div>
                 </div>
@@ -317,7 +317,7 @@
         animation: floatInButton 0.3s ease-in-out 0s forwards;
     }
     .rimPrice{
-        margin-left: 60px;
+        margin-left: 55px;
         display: flex;
         flex-direction: column;
     }
