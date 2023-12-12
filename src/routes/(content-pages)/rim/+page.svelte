@@ -44,7 +44,7 @@
         newUrl.searchParams.set('diameter',config.diameter);
         newUrl.searchParams.set('width', config.width);
         newUrl.searchParams.set('pcd', config.boltPattern);
-        history.replaceState({}, '', newUrl.toString());
+        history.replaceState(history.state, '', newUrl.toString());
 
         currentConfig = config
     };

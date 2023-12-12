@@ -28,7 +28,7 @@
         loaded = true
     });
 
-    const handleDiameterChange = (event: { detail: { selected: never[]; }; }) => {
+    const handleDiameterChange = (event: { detail: { selected: boolean[]; }; }) => {
         selected = event.detail.selected;
         const newlySelectedDiameters = rimInfo.diameters.filter((o, i) => selected[i]);
         changeDiameters(newlySelectedDiameters);

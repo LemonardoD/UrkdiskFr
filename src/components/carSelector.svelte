@@ -39,7 +39,6 @@
 
     onMount(async () => {
         if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.length > 0) {
-            console.log(22)
             models = await getCarModels(selectedBrand);
             years = await getCarYears(selectedBrand, selectedModel);
         }
