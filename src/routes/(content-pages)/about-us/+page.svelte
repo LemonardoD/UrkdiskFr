@@ -1,18 +1,37 @@
+<script>
+    import ReqCall from "../../../components/modals/modalReqCall.svelte";
+    import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
 
+    let showAskQuest = false
+    let showReqCall = false
+
+    const clickReqCall = () => {
+        showReqCall =  !showReqCall;
+    };
+    const clickAskQuest = () => {
+        showAskQuest =  !showAskQuest;
+    };
+</script>
+
+<AskQuestion bind:showAskQuest = {showAskQuest}/>
+<ReqCall bind:showReqCall = {showReqCall}/>
 
 <div class="content">
     <p class="titleText">О нас</p>
     <p class="text">Наша компания основана 24 февраля 2004 года в г. Днепр.<br>
         Мы занимаемся поставкой и продажами легкосплавных колесных дисков и комплектующим к ним.<br>
-        За время работы мы стали эксклюзивным представителем компаний Kosei aluminium (Япония), MKW (Mi-tech), Marcello wheels, Zent и Inzi Aone (Корея) в Украине.<br>
+        За время работы мы стали эксклюзивным представителем компаний <a href="/rims/Kosei?selectedDiameters=all">Kosei aluminium (Япония)</a>, 
+        <a href="/rims/MKW?selectedDiameters=all">MKW (Mi-tech)</a>,  
+        <a href="/rims/Marcello?selectedDiameters=all">Marcello wheels</a>, 
+        Zent и <a href="/rims/InziAone?selectedDiameters=all">Inzi Aone (Корея)</a> в Украине.<br>
         Наш ассортимент - легкосплавные, литые диски высокого качества, сертифицированные ISO, TUV, SAE, JWL и VIA.<br>
-        У нас на сайте вы можете легко подбрать диски на свое авто прямо здесь.
+        У нас на сайте вы можете легко подбрать диски на свое авто прямо <a href="/">здесь</a>.
     </p>
 
     <p class="titleText">Как с нами связаться?</p>
     <p class="text">
-        Закажите обратный звонок здесь<br>
-        Напишите нам прямо на сайте<br>
+        Закажите обратный звонок <button  on:click={clickReqCall}>здесь</button><br>
+        Напишите нам прямо <button  on:click={clickAskQuest}>на сайте</button><br>
         Свяжитесь с нами напрямую:<br>
         +38 (050) 340 37 26<br>
         blokhvova@gmail.com<br>
@@ -27,6 +46,22 @@
 </div>
 
 <style>
+    button{
+        background-color: transparent;
+        border: none;
+    }
+    p a:hover, p button:hover{
+        cursor: pointer;
+    }
+    a, button{
+        text-decoration: underline;
+        margin: 0px;
+        padding: 1px 0px;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        font-family: inherit;
+        color: #425f80;
+    }
     .map{
         margin-top: 8px;
         width: 100%;
@@ -51,6 +86,7 @@
         color: #000000de;
     }
     .content{
+        display: flex;
         margin: 16px auto 16px;
         padding: 2px 16px 16px;
         width: calc(100% - 16px);
@@ -60,5 +96,13 @@
         background-color: #fefeff;
         box-shadow: #0000001f 0px 1px 6px, #0000001f 0px 1px 4px;
         border-radius: 4px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    @media (max-width: 1044px){
+        .content{
+            margin: 16px auto 16px;
+            width: 80%;
+        }
     }
 </style>

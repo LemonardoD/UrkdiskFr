@@ -8,7 +8,8 @@
     import ReqCall from "../../../components/modals/modalReqCall.svelte";
     import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
     import OrderRim from "../../../components/modals/modalOrderRim.svelte";
-	import { getColor } from '$lib';
+	import { fitToCar, getColor, sleep } from '$lib';
+	import { onMount } from 'svelte';
 
     const diameter = $page.url.searchParams.get('diameter');
     const width = $page.url.searchParams.get('width');
@@ -24,13 +25,14 @@
     export let data
     const {rimInfo} = data
 
+    let fitToClientCar: boolean
     let showReqCall = false
     let showAskQuest = false
     let showOrderField = false
     let photo = rimInfo.images[0]
 	let newPhoto = rimInfo.images[0]
 	let firstLoad = true;
-	let crossfading = false;
+	let crossFading = false;
     let currentIndex = 0
 
     rimInfo.config.forEach(el =>{
@@ -39,13 +41,13 @@
         }
     })
 
-    const changeConfig = (config: RimConfig) => {
+    const changeConfig = async (config: RimConfig) => {
         const newUrl = new URL($page.url);
         newUrl.searchParams.set('diameter',config.diameter);
         newUrl.searchParams.set('width', config.width);
         newUrl.searchParams.set('pcd', config.boltPattern);
         history.replaceState(history.state, '', newUrl.toString());
-
+        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config)
         currentConfig = config
     };
     
@@ -77,15 +79,16 @@
     const clickOrderRim = () => {
         showOrderField =  !showOrderField;
     };
-    
-    const  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
     const onLoad = async () =>{	
-		crossfading = true;
+		crossFading = true;
 		await sleep(150);
 		photo = newPhoto;
-		crossfading = false;
+		crossFading = false;
 	}
+    onMount(async ()=>{
+        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, currentConfig)
+    })
 </script>
 
 <OrderRim bind:showOrderField = {showOrderField} rimInfo={rimInfo} rimConfig={currentConfig} rimlink={$page.url.href}/>
@@ -101,7 +104,7 @@
                     <img class="mainRimImg" src={photo} alt="" on:load={onLoad} >
                 </figure>
                 {#if newPhoto !== photo}
-                    <figure class="new" class:crossfading >
+                    <figure class="new" class:crossFading >
                         <img class="mainRimImg" src={newPhoto} alt="" on:load={onLoad}>
                     </figure>
                 {/if}
@@ -142,7 +145,7 @@
                     </div>
                 {/each}
             </div>
-            {#if carBrand.length && carModel.length && carYear.length}
+            {#if carBrand.length && carModel.length && carYear.length && fitToClientCar}
                 <div class="fitToyourCar">
                     <p class="standartText">Подходят для вашей машины</p>
                     <div class="clientCar">
@@ -184,7 +187,7 @@
 	figure.new {
 		z-index: 1;
 	}
-	figure.new.crossfading img {
+	figure.new.crossFading img {
 		opacity: 1;
 	}
 	
@@ -457,7 +460,6 @@
         flex-direction: column;
     }
     .orderInfo{
-        margin: 0px;
         align-items: center;
         display: flex;
         width: 320px;
