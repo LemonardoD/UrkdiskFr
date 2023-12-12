@@ -87,7 +87,11 @@
 		crossFading = false;
 	}
     onMount(async ()=>{
-        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, currentConfig)
+        if (carBrand.length && carModel.length && carYear.length) {
+            fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, currentConfig)
+        } else {
+            fitToClientCar = false
+        }
     })
 </script>
 

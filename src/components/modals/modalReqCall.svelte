@@ -17,7 +17,6 @@
         const requestData = {
            phone
         };
-
         const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/order/phone-call`, {
             method: "POST",
             mode: "cors",
@@ -28,18 +27,20 @@
             referrerPolicy: "no-referrer",
         });
         if (apiResponse.status !== 200) {
-            throw error(apiResponse.status);
-        }
+            throw error(apiResponse.status, apiResponse.statusText);
+        }   
+        return
     };
 
     const phoneCall = async () =>{
         if (phoneNumber.length < 9) {
             showError = true
-        } else{
+        } else {
             await sendQuestToApi(phoneNumber)
             showReqCall = !showReqCall
             phoneNumber = ""
             showError = false
+            
         }
     }
 

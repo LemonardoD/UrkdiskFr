@@ -44,7 +44,7 @@
         }
     })
     $: {
-        if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.length > 0) {
+        if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.toString().length > 0) {
             fieldsError = false
         }
     }

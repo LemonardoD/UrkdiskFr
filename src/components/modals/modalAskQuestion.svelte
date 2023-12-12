@@ -34,8 +34,9 @@
             referrerPolicy: "no-referrer",
         });
         if (apiResponse.status !== 200) {
-            throw error(apiResponse.status);
-        }
+            throw error(apiResponse.status, apiResponse.statusText);
+        }   
+        return
     };
 
     const clickOutside = () =>{
@@ -64,7 +65,6 @@
             phoneNumber=""
             question =""
             email=""
-
         }
     }
 
