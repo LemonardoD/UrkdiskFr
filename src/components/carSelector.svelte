@@ -1,9 +1,10 @@
 <script lang="ts">
-    import drDownIcon from "../lib/icons/down-arrow.png"
 	import { getCarYears, getCarModels } from "$lib";
 	import { page } from "$app/stores";
 	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
+
+    import InputEl from "../components/searchField.svelte"
 
     export let brands: string[]
     export let withHeader: boolean
@@ -17,16 +18,14 @@
     let fieldsError = false
     
     const fetchModels = async () =>{
-        selectedModel = ''
-        selectedYear = ''
-        models = []
-        years = []
         models = await getCarModels(selectedBrand);
+        years = []
+        selectedModel = ""
+        selectedYear = ""
     }
     const fetchYears = async () => {
-        selectedYear = ''
-        years = []
         years = await getCarYears(selectedBrand, selectedModel);
+        selectedYear = ""
     }
 
     const findByCar = async () =>{
@@ -40,6 +39,7 @@
 
     onMount(async () => {
         if (selectedBrand.length > 0 && selectedModel.length > 0 && selectedYear.length > 0) {
+            console.log(22)
             models = await getCarModels(selectedBrand);
             years = await getCarYears(selectedBrand, selectedModel);
         }
@@ -56,39 +56,9 @@
     {#if withHeader}
         <p class="selectTitle">Подбор по авто</p>
     {/if}
-    <div class="selectContainer">
-        <select bind:value={selectedBrand} on:change={fetchModels} disabled={brands.length ? false : true}>
-            <option value="" disabled selected>Марка</option>
-            {#if brands.length > 0}
-                {#each brands as brand}
-                    <option value={brand}>{brand}</option>
-                {/each}
-            {/if}
-        </select>
-        <img  class="drDownIcon" src={drDownIcon} alt="select">
-    </div>
-    <div class="selectContainer">
-        <select bind:value={selectedModel} on:change={fetchYears} disabled={models.length ? false : true}>
-            <option value="" disabled selected>Модель</option>
-            {#if models.length > 0}
-                {#each models as model}
-                    <option value={model}>{model}</option>
-                {/each}
-            {/if}
-        </select>
-        <img  class="drDownIcon" src={drDownIcon} alt="select">
-    </div>
-    <div class="selectContainer">
-        <select bind:value={selectedYear} disabled={years.length ? false : true}>
-            <option value="" disabled selected>Год</option>
-            {#if years.length > 0}
-                {#each years as year}
-                    <option value={year.toString()}>{year}</option>
-                {/each}
-            {/if}
-        </select>
-        <img  class="drDownIcon" src={drDownIcon} alt="select">
-    </div>
+    <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands}/>
+    <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models}/>
+    <InputEl bind:selected={selectedYear} disabledVal="Год" array={years}/>
     <p class={fieldsError ? "errorMessage message" : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
     <button class="searchByCarBtn" on:click={findByCar}>Подобрать</button>
 </div>
@@ -115,21 +85,6 @@
         font-weight: 550;
         color: #425f80c7;
     }
-
-    .selectContainer {
-        position: relative;
-        width: 100%;
-    }
-
-    .drDownIcon {
-        position: absolute;
-        top: 50%;
-        right: 4px;
-        transform: translateY(-50%);
-        height: 16px;
-        width: 16px;
-        pointer-events: none;
-    }
     .searchByCarBtn{
         cursor: pointer;
         margin-top: 30px;
@@ -145,38 +100,11 @@
         color: #fff;
         background-color: #507298;
     }
-    option{
-        background-color: #fff;
-    }
-    select:disabled{
-        opacity: 0.5;
-        cursor: auto;
-    }
     .carSelector{
         width: 212px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-    }
-    select{
-        margin: 4px 0px;
-        width: 100%;
-        min-width: 100%;
-        max-width: 100%;
-        padding: 0px 8px;
-        height: 30px;
-        font-family: inherit;
-        font-size: 13px;
-        letter-spacing: 0px;
-        text-overflow: ellipsis;
-        color: #364d66;
-        border: none;
-        border-radius: 4px;
-        background-color: #ebf1f4;
-        appearance: none;
-        overflow: auto;
-        cursor: pointer;
-        opacity: 0.8;
     }
 </style>

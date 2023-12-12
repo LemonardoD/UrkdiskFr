@@ -62,7 +62,6 @@
             filteredRimList = rimInfo.rimList
             
         }
-        console.log("file: +page.svelte:63 ~ filteredRimList:", filteredRimList)
    }
    
 </script>

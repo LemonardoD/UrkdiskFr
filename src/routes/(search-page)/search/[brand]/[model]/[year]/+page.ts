@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 			referrerPolicy: "no-referrer",
 		});
 		if (apiResponse.status !== 200) {
-			throw error(apiResponse.status);
+			throw error(apiResponse.status, apiResponse.statusText);
 		}
 		const apiInfo: { message: ConfigOptions } = await apiResponse.json();
 

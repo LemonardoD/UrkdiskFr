@@ -8,7 +8,8 @@
     import ReqCall from "../../../components/modals/modalReqCall.svelte";
     import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
     import OrderRim from "../../../components/modals/modalOrderRim.svelte";
-    
+	import { getColor } from '$lib';
+
     const diameter = $page.url.searchParams.get('diameter');
     const width = $page.url.searchParams.get('width');
     const pcd = $page.url.searchParams.get('pcd');
@@ -22,16 +23,22 @@
 
     export let data
     const {rimInfo} = data
-    let crossfading = true
+
     let showReqCall = false
     let showAskQuest = false
     let showOrderField = false
+    let photo = rimInfo.images[0]
+	let newPhoto = rimInfo.images[0]
+	let firstLoad = true;
+	let crossfading = false;
+    let currentIndex = 0
 
     rimInfo.config.forEach(el =>{
         if (el.boltPattern === pcd && el.diameter ===diameter && el.width === width) {
             currentConfig = el
         }
     })
+
     const changeConfig = (config: RimConfig) => {
         const newUrl = new URL($page.url);
         newUrl.searchParams.set('diameter',config.diameter);
@@ -41,32 +48,22 @@
 
         currentConfig = config
     };
-    let mainImage = rimInfo.images[0]
-    let currentIndex = 0
-
-    const  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-
-    const load = async () => {
-        crossfading = false
-        await sleep(500)
-        crossfading = true
-    };
-
+    
     const setMainImage = (imageUrl:string) => {
-		mainImage = imageUrl;
+		newPhoto = imageUrl;
         currentIndex = rimInfo.images.indexOf(imageUrl)
     };
     
     const nextImg = () => {
         if(currentIndex + 1 < rimInfo.images.length) {
-            mainImage = rimInfo.images[currentIndex+1]
+            newPhoto = rimInfo.images[currentIndex+1]
             currentIndex+=1
         }
     };
 
     const previousImg = () => {
         if(currentIndex - 1 >= 0) {
-            mainImage = rimInfo.images[currentIndex-1]
+            newPhoto = rimInfo.images[currentIndex-1]
             currentIndex-=1
         }
     };
@@ -80,7 +77,15 @@
     const clickOrderRim = () => {
         showOrderField =  !showOrderField;
     };
+    
+    const  sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
+    const onLoad = async () =>{	
+		crossfading = true;
+		await sleep(150);
+		photo = newPhoto;
+		crossfading = false;
+	}
 </script>
 
 <OrderRim bind:showOrderField = {showOrderField} rimInfo={rimInfo} rimConfig={currentConfig} rimlink={$page.url.href}/>
@@ -90,7 +95,18 @@
 <div class=page>
     <!-- svelte-ignore a11y-missing-attribute -->
     <div class="mainCard">
-        <img class:crossfading  class="mainRimImg" on:load={load} src={mainImage} alt="rim" >
+        {#if photo}
+        <div class:firstLoad>
+                <figure class="orig">
+                    <img class="mainRimImg" src={photo} alt="" on:load={onLoad} >
+                </figure>
+                {#if newPhoto !== photo}
+                    <figure class="new" class:crossfading >
+                        <img class="mainRimImg" src={newPhoto} alt="" on:load={onLoad}>
+                    </figure>
+                {/if}
+        </div>
+        {/if}
         {#if rimInfo.images.length > 1}
             <button class="btn1" on:click={()=>{previousImg()}}>
                 <img  class="arrows" src={lftArrow}>
@@ -105,7 +121,7 @@
             <p class="rimName">{`${rimInfo.brand} - ${rimInfo.name}`}</p>
             <div class="infoLine">
                 <p class="standartText">Цвет: </p>
-                <p class="rimTextSmall">{rimInfo.name}</p>
+                <p class="rimTextSmall">{getColor(rimInfo.name)}</p>
             </div>
             <div class="images">
                 {#each  rimInfo.images as image }
@@ -155,6 +171,23 @@
 </div>
 
 <style>
+    figure {
+		position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+	}
+	.firstLoad figure.orig img {
+		opacity: 1;
+        
+	}
+	figure.new {
+		z-index: 1;
+	}
+	figure.new.crossfading img {
+		opacity: 1;
+	}
+	
     a.standartText{
         margin: 0;
         text-decoration: none;
@@ -307,6 +340,7 @@
         margin: auto;
     }
     .btn1{
+        z-index: 4;
         padding: 0;
         cursor: pointer;
         position: absolute;
@@ -323,6 +357,7 @@
         transition: all 0.2s ease-in-out
     }
     .btn2{
+        z-index: 4;
         padding: 0;
         cursor: pointer;
         position: absolute;
@@ -337,9 +372,7 @@
         opacity: 0;
         transition: all 0.2s ease-in-out
     }
-    .crossfading {
-		opacity: 1;
-	}
+
     .images{
         display: grid;
         grid-template-columns: auto auto auto auto auto;
@@ -351,7 +384,6 @@
         outline: 2px solid #7a8997;
     }
     .secondaryRimImg{
-        opacity: 1;
         border-radius: 2px;
         cursor: pointer;
         margin: 4px;
@@ -361,15 +393,15 @@
         border: 1px solid #507299;
     }
     .questImg{
-        opacity: 1;
         width: 125px;
         height: 125px;
     }
     .mainRimImg{
-        transition: all 0.7s cubic-bezier(0, 0.5, 0.68, 1);
         object-fit: contain;
         width: 656px;
-        height: 656px;
+        height: 656px;  
+		opacity: 0;
+		transition: all 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
     }
     .order:hover{
         opacity: 0.8;
@@ -472,9 +504,6 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;
-    }
-    img{
-        opacity: 0;
     }
     @media (min-width: 810px) and (max-width: 1044px){
         .page{
