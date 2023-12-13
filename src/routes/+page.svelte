@@ -28,6 +28,7 @@
     export let data
     const {brands, popularRims} = data
 
+    let userInput =''
     let inputValue = ''
     let isInputFocused = false;
     let searchResults: RimInfo[] =[]
@@ -40,8 +41,14 @@
     const clickAskQuest = () => {
         showAskQuest =  !showAskQuest;
     };
-    const toggleInputFocus = () =>{
-        isInputFocused = !isInputFocused;
+    const onInput = () =>{
+        inputValue = userInput
+        isInputFocused = true;
+        
+    }
+    const offInput = () =>{
+        userInput = inputValue
+        isInputFocused = false;
         inputValue =''
     }
     const handleInput = async (event: Event)=> {
@@ -74,7 +81,7 @@
 
 {#if isInputFocused}
   <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions --> 
-    <div class="darkOverlay" on:click={toggleInputFocus}>
+    <div class="darkOverlay" on:click={offInput}>
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
@@ -96,7 +103,7 @@
     <div class="topBackground"/>
     <section class="searchSec">
         <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions --><!-- svelte-ignore a11y-no-static-element-interactions -->
-        <search on:click={toggleInputFocus}>
+        <search on:click={onInput}>
             <img class="searchIcon" src={searchIcon} alt="Search">
             <input placeholder="Поиск по дискам" type="text" name="searchBar"
             bind:value={inputValue}
