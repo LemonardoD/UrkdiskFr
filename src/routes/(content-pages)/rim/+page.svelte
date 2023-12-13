@@ -47,8 +47,9 @@
         newUrl.searchParams.set('width', config.width);
         newUrl.searchParams.set('pcd', config.boltPattern);
         history.replaceState(history.state, '', newUrl.toString());
-        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config)
         currentConfig = config
+        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config)
+        
     };
     
     const setMainImage = (imageUrl:string) => {
@@ -60,6 +61,9 @@
         if(currentIndex + 1 < rimInfo.images.length) {
             newPhoto = rimInfo.images[currentIndex+1]
             currentIndex+=1
+        } else {
+            newPhoto = rimInfo.images[0]
+            currentIndex=0
         }
     };
 
@@ -67,6 +71,9 @@
         if(currentIndex - 1 >= 0) {
             newPhoto = rimInfo.images[currentIndex-1]
             currentIndex-=1
+        } else {
+            newPhoto = rimInfo.images.slice(-1)[0]
+            currentIndex=rimInfo.images.length-1
         }
     };
 
