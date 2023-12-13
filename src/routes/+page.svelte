@@ -10,14 +10,17 @@
     import MKWImage from "../lib/icons/mkw-rim.webp"
     import MarcImage from "../lib/icons/marcello-rim.webp"
     import InziIcon from "../lib/icons/inzi.webp"
-    import koseiIcon from "../lib/icons/kosei.webp"
-    import MarcIcon from "../lib/icons/marcello.webp"
-    import MKWIcon from "../lib/icons/mkw.webp"
+    import koseiIcon from "../lib/icons/Kosei.png"
+    import MarcIcon from "../lib/icons/marcello.png"
+    import MKWIcon from "../lib/icons/MKW.png"
     import replicaImg from "../lib/icons/replica.webp"
     import Loader from "../lib/icons/loader.svelte"
 	import { onMount, tick } from "svelte";
 	import { searchRims } from "$lib";
 	import type { RimInfo } from "../types";
+    import ReqCall from "../components/modals/modalReqCall.svelte";
+    import AskQuestion from "../components/modals/modalAskQuestion.svelte";
+    import questImg from "../lib/icons/questionsImg.webp";
 
     let loader = Loader
     let loaded = false
@@ -28,7 +31,15 @@
     let inputValue = ''
     let isInputFocused = false;
     let searchResults: RimInfo[] =[]
+    let showReqCall = false
+    let showAskQuest = false
 
+    const clickReqCall = () => {
+        showReqCall =  !showReqCall;
+    };
+    const clickAskQuest = () => {
+        showAskQuest =  !showAskQuest;
+    };
     const toggleInputFocus = () =>{
         isInputFocused = !isInputFocused;
         inputValue = isInputFocused ? inputValue : '';
@@ -56,6 +67,10 @@
         }
     }
 </script>
+
+
+<AskQuestion bind:showAskQuest = {showAskQuest}/>
+<ReqCall bind:showReqCall = {showReqCall}/>
 
 {#if isInputFocused}
   <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions --> 
@@ -89,7 +104,7 @@
             on:input={handleInput}>
         </search>
         <div class="selectByCar">
-            <div>
+            <div style="margin-top: 6px;">
                 <img class="selectImg" src={searchImg} alt="carSelect">
             </div>
             <CarSelector withHeader={true} brands={brands} rimBrand="all"/>
@@ -101,7 +116,7 @@
             <a href="/rims/Kosei?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
-                        <img  class="logoImage"src={koseiIcon} alt="Kosei">
+                        <img  class="logoKosei"src={koseiIcon} alt="Kosei">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
                     <img  class="rimImages"src={koseiImage} alt="Kosei">
@@ -110,7 +125,7 @@
             <a href="/rims/Marcello?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
-                        <img  class="logoImage"src={MarcIcon} alt="Marcello">
+                        <img  class="logoMarcello"src={MarcIcon} alt="Marcello">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
                     <img  class="rimImages"src={MarcImage} alt="Marcello">
@@ -119,7 +134,7 @@
             <a href="/rims/MKW?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
-                        <img  class="logoImage"src={MKWIcon} alt="MKW">
+                        <img  class="logoMKW"src={MKWIcon} alt="MKW">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
                     <img  class="rimImages"src={MKWImage} alt="MKW">
@@ -128,7 +143,7 @@
             <a href="/rims/InziAone?selectedDiameters=all">
                 <div class="infoCard">
                     <div class="cardTitle">
-                        <img  class="logoImage"src={InziIcon} alt="InziAone">
+                        <img  class="logoInzi"src={InziIcon} alt="InziAone">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
                     <img  class="rimImages"src={InziImage} alt="InziAone">
@@ -159,9 +174,21 @@
             <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a>
         {/if}
     </section>
+    <div class="orderInfo">
+        <img class="questImg" src={questImg} alt="questionSection">
+        <div class="infoText">
+            <p class="t1">Есть вопросы?</p>
+            <p class="t2">Мы ответим на все!</p>
+            <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
+            <button  class="order question" on:click={clickAskQuest}>Заказать вопрос</button>
+        </div>
+    </div>
 <Footer/>
 
 <style>
+    .orderInfo{
+        display: none;
+    }
     .searchResult:hover{
         background-color: #eceff1;
     }
@@ -221,7 +248,7 @@
     .showAllBtn{
         text-decoration: none;
         padding: 14px;
-        width: 488px;
+        width: 460px;
         font-family: inherit;
         font-size: 14px;
         font-weight: 600;
@@ -236,28 +263,28 @@
         box-shadow: #51739833 0px 2px 4px 0px;
     }
     .popular{
-        padding-top: 22px;
-        padding-bottom: 16px;
+        padding-top: 16px;
+        padding-bottom: 38px;
         width: 100%;
         height: auto;
         display: flex;
+        letter-spacing: 0.7px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: #f0f0f0;
     }
     .repBtn{
-        margin-top: 26px;
+        margin-top: 27px;
         padding: 10px;
-        width: 170px;
+        width: 160px;
         font-size: 14px;
-        letter-spacing: 0.7px;
+        letter-spacing: 0.5px;
         font-weight: 400;
-        opacity: 1;
         text-align: center;
-        border-radius: 4px;
+        border-radius: 2px;
         color: #425f8f;
-        background-color: #ebf1f4;
+        background-color: #ebf0f5;
     }
     .repText{
         color: #333333;
@@ -265,12 +292,12 @@
         padding: 1px 60px;
         font-family: inherit;
         font-size: 20px;
-        font-weight: 400;
+        font-weight: 500;
         letter-spacing: 1.2px;
         text-align: center;
     }
     .repTitle{
-        margin: 0px 0px 16px;
+        margin: 0px 0px 15px;
         font-family: inherit;
         font-size: 32px;
         font-weight: 700;
@@ -290,10 +317,10 @@
         height: 200px;
     }
     .replicasCard{
-        margin: 10px auto;
+        margin: 18px auto;
         padding: 36px 32px 16px;
-        width: 960px;
-        height: 200px;
+        width: 928px;
+        height: 196px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -313,15 +340,28 @@
         background-color: #f1f0f1;
     }
     .cardTitle{
+        height: 78px;
         margin-top: 18px;
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
     }
-    .logoImage{
-        width: 130px;
-        height: 28px;
+    .logoKosei{
+        width: 125px;
+        height: 38px;
+    }
+    .logoMarcello{
+        width: 118px;
+        height: 29px;
+    }
+    .logoMKW{
+        width: 122px;
+        height: 31px;
+    }
+    .logoInzi{
+        width: 128px;
+        height: 22px;
     }
     a{
         cursor: pointer;
@@ -330,7 +370,7 @@
         background-color: #ebf1f4;
      }
     .allTitle{
-        margin-top: 14px;
+        margin-top: auto;
         align-items: center;
         justify-content: center;
         display: flex;
@@ -350,9 +390,9 @@
     }
     .rimImages{
         width: 184px;
-        height: 152px;
+        height: 150px;
         position: absolute;
-        bottom: -4px;
+        bottom: 0px;
         right: 0px;
     }
     .infoCard{
@@ -373,8 +413,7 @@
         margin: 0;
         font-family: inherit;
         font-size: 32px;
-        line-height: 24px;
-        letter-spacing: 1px;
+        line-height: 38px;
         font-weight: 500;
         color: #333333;
         text-align: center;
@@ -404,10 +443,13 @@
         z-index:3;
     }
     input{
-        width: 320px;
-        height: 48px;
+        margin-right: 16px;
+        position: relative;
+        width: 310px;
+        height: 47px;
         border: none;
-        padding-left: 60px;
+        padding-top: 0px;
+        padding-left: 50px;
         border-radius: 4px;
         font-family: inherit;
         font-size: 16px;
@@ -419,27 +461,28 @@
     .searchIcon {
         cursor: text;
         position: relative;
-        left: 40px;
-        height: 18px;
-        width: 18px;
+        left: 32px;
+        height: 16px;
+        width: 16px;
         z-index: 1;
         pointer-events: none;
     }
     .searchSec{
+        margin-top: 6px;
         display: flex;
         flex-direction: column;
         align-items: center;
         flex-wrap: nowrap;
     }
     .selectImg{
-        height: 166px;
-        width:  166px;
+        height: 165px;
+        width:  165px;
     }
     .selectByCar{
         position: relative;
-        padding: 24px 32px;
-        width: 424px;
-        height: 208px;
+        padding: 24px 32px 24px 40px;
+        width: 416px;
+        height: 204px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -469,6 +512,70 @@
         z-index: 3;
     }
     @media(max-width: 500px){
+        .questImg{
+            width: 125px;
+            height: 125px;
+        }
+        .order:hover{
+            opacity: 0.8;
+        }
+        .question{
+            background-color: #ebf1f4;
+            color: #425f8f;
+            height: 32px;
+        }
+        .call{
+            background-color: #507298;
+            color: #fff;
+            height: 32px;
+        }
+        .order{
+            cursor: pointer;
+            margin-top: 8px;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            opacity: 1;
+            border: none;
+            border-radius: 4px;
+        }
+        .t2{
+            text-align: center;
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 4px;
+            font-size: 16px;
+            color: #757575;
+            letter-spacing: 0.5px;
+        }
+        .t1{
+            text-align: center;
+            margin-top: 4px;
+            margin-bottom: 2px;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.6px;
+            color: #000;
+        }
+        .infoText{
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+        }
+        .orderInfo{
+            align-items: center;
+            display: flex;
+            width: 320px;
+            height: 145px;
+            margin: 16px auto;
+            padding: 17px 16px 12px;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px 0 #51739833;
+            background-color: #fff;
+        }
         .darkOverlay{
             width: 100%;
             height: 4961px;
@@ -477,14 +584,14 @@
             margin-top: 20px;
         }
         input{
-            width: 60%;
+            width: 100%;
         }
         .selectImg{
             display: none;
         }
         .selectByCar{
             width: 80%;
-            padding: 32px;
+            padding: 20px;
             height: 210px;
             justify-content: center;
         }
@@ -503,25 +610,30 @@
             height: 120px;
         }
         .replicasCard{
-            margin: 20px;
-            width: 70%;
+            width: 300px;
             height: auto;
             flex-direction: column-reverse;
             align-items: center;
         }
         .makers{ 
+            display: flex;
             padding: 0px;
             min-width: 236px;
-            width: 90%;
+            width: 100%;
             flex-direction: column;
         }
         .infoCard{
-            justify-content: center;
+            padding: 0px 0px 0px 8px;
+            margin: 0px auto;
+            width: 350px;
             height: 160px;
-            margin: 15px auto;
+            flex-direction: row;
+            justify-content: flex-start;
         }
         .cardTitle{
             z-index: 1;
+            flex-direction: column;
+            align-items: center;
         }
         .allTitle{
             background-color: #ebf1f4;
@@ -532,8 +644,17 @@
             width: 222px;
             transform: translateX(-55%);
         }
+        .popular{
+            display: none
+        }
+        search{
+            width: 100%;
+        }
     }
     @media(min-width: 501px) and (max-width: 810px){
+        .popular{
+            display: none
+        }
         .makers{ 
             display: flex;
             padding: 0px;
@@ -610,9 +731,9 @@
             max-height: calc(80vh - 50px);
         }
         .makers{ 
-            padding: 32px 0px 0px;
+            padding: 12px 0px 0px;
             width: 100%;
-            max-width: 1024px;
+            max-width: 992px;
             display: grid;
             justify-content: space-around;
             column-gap: 16px;

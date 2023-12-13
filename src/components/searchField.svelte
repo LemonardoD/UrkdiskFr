@@ -33,11 +33,11 @@
 
     .drDownIcon {
         position: absolute;
-        top: 50%;
-        right: 4px;
+        top: 64.2%;
+        right: 6px;
         transform: translateY(-50%);
-        height: 16px;
-        width: 16px;
+        height: 14px;
+        width: 14px;
         pointer-events: none;
     }
     option{
@@ -48,23 +48,20 @@
         cursor: auto;
     }
     select{
-        margin: 4px 0px;
+        margin-top: 8px;
         width: 100%;
         min-width: 100%;
         max-width: 100%;
         padding: 0px 8px;
         height: 30px;
         font-family: inherit;
-        font-size: 13px;
-        letter-spacing: 0px;
+        font-size: 13.6px;
         text-overflow: ellipsis;
         color: #364d66;
         border: none;
-        border-radius: 4px;
-        background-color: #ebf1f4;
+        border-radius: 2px;
+        background-color: #ebf0f5;
         appearance: none;
-        overflow: auto;
         cursor: pointer;
-        opacity: 0.8;
     }
 </style>

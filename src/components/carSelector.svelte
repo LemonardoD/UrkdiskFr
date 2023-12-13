@@ -59,7 +59,7 @@
     <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models}/>
     <InputEl bind:selected={selectedYear} disabledVal="Год" array={years}/>
     <p class={fieldsError ? "errorMessage message" : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
-    <button class="searchByCarBtn" on:click={findByCar}>Подобрать</button>
+    <button class="searchByCarBtn {withHeader ? "main" : "rimSec"}" on:click={findByCar}>Подобрать</button>
 </div>
 
 <style>
@@ -77,16 +77,22 @@
         color: red;
     }
     .selectTitle{
-        margin: 8px 0px 2px;
+        margin: 2px 0px 2px;
         font-family: inherit;
         font-size: 18px;
         letter-spacing: 0.6px;
-        font-weight: 550;
+        font-weight: 500;
         color: #425f80c7;
+    }
+    .main{
+        margin-top: 32px;
+    }
+    .rimSec{
+        margin-top: 16px;
     }
     .searchByCarBtn{
         cursor: pointer;
-        margin-top: 30px;
+       
         width: 100%;
         height: 36px;
         font-family: inherit;
@@ -95,7 +101,7 @@
         font-weight: 500;
         opacity: 1;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         color: #fff;
         background-color: #507298;
     }

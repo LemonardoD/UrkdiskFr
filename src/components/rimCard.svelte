@@ -66,15 +66,15 @@
     }
     .orderBtn{
         margin-bottom: 12px;
-        padding: 8px 12px;
+        padding: 7px 12px 8px;
         width: 80%;
         font-family: inherit;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 0.5px;
         font-weight: 500;
         opacity: 1;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         color: #fff;
         text-align: center;
         background-color:#507298;
@@ -116,7 +116,7 @@
         margin-bottom: 16px;
         position: relative;
         width: 236px;
-        height: 356px;
+        height: 354px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;

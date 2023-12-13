@@ -62,7 +62,7 @@
     }
     .pageLogo{
         margin: 0;
-        padding: 2px;
+        padding: 2px 16px;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -70,11 +70,10 @@
         color: #fff;
     }
     .logoTitle{
-        margin: -4px 0px 0px 8px;
+        margin: 3px 0px 0px 16px;
         font-family: "Rubik", sans-serif;
         font-size: 24px;
         font-weight: 400;
-        letter-spacing: 0.9px;
         line-height: 48px;
         color: #7a8999;
         white-space: nowrap;
@@ -85,8 +84,7 @@
     }
     footer{
         width: 100%;
-       
-        padding: 8px 16px;
+        padding-top: 8px;
         max-width: 1024px;
         display: flex;
         flex-direction: row;
@@ -141,7 +139,7 @@
         ul li{
             width: 100%;
             height: 16px;
-            margin: 3px;
+            margin: 3px 2px;
         }
         footer{
             height: 190px;
@@ -149,14 +147,14 @@
         .ftrStart{
             height: 100%;
             min-height: 100%;
-            min-width: 250px;
+            min-width: 260px;
         }
         .navList{
             width: 492px;
             height: 100%;
         }
         .ftrEnd{
-            width: 250px;
+            width: 256px;
             height: 100%;
             min-height: 100%;
             display: flex;

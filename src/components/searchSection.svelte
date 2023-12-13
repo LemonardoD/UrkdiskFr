@@ -45,7 +45,7 @@
         </div>
         <div class="diameters">
             <div class="fieldTitle">Диаметр</div>
-            <div class="fieldSection">
+            <div class="fieldSection selDiameters">
                 {#each diameters as diameter, index}
                     <div class="diameterPick">
                         <input id={diameter} 
@@ -87,7 +87,7 @@
     }
 
     .fieldSection{
-        padding: 12px 16px 16px 16px;
+        margin-top: 4px;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -113,13 +113,15 @@
 
     .cardContent{
         padding: 0px;
-        min-height: 220px;
+        min-height: 218px;
         display: flex;
         background-color: white;
         border-radius: 4px;
         box-shadow: #0000001f 0px 1px 6px, #0000001f 0px 1px 4px;
     }
-
+    .selDiameters{
+        padding: 12px 16px 16px 16px;
+    }
     .card{
         position: relative;
         display: flex;
@@ -128,16 +130,12 @@
         align-items: center;
         background-color: #f0f0f0;
     }
-
-    .fieldSection{
-        padding: 12px 16px 16px 16px;
-    }
     @media(max-width: 1044px){
         .text{
             text-align: center;
         }
         .card{
-            margin: auto auto 16px auto;
+            margin:  16px auto 16px auto;
             width: 100%;
         }
         .fieldSection{
@@ -145,7 +143,7 @@
             display: flex;
             align-items: center;
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-evenly;
         }
         .fieldTitle{
             text-align: center;
@@ -211,7 +209,7 @@
             width: 50%;
         }
         .cardContent{
-            width: 1024px;
+            width: 992px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: flex-start;

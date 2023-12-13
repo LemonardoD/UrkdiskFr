@@ -61,7 +61,7 @@
         cursor: pointer;
         text-decoration: none;
         padding: 14px;
-        width: 488px;
+        width: 460px;
         font-family: inherit;
         font-size: 14px;
         font-weight: 600;
@@ -84,11 +84,14 @@
         justify-content: flex-start;
     }
     .rimContent{
-        margin: 32px auto 16px;
+        margin: 10px auto 12px;
         height: auto;
         display: grid;
     }
     @media(min-width: 375px) and (max-width: 554px){
+        .showMoreBtn{
+            width: 65%;
+        }
         .rimContentSmall{
             width: 360px;
             align-items: center;
@@ -126,7 +129,7 @@
     }
     @media(min-width: 1045px){
         .rimContent{
-            width: 1024px;
+            width: 992px;
             justify-content: space-between;
             grid-template-columns: auto auto auto auto;
         }
