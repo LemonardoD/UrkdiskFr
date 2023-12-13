@@ -18,13 +18,14 @@
 	import { onMount, tick } from "svelte";
 	import { searchRims } from "$lib";
 	import type { RimInfo } from "../types";
+	import { error } from "@sveltejs/kit";
 
     let loader = Loader
     let loaded = false
 
     export let data
-    const {brands, popularRims} = data
-
+    const {popularRims} = data
+    let brands: string[] = []
     let inputValue = ''
     let isInputFocused = false;
     let searchResults: RimInfo[] =[]
@@ -43,7 +44,22 @@
         }
     }
 
-    onMount(() => {
+    onMount(async () => {
+        const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/car/brands`, {
+			method: "GET",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			redirect: "error",
+			referrerPolicy: "no-referrer",
+		});
+		if (apiResponse.status !== 200) {
+			throw error(apiResponse.status);
+		}
+		const apiInfo: { message: string[] } = await apiResponse.json();
+		brands = apiInfo.message;
+		
         loaded = true
     });
 
