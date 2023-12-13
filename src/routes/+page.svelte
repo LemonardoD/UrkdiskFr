@@ -42,7 +42,7 @@
     };
     const toggleInputFocus = () =>{
         isInputFocused = !isInputFocused;
-        inputValue = isInputFocused ? inputValue : '';
+        inputValue =''
     }
     const handleInput = async (event: Event)=> {
         const inputEvent = event as InputEvent & { target: HTMLInputElement };
@@ -93,14 +93,13 @@
     </div>
 {/if}
 <Header ifMain={true}/>
-    <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <div class="topBackground"/>
     <section class="searchSec">
-        <search>
+        <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions --><!-- svelte-ignore a11y-no-static-element-interactions -->
+        <search on:click={toggleInputFocus}>
             <img class="searchIcon" src={searchIcon} alt="Search">
             <input placeholder="Поиск по дискам" type="text" name="searchBar"
             bind:value={inputValue}
-            on:focus={toggleInputFocus}
             on:input={handleInput}>
         </search>
         <div class="selectByCar">
