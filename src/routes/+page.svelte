@@ -396,7 +396,7 @@
     }
     .rimImages{
         width: 184px;
-        height: 150px;
+        height: 152px;
         position: absolute;
         bottom: 0px;
         right: 0px;
