@@ -65,7 +65,6 @@
 <style>
     .messageMain{
         bottom: 62px;
-        font-weight: 500;
     }
     .messageSecondary{
         bottom: 54px
@@ -90,6 +89,7 @@
     }
     .main{
         margin-top: 32px;
+        font-weight: 500;
     }
     .rimSec{
         margin-top: 16px;
