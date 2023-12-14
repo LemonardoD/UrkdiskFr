@@ -125,7 +125,7 @@
                         <img  class="logoKosei"src={koseiIcon} alt="Kosei">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
-                    <img  class="rimImages"src={koseiImage} alt="Kosei">
+                    <img  class="rimImagesKosei"src={koseiImage} alt="Kosei">
                 </div>
             </a>
             <a href="/rims/Marcello?selectedDiameters=all">
@@ -134,7 +134,7 @@
                         <img  class="logoMarcello"src={MarcIcon} alt="Marcello">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
-                    <img  class="rimImages"src={MarcImage} alt="Marcello">
+                    <img  class="rimImagesMarcello"src={MarcImage} alt="Marcello">
                 </div>
             </a>
             <a href="/rims/MKW?selectedDiameters=all">
@@ -143,7 +143,7 @@
                         <img  class="logoMKW"src={MKWIcon} alt="MKW">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
-                    <img  class="rimImages"src={MKWImage} alt="MKW">
+                    <img  class="rimImagesMKW"src={MKWImage} alt="MKW">
                 </div>
             </a>
             <a href="/rims/InziAone?selectedDiameters=all">
@@ -152,7 +152,7 @@
                         <img  class="logoInzi"src={InziIcon} alt="InziAone">
                         <div class="allTitle">Посмотреть все</div>
                     </div>
-                    <img  class="rimImages"src={InziImage} alt="InziAone">
+                    <img  class="rimImagesInzi"src={InziImage} alt="InziAone">
                 </div>
             </a>
         </div>
@@ -176,7 +176,9 @@
             <svelte:component this={loader} />
         </div>
         {:else}
-            <RimContent rimData={popularRims}/>
+            <div style="margin-top: 2px;">
+                <RimContent rimData={popularRims}/>
+            </div>
             <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a>
         {/if}
     </section>
@@ -257,7 +259,7 @@
         width: 460px;
         font-family: inherit;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         color: #425f80;
         line-height: 12px;
         letter-spacing: 0.5px;
@@ -269,7 +271,7 @@
         box-shadow: #51739833 0px 2px 4px 0px;
     }
     .popular{
-        padding-top: 16px;
+        padding-top: 14px;
         padding-bottom: 38px;
         width: 100%;
         height: auto;
@@ -286,19 +288,18 @@
         width: 160px;
         font-size: 14px;
         letter-spacing: 0.5px;
-        font-weight: 400;
+        font-weight: 500;
         text-align: center;
         border-radius: 2px;
         color: #425f8f;
         background-color: #ebf0f5;
     }
     .repText{
-        color: #333333;
+        color: #000;
         margin: 0;
         padding: 1px 60px;
         font-family: inherit;
         font-size: 20px;
-        font-weight: 500;
         letter-spacing: 1.2px;
         text-align: center;
     }
@@ -347,27 +348,34 @@
     }
     .cardTitle{
         height: 78px;
-        margin-top: 18px;
+        margin-top: 15px;
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
     }
     .logoKosei{
-        width: 125px;
-        height: 38px;
+        width: 118px;
+        height: 36px;
+        margin-bottom: 8px;
     }
     .logoMarcello{
+        margin-top: 3px;
         width: 118px;
         height: 29px;
+        margin-bottom: 12px;
     }
     .logoMKW{
-        width: 122px;
-        height: 31px;
+        margin-top: 3px;
+        width: 118px;
+        height: 30px;
+        margin-bottom: 11px;
     }
     .logoInzi{
-        width: 128px;
-        height: 22px;
+        margin-top: 7px;
+        width: 118px;
+        height: 20px;
+        margin-bottom: 17px;
     }
     a{
         cursor: pointer;
@@ -384,9 +392,9 @@
         height: 36px;
         font-family: inherit;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         color: #425f80;
-        letter-spacing: 0.7px;
+        letter-spacing: 0.5px;
         text-align: center;
         border: none;
         border-radius: 4px;
@@ -394,9 +402,30 @@
         transition: duration 0s ease 0s, all 0.2s ease 0s;
         opacity: 1;
     }
-    .rimImages{
-        width: 184px;
+    .rimImagesInzi{
+        width: 183px;
         height: 152px;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .rimImagesMarcello{
+        width: 178px;
+        height: 152px;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .rimImagesMKW{
+        width: 177px;
+        height: 152px;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .rimImagesKosei{
+        width: 184px;
+        height: 150px;
         position: absolute;
         bottom: 0px;
         right: 0px;
@@ -545,7 +574,7 @@
             font-weight: 500;
             opacity: 1;
             border: none;
-            border-radius: 4px;
+            border-radius: 2px;
         }
         .t2{
             text-align: center;

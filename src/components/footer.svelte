@@ -6,12 +6,12 @@
 <div class="footerContent">
     <footer>
         <div class="ftrStart">
-            <a href="/">
-                <div class="pageLogo">
+            <div class="pageLogo">
+                <a href="/">
                     <img  class="logoIcon" src={logoIcon} alt="Ukrdisk"/>
-                    <p class="logoTitle">Ukrdisk</p>
-                </div>
-            </a>
+                </a>
+                <a href="/"><p class="logoTitle">Ukrdisk</p></a>
+            </div>
         </div>
         <nav class="navList">
             <ul>
@@ -61,7 +61,7 @@
         text-decoration: none;
     }
     .pageLogo{
-        margin: 0;
+        margin: 6px 0px 0px 0px ;
         padding: 2px 16px;
         display: flex;
         flex-direction: row;
@@ -70,7 +70,7 @@
         color: #fff;
     }
     .logoTitle{
-        margin: 3px 0px 0px 16px;
+        margin: 0px 0px 0px 16px;
         font-family: "Rubik", sans-serif;
         font-size: 24px;
         font-weight: 400;
@@ -138,7 +138,7 @@
     @media(min-width: 1045px){
         ul li{
             width: 100%;
-            height: 16px;
+            height: 17px;
             margin: 3px 2px;
         }
         footer{
@@ -147,10 +147,10 @@
         .ftrStart{
             height: 100%;
             min-height: 100%;
-            min-width: 260px;
+            min-width: 261px;
         }
         .navList{
-            width: 492px;
+            width: 491px;
             height: 100%;
         }
         .ftrEnd{

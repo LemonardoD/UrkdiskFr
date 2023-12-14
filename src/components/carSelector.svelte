@@ -103,7 +103,6 @@
         font-family: inherit;
         font-size: 14px;
         letter-spacing: 0.5px;
-        font-weight: 500;
         opacity: 1;
         border: none;
         border-radius: 2px;

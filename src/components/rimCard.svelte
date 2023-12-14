@@ -35,10 +35,11 @@
         </div>
         <div class="rimInfo">
             <p class="naming">{rimName}</p>
-            <p class="price">от {rimPrice} грн</p>
+            <p class="price">от {rimPrice}грн</p>
             <p class="diameters">⌀{rimDiameters}’’</p>
+            <div class="orderBtn">Заказать</div>
         </div>
-        <div class="orderBtn">Заказать</div>
+        
     </div>
 </a>
 
@@ -60,14 +61,15 @@
     a{
         cursor: pointer;
         text-decoration: none;
+        margin-bottom: 16px;
     }
     .orderBtn:hover{
         opacity: 0.9;
     }
     .orderBtn{
-        margin-bottom: 12px;
+        margin-top: 11px;
         padding: 7px 12px 8px;
-        width: 80%;
+        width: 188px;
         font-family: inherit;
         font-size: 13px;
         letter-spacing: 0.5px;
@@ -80,16 +82,15 @@
         background-color:#507298;
     }
     .naming{
-        margin-top: 8px;
         margin-bottom: 0px;
-        font-size: 14px;
+        font-size: 15px;
         text-overflow: ellipsis;
         overflow: hidden;
         color: #507299;
         letter-spacing: 0.5px;
     }
     .diameters{
-        margin-top: 8px;
+        margin-top: 4px;
         margin-bottom: 0px;
         font-size: 10px;
         color: #808080;
@@ -98,14 +99,17 @@
     .price{
         margin-top: 4px;
         margin-bottom: 0px;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
         color: #000;
         letter-spacing: 0.5px;
     }
     .rimInfo{
-        padding: 0px 12px 12px;
-        width: 90%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 232px;
+        padding: 0px 12px 14px;
+        width: 100%;
         font-family: inherit;
     }
     .rimImage{
@@ -113,13 +117,10 @@
         height: auto;
     }
     .rimCard{
-        margin-bottom: 16px;
         position: relative;
         width: 236px;
         height: 354px;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         align-items: center;
         border-radius: 4px;
         box-shadow: #51739833 0px 2px 4px 0px;

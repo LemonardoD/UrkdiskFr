@@ -151,24 +151,24 @@
             <div class={rimInfo.config.length > 2 ? "configs" : rimInfo.config.length === 1 ? "configsForOne" : "configsForTwo"}>
                 {#each rimInfo.config as el}
                     <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
-                    <div on:click={()=>{changeConfig(el)}}  class="{isEqual(currentConfig, el) ? "activeConfig" : "configEl"}">
-                        <p class="elText">{`${el.diameter}’’/${el.width.includes(".0") || el.width.includes(".5") ? el.width : el.width+".0"}`}</p>
+                    <div on:click={()=>{changeConfig(el)}}  class="{isEqual(currentConfig, el) ? "active configEl" : "normal configEl"}">
+                        <p class="elText big">{`${el.diameter}’’/`}</p><p class="elText small">{`${el.width.includes(".0") || el.width.includes(".5") ? el.width : el.width+".0"}`}</p>
                     </div>
                 {/each}
             </div>
             {#if carBrand.length && carModel.length && carYear.length && fitToClientCar}
                 <div class="fitToyourCar">
-                    <p class="standartText">Подходят для вашей машины</p>
+                    <p class="standartText forYourCar">Подходят для вашей машины</p>
                     <div class="clientCar">
                         <p class="carInfo">{`${carBrand} ${carModel} ${carYear}`}</p>
-                        <a href={rimByCar} class="standartText">изменить</a>
+                        <a href={rimByCar} class="standartText change">изменить</a>
                     </div>
                 </div>
             {/if}
             <div class="priceInfo">
-                <p class="priceSingle">{`${currentConfig.price} грн/шт`}</p>
+                <p class="priceSingle">{`${currentConfig.price} грн`}</p>
                 <p class="priceAll">{`${currentConfig.price*4} грн за комплект*`}</p>
-                <button  class="order product" on:click={clickOrderRim}>Заказать в 1 клик</button>
+                <button  class="order product" on:click={clickOrderRim}>ЗАКАЗАТЬ В 1 КЛИК</button>
                 <p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
             </div>
         </div>
@@ -176,7 +176,7 @@
             <img class="questImg" src={questImg} alt="questionSection">
             <div class="infoText">
                 <p class="t1">Есть вопросы?</p>
-                <p class="t2">Мы ответим на все!</p>
+                <p class="t2">Мы ответим на все</p>
                 <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
                 <button  class="order question" on:click={clickAskQuest}>Заказать вопрос</button>
             </div>
@@ -185,6 +185,12 @@
 </div>
 
 <style>
+    .big{
+        font-size: 18px;
+    }
+    .small{
+        font-size: 14px;
+    }
     figure {
 		position: absolute;
         top: 0;
@@ -211,14 +217,16 @@
     }
     .carInfo{
         margin: 0px;
-        font-family: inherit;
         font-size: 14px;
         letter-spacing: 0.5px;
         text-align: left;
         color: #000;
-        font-weight: 600;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-weight: 500;
     }
     .clientCar{
+        margin-top: 8px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -234,35 +242,44 @@
         flex-direction: column;
     }
     .endBlocTxt{
+        height: 14px;
         margin-top: 8px;
-        margin-bottom: 8px;
-        letter-spacing: 0.24px;
-        font-family: inherit;
-        font-size: 12px;
+        margin-bottom: 16px;
+        letter-spacing: 0.43px;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-weight: 300;
+        font-size: 12.5px;
         color: #a0a0a0;
     }
     .priceAll{
-        margin: 0;
-        letter-spacing: 0.14px;
-        font-family: inherit;
+        margin-top: 0;
+        margin-bottom: 24px;
+        letter-spacing: 0.5px;
+        font-family: 'Helvetica Neue', sans-serif;
         font-size: 14px;
         color: #888888;
     }
     .priceSingle{
-        margin-top: 14px;
-        margin-bottom: 4px;
+        margin-top: 20px;
+        margin-bottom: 2px;
         color: #000;
-        font-family: inherit;
+        letter-spacing: 0.86px;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-weight: 500;
         font-size: 24px;
     }
     .priceInfo{
+        display: flex;
         text-align: center;
         margin-top: 10px;
         border-top: solid 1px #ccc;
+        flex-direction: column;
+        align-items: center;
     }
     .configsForTwo{
         width: 100%;
-        margin: 0px;
+        margin-top: 8px;
+        margin-bottom: 20px;
         display: grid;
         justify-content: flex-start;
         grid-template-columns: auto auto; 
@@ -270,71 +287,82 @@
     }
     .configsForOne{
         width: 100%;
-        margin: 0px;
+        margin-top: 8px;
+        margin-bottom: 20px;
         display: grid;
         justify-content: flex-start;
         margin-bottom: 12px;
     }
     .configs{
         width: 100%;
-        margin: 0;
+        margin-top: 8px;
+        margin-bottom: 20px;
         display: grid;
         justify-content: space-evenly;
         grid-template-columns: auto auto auto; 
     }
     .elText{
-        color: #000;
-        font-family: inherit;
-        font-size: 16px;
+        font-family: 'Helvetica Neue', sans-serif;
         margin: 0;
+        letter-spacing: 1.2px;
     }
-    .activeConfig{
-        cursor: pointer;
-        margin: 4px;
-        width: 80px; 
-        text-align: center;
-        padding: 8px;
-        border-radius: 2px;
+    .active{
+        color: #000;
         border: solid 1px #3a9bfc;
-        background-color: #e8f3fe;
+        background-color: #e8f3fe; 
     }
-    .configEl{
-        cursor: pointer;
-        margin: 4px;
-        width: 80px; 
-        text-align: center;
-        padding: 8px;
-        border-radius: 2px;
+    .normal{
+        color: #666666;
         border: solid 1px #ccc;
         background-color: #f7f7f7;
     }
-    .infoLine {
+    .configEl{
         display: flex;
+        cursor: pointer;
+        margin: 4px;
+        width: 80px; 
+        text-align: center;
+        padding: 11px 8px;
+        border-radius: 2px;
+        justify-content: center;
         align-items: center;
     }
-    .standartText, .rimTextSmall {
-        margin-top: 10px;
-        font-family: inherit;
+    .infoLine {
+        height: 17px;
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+    .change{
+        letter-spacing: 0.43px;
         font-size: 12px;
-        letter-spacing: 0.24px;
-        font-weight: 500;
+    }
+    .standartText, .rimTextSmall {
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+    }
+    .forYourCar{
+        letter-spacing: 0.5px;
     }
     .rimTextSmall{
-        font-weight: 600;
-        margin-left: 8px;
+        margin: 0px 0px 0px 8px ;
         color: #000000;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-weight: 500;
     }
     .standartText{
-        font-weight: 500;
+        font-family: 'Helvetica Neue', sans-serif;
         color: #888888;
     }
     .rimName{
         width: 100%;
-        height: 35px;
-        margin: 0;
-        font-family: inherit;
-        font-size: 23px;
+        height: 28px;
+        margin-bottom: 20px;
+        margin-top: 0;
+        font-family: 'Helvetica Neue', sans-serif;
         font-weight: 500;
+        font-size: 23px;
         text-align: left;
         color: #000;
     }
@@ -388,6 +416,8 @@
     }
 
     .images{
+        margin-top: 8px;
+        margin-bottom: 15px;
         display: grid;
         grid-template-columns: auto auto auto auto auto;
         align-content: space-evenly;
@@ -421,16 +451,23 @@
         opacity: 0.8;
     }
     .question{
+        width: 100%;
+        height: 30px;
         background-color: #ebf1f4;
         color: #425f8f;
         height: 32px;
     }
     .product{
+        
+        width: 288px;
+        height: 40px;
         background-color: #507298;
         color: #fff;
         height: 40px;
     }
     .call{
+        width: 100%;
+        height: 30px;
         background-color: #507298;
         color: #fff;
         height: 32px;
@@ -438,29 +475,29 @@
     .order{
         cursor: pointer;
         margin-top: 8px;
-        width: 100%;
-        font-family: inherit;
+        font-family: 'Helvetica Neue', sans-serif;
         font-size: 14px;
         letter-spacing: 0.5px;
-        font-weight: 500;
         opacity: 1;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
     }
     .t2{
+        font-family: 'Helvetica Neue', sans-serif;
         text-align: center;
         width: 100%;
         margin-top: 2px;
         margin-bottom: 4px;
-        font-size: 16px;
+        font-size: 13px;
         color: #757575;
         letter-spacing: 0.5px;
     }
     .t1{
+        font-family: 'Helvetica Neue', sans-serif;
         text-align: center;
         margin-top: 4px;
         margin-bottom: 2px;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 400;
         letter-spacing: 0.6px;
         color: #000;
@@ -484,7 +521,7 @@
     }
     .orderRim{
         display: flex;
-        font-family: 'Helvetica Neue', sans-serif;
+
         width: 320px;
         height: auto;
         margin: 0px;
@@ -502,9 +539,11 @@
         display: flex;
         flex-direction: column;
     }
+                
     .page{
         gap: 16px;
         display: flex;
+
         justify-content: center;
         margin-top: 16px;
         margin-bottom: 24px;

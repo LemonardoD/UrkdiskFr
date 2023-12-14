@@ -30,6 +30,9 @@
 <div class="card">
     <div class="cardContent">
         <div class="cardTitle">
+            {#if ifSearch}
+                <p class="byCar">{`Подбор по авто / ${selectedBrand} / ${selectedModel} / ${selectedYear}`}</p>
+            {/if}
             <p class="title">Литые диски {title}<br></p>
             {#if ifSearch}
                 <p class="text">{`Диски на ${selectedBrand} ${selectedModel} ${selectedYear}`}</p>
@@ -109,21 +112,32 @@
     }
     
     .text{
+        height: 18px;
         font-size: 15px;
         letter-spacing: 0.71px;
         color: #404040;
-        margin: 6px 0px 4px 16px;
+        margin: 0;
+    }
+    .byCar{
+        height: 15px;
+        margin: 0px;
+        font-family: inherit;
+        font-size: 13px;
+        letter-spacing: 0.71px;
+        color: #7d7d7d;
     }
     .title{
+        margin-top: 5px;
+        margin-bottom: 4px;
         font-size: 20px;
+        height: 20px;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;
         letter-spacing: 0.71px;
         color: #181818;
-        font-family: "Roboto-Medium", sans-serif;
-        margin: 24px 0px 4px 16px;
+        font-family: "Roboto", sans-serif;
     }
 
     .cardContent{
@@ -150,6 +164,7 @@
         font-family: inherit;
         font-size: 13px;
         color: #000000de;
+        letter-spacing: 0.3px;
         background-color: #f4f9fa;
     }
     @media(max-width: 1044px){
@@ -221,7 +236,12 @@
             width: 235px;
         }
         .cardTitle{
-            width: 506px;
+            padding-top: 16px;
+            padding-left: 16px;
+            width: 490px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
         }
         .cardContent{
             width: 992px;

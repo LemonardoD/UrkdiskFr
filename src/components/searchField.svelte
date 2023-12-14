@@ -54,7 +54,7 @@
         max-width: 100%;
         padding: 0px 8px;
         height: 30px;
-        font-family: inherit;
+        font-weight: 400;
         font-size: 13.6px;
         text-overflow: ellipsis;
         color: #364d66;
