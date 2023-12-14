@@ -22,7 +22,7 @@
     
     $:{
         rimName = brand+" - "+name
-        rimDiameters = diameters.length > 2 ? `${diameters[0]}-${diameters[diameters.length-1]}` : diameters.length === 2 ? `${diameters[0]}’’, ⌀${diameters[diameters.length-1]}` : diameters[0]
+        rimDiameters = diameters.length > 2 ? `${diameters[0]}’’ - ${diameters[diameters.length-1]}` : diameters.length === 2 ? `${diameters[0]}’’, ⌀${diameters[diameters.length-1]}` : diameters[0]
         rimPrice = price[0]
     }
 </script>

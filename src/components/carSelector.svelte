@@ -58,13 +58,16 @@
     <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands}/>
     <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models}/>
     <InputEl bind:selected={selectedYear} disabledVal="Год" array={years}/>
-    <p class={fieldsError ? "errorMessage message" : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
+    <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain" : "messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
     <button class="searchByCarBtn {withHeader ? "main" : "rimSec"}" on:click={findByCar}>Подобрать</button>
 </div>
 
 <style>
-    .message{
-        bottom: 64px;
+    .messageMain{
+        bottom: 62px;
+    }
+    .messageSecondary{
+        bottom: 54px
     }
     .hideErrMessage{
         display: none;
@@ -90,9 +93,11 @@
     .rimSec{
         margin-top: 16px;
     }
+    .searchByCarBtn:hover{
+        opacity: 0.9;
+    }
     .searchByCarBtn{
         cursor: pointer;
-       
         width: 100%;
         height: 36px;
         font-family: inherit;

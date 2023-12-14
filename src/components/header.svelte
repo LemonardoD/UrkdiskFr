@@ -18,7 +18,7 @@
             <a href="/">
                 <div class="pageLogo">
                     <img  class="logoIcon" src={logoIcon} alt="Ukrdisk"/>
-                    <p class="logoTitle">Ukrdisk</p>
+                    <p class={`logoTitle ${ifMain ? "main" : "notMain"}`}>Ukrdisk</p>
                 </div>
             </a>
         </div>
@@ -85,8 +85,14 @@
         align-items: center;
         color: #fff;
     }
-    .logoTitle{
+    .notMain{
+        margin: 0px 0px 0px 16px;
+    }
+    .main{
         margin: -4px 0px 0px 16px;
+    }
+    .logoTitle{
+       
         font-family: "Rubik",Helvetica,Arial,sans-serif;
         font-size: 24px;
         font-weight: 400;

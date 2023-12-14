@@ -1,5 +1,5 @@
 <script lang="ts">
-    import drDownIcon from "../lib/icons/down-arrow.png"
+    import drDownIcon from "../lib/icons/arrowDown.png"
     
     export let array: string[] | number []
     export let change = ()=>{}
@@ -33,11 +33,11 @@
 
     .drDownIcon {
         position: absolute;
-        top: 64.2%;
-        right: 6px;
+        top: 24px;
+        right: 8px;
         transform: translateY(-50%);
-        height: 14px;
-        width: 14px;
+        height: 9.5px;
+        width: 10px;
         pointer-events: none;
     }
     option{

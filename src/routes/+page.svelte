@@ -4,7 +4,7 @@
     import RimContent from "../components/rimContent.svelte"
     import CarSelector from "../components/carSelector.svelte"
     import searchImg from "../lib/icons/auto-search.webp"
-    import searchIcon from "../lib/icons/search.png"
+    import SearchIcon from "../lib/icons/search.svg"
     import InziImage from "../lib/icons/inzi-rim.webp"
     import koseiImage from "../lib/icons/kosei-rim.webp"
     import MKWImage from "../lib/icons/mkw-rim.webp"
@@ -104,7 +104,7 @@
     <section class="searchSec">
         <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions --><!-- svelte-ignore a11y-no-static-element-interactions -->
         <search on:click={onInput}>
-            <img class="searchIcon" src={searchIcon} alt="Search">
+            <img class="searchIcon" src={SearchIcon} alt="Search">
             <input placeholder="Поиск по дискам" type="text" name="searchBar"
             bind:value={inputValue}
             on:input={handleInput}>
@@ -449,7 +449,7 @@
         z-index:3;
     }
     input{
-        margin-right: 16px;
+        margin-right: 18px;
         position: relative;
         width: 310px;
         height: 47px;
@@ -467,9 +467,9 @@
     .searchIcon {
         cursor: text;
         position: relative;
-        left: 32px;
-        height: 16px;
-        width: 16px;
+        left: 34px;
+        height: 18px;
+        width: 18px;
         z-index: 1;
         pointer-events: none;
     }

@@ -39,12 +39,12 @@
         </div>
         <div class="searchBycar">
             <div class="fieldTitle">Авто</div>
-            <div class="fieldSection">
+            <div class="fieldSection selCar">
                 <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand}/>
             </div>
         </div>
         <div class="diameters">
-            <div class="fieldTitle">Диаметр</div>
+            <div class="fieldTitle diameterTitle">Диаметр</div>
             <div class="fieldSection selDiameters">
                 {#each diameters as diameter, index}
                     <div class="diameterPick">
@@ -64,7 +64,11 @@
 
 
 <style>
+    .diameterTitle{
+        border-top-right-radius: 4px;
+    }
     .diameterPick{
+
         margin: 1px;
         display: flex;
         flex-direction: row;
@@ -76,16 +80,27 @@
         font-family: inherit;
         font-size: 12px;
         color: #333333;
+        padding-left: 2px;
     }
     .checkBox{
-        width: 14px;
-        height: 14px;
-        accent-color: #517399;
+        border-radius: 2px !important;
         border: 2px solid #517399;
-        border-radius: 2px;
+        cursor: pointer;
+        width: 15px;
+        height: 14px;
+        appearance: none;
+        accent-color: #517399;
         margin-right: 4px;
     }
-
+    .checkBox:checked {
+        border: 2px solid #517399;
+        cursor: pointer;
+        width: 15px;
+        height: 14px;
+        appearance: auto;
+        accent-color: #517399;
+        margin-right: 4.5px;
+    }
     .fieldSection{
         margin-top: 4px;
         display: flex;
@@ -130,6 +145,13 @@
         align-items: center;
         background-color: #f0f0f0;
     }
+    .fieldTitle{
+        padding: 8.5px 8px 8.5px 14px;
+        font-family: inherit;
+        font-size: 13px;
+        color: #000000de;
+        background-color: #f4f9fa;
+    }
     @media(max-width: 1044px){
         .text{
             text-align: center;
@@ -147,11 +169,6 @@
         }
         .fieldTitle{
             text-align: center;
-            padding: 8px 8px 8px 14px;
-            font-family: inherit;
-            font-size: 13px;
-            color: #000000de;
-            background-color: #f4f9fa;
         }
         
         .cardTitle{
@@ -185,12 +202,10 @@
             width: 100%;
         }
         .fieldTitle{
-            padding: 8px 8px 8px 14px;
-            font-family: inherit;
-            font-size: 13px;
             border-left: 2px solid #517399;
-            color: #000000de;
-            background-color: #f4f9fa;
+        }
+        .selCar{
+            margin-right: 16px;
         }
         .card{
             margin-top: 16px;
@@ -199,14 +214,14 @@
             width: 100%;
         }
         .searchBycar{
-            width: 25%;
+            width: 251px;
         }
 
         .diameters{
-            width: 25%;
+            width: 235px;
         }
         .cardTitle{
-            width: 50%;
+            width: 506px;
         }
         .cardContent{
             width: 992px;

@@ -79,7 +79,7 @@
         margin: 32px auto 10px;
         height: auto;
         display: flex;
-        width: 1024px;
+        width: 992px;
         gap: 26.6px;
         justify-content: flex-start;
     }
