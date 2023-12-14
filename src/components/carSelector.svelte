@@ -65,6 +65,7 @@
 <style>
     .messageMain{
         bottom: 62px;
+        font-weight: 500;
     }
     .messageSecondary{
         bottom: 54px
