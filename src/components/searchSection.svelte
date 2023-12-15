@@ -110,7 +110,6 @@
     }
     
     .text{
-        height: 18px;
         font-size: 15px;
         letter-spacing: 0.71px;
         color: #404040;
@@ -211,6 +210,9 @@
         }
     }
     @media(min-width: 801px){
+        .text{
+            height: 18px;
+        }
         .diameterPick{
             width: 100%;
             justify-content: flex-start;

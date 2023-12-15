@@ -532,7 +532,7 @@
         @keyframes floatInButton {
             to {
                 opacity: 1;
-                top: 78%; 
+                top: 75%; 
             }
         }
         .contentTXH{
