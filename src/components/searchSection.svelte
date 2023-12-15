@@ -3,6 +3,7 @@
     import CarSelector from "../components/carSelector.svelte"
 	import { page } from "$app/stores";
 
+    export let byCar: boolean
     export let title: string
     export let brands: string[]
     export let diameters: string[]
@@ -43,7 +44,7 @@
         <div class="searchBycar">
             <div class="fieldTitle">Авто</div>
             <div class="fieldSection selCar">
-                <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand}/>
+                <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand} byCar={byCar}/>
             </div>
         </div>
         <div class="diameters">
@@ -185,6 +186,7 @@
         }
         
         .cardTitle{
+            padding: 12px 0px;
             width: 100%;
             display: flex;
             flex-direction: column;

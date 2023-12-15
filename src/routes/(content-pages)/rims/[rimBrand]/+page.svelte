@@ -61,7 +61,7 @@
 
 
 
-<SearchCard on:diameterChange={handleDiameterChange} title={rimBrand} brands={brands} diameters={rimInfo.diameters} rimBrand={rimBrand}/>
+<SearchCard on:diameterChange={handleDiameterChange} byCar={false} title={rimBrand} brands={brands} diameters={rimInfo.diameters} rimBrand={rimBrand}/>
 {#if !loaded}
     <svelte:component this={loader} />
 {:else}

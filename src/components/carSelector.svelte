@@ -9,6 +9,7 @@
     export let brands: string[]
     export let withHeader: boolean
     export let rimBrand: string
+    export let byCar: boolean
 
     let models: string[] = [];
     let years: number[] = [];
@@ -58,13 +59,16 @@
     <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands}/>
     <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models}/>
     <InputEl bind:selected={selectedYear} disabledVal="Год" array={years}/>
-    <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain" : "messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
+    <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain" : byCar ? "messageSecondaryByCar" :"messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
     <button class="searchByCarBtn {withHeader ? "main" : "rimSec"}" on:click={findByCar}>Подобрать</button>
 </div>
 
 <style>
     .messageMain{
         bottom: 62px;
+    }
+    .messageSecondaryByCar{
+        bottom: 54px
     }
     .messageSecondary{
         bottom: 54px
@@ -117,13 +121,18 @@
         justify-content: flex-start;
         align-items: center;
     }
+    @media(max-width: 800px){
+        .messageSecondaryByCar{
+            bottom: 134px
+        }
+        .messageSecondary{
+            bottom: 154px
+        }
+    }
     @media(max-width: 500px){
         .selectTitle {
             font-size: 14px;
             letter-spacing: 0.5px;
-        }
-        .messageSecondary{
-            bottom: 154px
         }
     }
 </style>

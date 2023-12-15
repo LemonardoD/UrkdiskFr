@@ -582,7 +582,8 @@
         }
         .orderRim{
             width: 92%;
-            min-height: 470px;
+            min-height: 500px;
+            height: auto;
         }
         .mainRimImg{
             width: 420px;
