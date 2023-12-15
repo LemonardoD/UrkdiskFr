@@ -71,15 +71,13 @@
         border-top-right-radius: 4px;
     }
     .diameterPick{
-
         margin: 1px;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
     }
-    label{    
-        width: 100%;
+    label{
         font-family: inherit;
         font-size: 12px;
         color: #333333;
@@ -207,7 +205,7 @@
             align-items: center;
         }
         .diameterPick{
-            width: 10%;
+            width: 100%;
         }
     }
     @media(min-width: 801px){

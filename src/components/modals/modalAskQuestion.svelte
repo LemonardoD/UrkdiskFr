@@ -71,8 +71,10 @@
     $: {
             if (typeof document !== 'undefined') {
                 tick().then(() => {
-                    document.body.style.overflow = showAskQuest ? 'hidden' : "auto";
-                    document.body.style.margin = showAskQuest ? '0 17px 0 0' : "0";
+                    if(window.innerWidth > 1024 ){
+                        document.body.style.overflow = showAskQuest ? 'hidden' : "auto";
+                        document.body.style.margin = showAskQuest ? '0 17px 0 0' : "0";
+                    }
                 });
             }
             if (phoneNumber.length >= 9) {

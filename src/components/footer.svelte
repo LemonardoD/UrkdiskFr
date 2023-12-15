@@ -111,7 +111,7 @@
         font-size: 14px;
         font-weight: 400;
     }
-    @media(max-width: 1044px){
+    @media(max-width: 1023px){
         footer{
             width: 90%;
             flex-direction: column;
@@ -135,7 +135,7 @@
             align-items: center;
         }
     }
-    @media(min-width: 1045px){
+    @media(min-width: 1024px){
         ul li{
             width: 100%;
             height: 17px;

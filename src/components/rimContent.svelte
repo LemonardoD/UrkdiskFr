@@ -103,7 +103,7 @@
             grid-template-columns: auto; 
         }
     }
-    @media(min-width: 555px) and (max-width: 1024px){
+    @media(min-width: 555px) and (max-width: 1023px){
         .rimContentSmall{
             width: 80%;
             display: grid;
@@ -117,7 +117,7 @@
             grid-template-columns: auto auto auto; 
         }
     }
-    @media(min-width: 810px) and (max-width: 1044px){
+    @media(min-width: 810px) and (max-width: 1023px){
         .rimContentSmall{
             width: 90%;
             justify-content: center;
@@ -129,7 +129,7 @@
             grid-template-columns: auto auto auto; 
         }
     }
-    @media(min-width: 1045px){
+    @media(min-width: 1024px){
         .rimContent{
             width: 992px;
             justify-content: space-between;

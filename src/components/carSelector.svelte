@@ -122,5 +122,8 @@
             font-size: 14px;
             letter-spacing: 0.5px;
         }
+        .messageSecondary{
+            bottom: 154px
+        }
     }
 </style>

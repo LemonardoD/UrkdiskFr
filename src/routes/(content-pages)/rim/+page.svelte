@@ -521,7 +521,6 @@
     }
     .orderRim{
         display: flex;
-
         width: 320px;
         height: auto;
         margin: 0px;
@@ -543,7 +542,6 @@
     .page{
         gap: 16px;
         display: flex;
-
         justify-content: center;
         margin-top: 16px;
         margin-bottom: 24px;
@@ -557,7 +555,7 @@
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;
     }
-    @media (min-width: 810px) and (max-width: 1044px){
+    @media (min-width: 810px) and (max-width: 1023px){
         .page{
             flex-direction: column;
             align-items: center;
@@ -604,9 +602,6 @@
             align-items: center;
         }
         .orderInfo{
-            width: 90%;
-        }
-        .orderRim{
             width: 90%;
         }
         .mainRimImg{

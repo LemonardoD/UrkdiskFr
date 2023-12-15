@@ -548,28 +548,23 @@
         background: #00000080;
         z-index: 3;
     }
-    @media(max-width: 400px){
-        .replicasCard{
-            width: 78%;
-        }
+   
+       
+    @media(min-width: 350px) and (max-width: 599px){
         .infoCard{
+            padding: 0px 1px 0px 6px;
+            margin: 0px auto;
             width: 350px;
+            height: 160px;
+            flex-direction: row;
+            justify-content: flex-start;
+            box-shadow:  0px 2px 4px 0 #51739833;
         }
     }
-    @media(max-width: 399px){
-        .infoCard{
-            width: 350px;
-        }
-    }
-        
-    @media(min-width: 400px) and (max-width: 1044px){
+    
+    @media(min-width: 400px) and (max-width: 1023px){
         .infoCard{
             width: 353px;
-        }
-    }
-    @media(min-width: 401px) and (max-width: 500px){
-        .replicasCard{
-            width: 85%;
         }
     }
     @media(max-width: 600px){
@@ -579,7 +574,7 @@
         .showMoreMakers{
             text-decoration: none;
             height: 40px;
-            width: 95%;
+            width: calc(100% - 20px);
             font-family: inherit;
             font-size: 14px;
             font-weight: 500;
@@ -595,6 +590,7 @@
         .questImg{
             width: 110px;
             height: 118px;
+            margin-left: 12px;
         }
         .order:hover{
             opacity: 0.8;
@@ -645,13 +641,13 @@
             flex-direction: column;
         }
         .orderInfo{
+            width: calc(100% - 20px);
             align-items: center;
             display: flex;
-            width: 92%;
             gap: 15.5px;
             height: 140px;
             margin: 14px auto 16px auto;
-            padding: 12px 0px 12px 12px;
+            padding: 12px 0px;
             object-fit: contain;
             border-radius: 4px;
             box-shadow: 0 2px 4px 0 #51739833;
@@ -703,7 +699,7 @@
             display: none;
         }
         .selectByCar{
-            width: 96.5%;
+            width: calc(100% - 20px);
             padding: 5px 0px 16px 0px;
             justify-content: center;
         }
@@ -731,6 +727,7 @@
             margin-bottom: 28px;
         }
         .replicasCard{
+            width: 100%;
             padding: 16px 0px 0px 0px ;
             margin: 44px auto 2px auto;
             height: auto;
@@ -760,7 +757,6 @@
             flex-direction: column;
             align-items: flex-start;
         }
-
         .searchResults{
             top: 2.9%;
             width: 222px;
@@ -769,9 +765,11 @@
         .popular{
             display: none
         }
-        
+        .replicas a{
+            width: calc(100% - 20px);
+        }
         search{
-            width: 100%;
+            width: calc(109% - 20px);
             margin: 36px 0 8px
         }
     }
@@ -784,7 +782,7 @@
             top: 4%;
         }
     }
-    @media(min-width: 811px) and (max-width: 1044px){
+    @media(min-width: 811px) and (max-width: 1023px){
         .searchResults{
             top: 5.1%;
         }
@@ -799,7 +797,7 @@
             flex-direction: column;
         }
     }
-    @media(min-width: 601px) and (max-width: 1044px){
+    @media(min-width: 601px) and (max-width: 1023px){
         .showMoreMakers{
             display: none;
         }
@@ -894,7 +892,7 @@
             justify-content: flex-start;
         }
     }
-    @media(min-width: 1045px){
+    @media(min-width: 1024px){
         .showMoreMakers{
             display: none;
         }

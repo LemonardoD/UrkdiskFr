@@ -10,8 +10,10 @@
     $: {
         if (typeof document !== 'undefined') {
             tick().then(() => {
-                document.body.style.overflow = showModal ? 'hidden' : "auto";
-                document.body.style.margin = showModal ? '0 17px 0 0' : "0";
+                if(window.innerWidth > 1024 ){     
+                    document.body.style.overflow = showModal ? 'hidden' : "auto";
+                    document.body.style.margin = showModal ? '0 17px 0 0' : "0";
+                }
             });
         }
     }
