@@ -552,6 +552,20 @@
         .replicasCard{
             width: 78%;
         }
+        .infoCard{
+            width: 350px;
+        }
+    }
+    @media(max-width: 399px){
+        .infoCard{
+            width: 350px;
+        }
+    }
+        
+    @media(min-width: 400px) and (max-width: 1044px){
+        .infoCard{
+            width: 353px;
+        }
     }
     @media(min-width: 401px) and (max-width: 500px){
         .replicasCard{
@@ -598,7 +612,6 @@
         .order{
             cursor: pointer;
             margin: 4px;
-            width: 100%;
             font-family: inherit;
             font-size: 13px;
             letter-spacing: 0.5px;
@@ -610,7 +623,7 @@
         }
         .t2{
             text-align: start;
-            width: 100%;
+            width: 95%;
             font-size: 13px;
             color: #6a7785;
             letter-spacing: .5px;
@@ -627,7 +640,7 @@
             margin-top: 0px;
         }
         .infoText{
-            width: 258px;
+            width: calc(100% - 1rem - 115px);
             display: flex;
             flex-direction: column;
         }
@@ -636,7 +649,7 @@
             display: flex;
             width: 92%;
             gap: 15.5px;
-            height: 129px;
+            height: 140px;
             margin: 14px auto 16px auto;
             padding: 12px 0px 12px 12px;
             object-fit: contain;
@@ -735,7 +748,6 @@
         .infoCard{
             padding: 0px 1px 0px 6px;
             margin: 0px auto;
-            width: 350px;
             height: 160px;
             flex-direction: row;
             justify-content: flex-start;
