@@ -150,7 +150,6 @@
                         <a href="tel:+380503403726">(050) 340-37-26</a>
                     </p>
                 </div>
-                
                 <p class="titleSecondary">Детали заказа</p>
                 <div class="detailsTHX">
                     <div class="thxLine"/>
@@ -178,6 +177,9 @@
 {/if}
 
 <style>
+    .s{
+        display: flex;
+    }
     .rimPriceTHX{
         margin-left: 350px;
         display: flex;
@@ -303,7 +305,7 @@
         z-index: 100;
         left: 48.2%;
         top: 68%;
-        position: absolute;
+        position: fixed;
         cursor: pointer;
         font-family:inherit;
         font-size: 16px;

@@ -522,6 +522,7 @@
     .orderRim{
         display: flex;
         width: 320px;
+        min-height: 350px;
         height: auto;
         margin: 0px;
         padding: 17px 16px 12px;
@@ -614,7 +615,6 @@
         }
         .sideCards{
             width: 350px;
-            height: auto;
         }
     }
 </style>
