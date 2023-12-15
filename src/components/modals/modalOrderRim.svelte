@@ -516,22 +516,25 @@
     @media(min-width: 670px) and (max-width: 809px){
         .cancelBth{
             left: 44%;
-            top: 70%;
         }
     }
     @media(min-width:450px) and (max-width: 669px){
         .cancelBth{
             left: 43%;
-            top: 70%;
         }
     }
-    @media(min-width:375px) and (max-width: 449px){
+    @media(min-width:350px) and (max-width: 449px){
         .cancelBth{
             left: 42%;
-            top: 70%;
         }
     }
-    @media(min-width: 375px) and (max-width: 809px){
+    @media(min-width: 350px) and (max-width: 809px){
+        @keyframes floatInButton {
+            to {
+                opacity: 1;
+                top: 78%; 
+            }
+        }
         .contentTXH{
             width: 307px;
         }

@@ -120,6 +120,9 @@
         .headerContent{
             padding: 0px 9px;
         }
+        .headerBar{
+            width: calc(100% - 10px);
+        }
 
     }
     @media (min-width: 500px) and (max-width: 1044px) {
