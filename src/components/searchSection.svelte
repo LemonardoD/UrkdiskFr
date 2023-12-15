@@ -74,7 +74,6 @@
         margin: 1px;
         display: flex;
         flex-direction: row;
-        justify-content: center;
         align-items: center;
     }
     label{
@@ -85,22 +84,22 @@
     }
     .checkBox{
         border-radius: 2px !important;
-        border: 2px solid #517399;
+        border: 2px solid #507299;
         cursor: pointer;
         width: 15px;
         height: 14px;
         appearance: none;
-        accent-color: #517399;
+        accent-color: #507299;
         margin-right: 4px;
     }
     .checkBox:checked {
-        border: 2px solid #517399;
+        border-radius: 2px !important;
         cursor: pointer;
         width: 15px;
         height: 14px;
         appearance: auto;
-        accent-color: #517399;
-        margin-right: 4.5px;
+        accent-color: #507299;
+        margin-right: 4px;
     }
     .fieldSection{
         margin-top: 4px;
@@ -206,11 +205,13 @@
         }
         .diameterPick{
             width: 100%;
+            justify-content: center;
         }
     }
     @media(min-width: 801px){
         .diameterPick{
             width: 100%;
+            justify-content: flex-start;
         }
         .title{
             width: 100%;
