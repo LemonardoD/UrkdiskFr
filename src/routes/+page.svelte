@@ -34,6 +34,7 @@
     let searchResults: RimInfo[] =[]
     let showReqCall = false
     let showAskQuest = false
+    let showMoreMakers = false
 
     const clickReqCall = () => {
         showReqCall =  !showReqCall;
@@ -137,8 +138,9 @@
                     <img  class="rimImagesMarcello"src={MarcImage} alt="Marcello">
                 </div>
             </a>
+            <button class={`showMoreMakers ${!showMoreMakers ? "" : "hiden"}`} on:click={()=>{showMoreMakers = true}}>Показать еще 2</button>
             <a href="/rims/MKW?selectedDiameters=all">
-                <div class="infoCard">
+                <div class={`infoCard ${showMoreMakers ? "" : "hiden"}`}>
                     <div class="cardTitle">
                         <img  class="logoMKW"src={MKWIcon} alt="MKW">
                         <div class="allTitle">Посмотреть все</div>
@@ -147,7 +149,7 @@
                 </div>
             </a>
             <a href="/rims/InziAone?selectedDiameters=all">
-                <div class="infoCard">
+                <div class={`infoCard ${showMoreMakers ? "" : "hiden"}`}>
                     <div class="cardTitle">
                         <img  class="logoInzi"src={InziIcon} alt="InziAone">
                         <div class="allTitle">Посмотреть все</div>
@@ -546,7 +548,36 @@
         background: #00000080;
         z-index: 3;
     }
-    @media(max-width: 500px){
+    @media(max-width: 400px){
+        .replicasCard{
+            width: 78%;
+        }
+    }
+    @media(min-width: 401px) and (max-width: 500px){
+        .replicasCard{
+            width: 85%;
+        }
+    }
+    @media(max-width: 600px){
+        .hiden{
+            display: none;
+        }
+        .showMoreMakers{
+            text-decoration: none;
+            height: 40px;
+            width: 95%;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: #425f80;
+            letter-spacing: .5px;
+            align-self: center;
+            border: none;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: #51739833 0px 2px 4px 0px;
+            margin-top: 4px;
+        }
         .questImg{
             width: 110px;
             height: 118px;
@@ -688,9 +719,7 @@
         }
         .replicasCard{
             padding: 16px 0px 0px 0px ;
-            width: 88%;
-            margin-top: 44px;
-            margin-bottom: 2px;
+            margin: 44px auto 2px auto;
             height: auto;
             flex-direction: column-reverse;
             align-items: center;
@@ -704,7 +733,7 @@
             flex-direction: column;
         }
         .infoCard{
-            padding: 0px 2px 0px 8px;
+            padding: 0px 1px 0px 6px;
             margin: 0px auto;
             width: 350px;
             height: 160px;
@@ -713,6 +742,7 @@
             box-shadow:  0px 2px 4px 0 #51739833;
         }
         .cardTitle{
+            margin-left: 2px;
             height: 160px;
             z-index: 1;
             flex-direction: column;
@@ -757,7 +787,10 @@
             flex-direction: column;
         }
     }
-    @media(min-width: 501px) and (max-width: 1044px){
+    @media(min-width: 601px) and (max-width: 1044px){
+        .showMoreMakers{
+            display: none;
+        }
         .popular{
             padding-top: 12px;
         }
@@ -850,6 +883,9 @@
         }
     }
     @media(min-width: 1045px){
+        .showMoreMakers{
+            display: none;
+        }
         .searchResults{
             max-height: calc(80vh - 50px);
         }
