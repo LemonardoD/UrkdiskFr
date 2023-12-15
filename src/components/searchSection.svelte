@@ -167,7 +167,8 @@
         letter-spacing: 0.3px;
         background-color: #f4f9fa;
     }
-    @media(max-width: 1044px){
+    
+    @media(max-width: 800px){
         .text{
             text-align: center;
         }
@@ -209,7 +210,7 @@
             width: 10%;
         }
     }
-    @media(min-width: 1045px){
+    @media(min-width: 801px){
         .diameterPick{
             width: 100%;
         }
@@ -244,7 +245,8 @@
             align-items: start;
         }
         .cardContent{
-            width: 992px;
+            width: 96%;
+            max-width: 992px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: flex-start;

@@ -109,12 +109,27 @@
         height: inherit;
         margin: 0px auto;
         width: 100%;
-        padding: 0px 14px;
         max-width: 1024px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         background-color: transparent;
+    } 
+    @media (min-width: 300px) and (max-width: 499px) {
+        .headerContent{
+            padding: 0px 9px;
+        }
+
+    }
+    @media (min-width: 500px) and (max-width: 1044px) {
+        .headerContent{
+            padding: 0px 17px;
+        } 
+    }
+    @media (min-width: 1045px) {
+        .headerContent{
+            padding: 0px 14px;
+        } 
     }
 </style>

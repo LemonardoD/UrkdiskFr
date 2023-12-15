@@ -103,17 +103,18 @@
             grid-template-columns: auto; 
         }
     }
-    @media(min-width: 555px) and (max-width: 809px){
+    @media(min-width: 555px) and (max-width: 1024px){
         .rimContentSmall{
             width: 80%;
             display: grid;
-            justify-content: space-evenly;
-            grid-template-columns: auto auto; 
+            justify-content: space-between;
+            grid-template-columns: auto auto auto; 
         }
         .rimContent{
-            width: 90%;
-            justify-content: space-evenly;
-            grid-template-columns: auto auto; 
+            width: 100%;
+            column-gap: 16px;
+            row-gap: 0px;
+            grid-template-columns: auto auto auto; 
         }
     }
     @media(min-width: 810px) and (max-width: 1044px){
@@ -122,7 +123,8 @@
             justify-content: center;
         }
         .rimContent{
-            width: 90%;
+            row-gap: 0px;
+            width: 80%;
             justify-content: space-evenly;
             grid-template-columns: auto auto auto; 
         }

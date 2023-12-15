@@ -185,10 +185,10 @@
     <div class="orderInfo">
         <img class="questImg" src={questImg} alt="questionSection">
         <div class="infoText">
-            <p class="t1">Есть вопросы?</p>
-            <p class="t2">Мы ответим на все!</p>
+            <p class="t1">Есть вопрос?</p>
+            <p class="t2">Мы с удовольствием ответим на все!</p>
             <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
-            <button  class="order question" on:click={clickAskQuest}>Заказать вопрос</button>
+            <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
         </div>
     </div>
 <Footer/>
@@ -397,7 +397,7 @@
         letter-spacing: 0.5px;
         text-align: center;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         background-color: transparent;
         transition: duration 0s ease 0s, all 0.2s ease 0s;
         opacity: 1;
@@ -548,8 +548,8 @@
     }
     @media(max-width: 500px){
         .questImg{
-            width: 125px;
-            height: 125px;
+            width: 110px;
+            height: 118px;
         }
         .order:hover{
             opacity: 0.8;
@@ -566,57 +566,91 @@
         }
         .order{
             cursor: pointer;
-            margin-top: 8px;
+            margin: 4px;
             width: 100%;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 0.5px;
             font-weight: 500;
             opacity: 1;
             border: none;
+            height: 36px;
             border-radius: 2px;
         }
         .t2{
-            text-align: center;
+            text-align: start;
             width: 100%;
-            margin-top: 2px;
-            margin-bottom: 4px;
-            font-size: 16px;
-            color: #757575;
-            letter-spacing: 0.5px;
+            font-size: 13px;
+            color: #6a7785;
+            letter-spacing: .5px;
+            margin-top: 4px;
+            margin-bottom: 3px;
         }
         .t1{
-            text-align: center;
-            margin-top: 4px;
-            margin-bottom: 2px;
-            font-size: 18px;
-            font-weight: 400;
-            letter-spacing: 0.6px;
-            color: #000;
+            font-weight: 500;
+            letter-spacing: .6px;
+            color: #425f80;
+            text-align: start;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-top: 0px;
         }
         .infoText{
-            width: 90%;
+            width: 258px;
             display: flex;
             flex-direction: column;
         }
         .orderInfo{
             align-items: center;
             display: flex;
-            width: 320px;
-            height: 145px;
-            margin: 16px auto;
-            padding: 17px 16px 12px;
+            width: 92%;
+            gap: 15.5px;
+            height: 129px;
+            margin: 14px auto 16px auto;
+            padding: 12px 0px 12px 12px;
             object-fit: contain;
             border-radius: 4px;
             box-shadow: 0 2px 4px 0 #51739833;
             background-color: #fff;
+        }
+        .logoKosei{
+            width: 138px;
+            height: 42px;
+            margin-bottom: 6.5px;
+            margin-left: 1px;
+        }
+        .logoMarcello{
+            margin-top: 3px;
+            width: 140px;
+            height: 34px;
+            margin-bottom: 10px;
+        }
+        .logoMKW{
+            margin-top: 3px;
+            width: 140px;
+            height: 36px;
+            margin-bottom: 9.5px;
+        }
+        .logoInzi{
+            margin-top: 7px;
+            width: 140px;
+            height: 24px;
+            margin-bottom: 15px;
+        }
+        .allTitle{
+            margin-left: 5px;
+            margin-top: 0px;
+            margin-bottom: 6px;
+            background-color: #ebf1f4;
+            z-index: 1;
         }
         .darkOverlay{
             width: 100%;
             height: 4961px;
         }
         .makers a{
-            margin-top: 20px;
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
         input{
             width: 100%;
@@ -625,32 +659,44 @@
             display: none;
         }
         .selectByCar{
-            width: 80%;
-            padding: 20px;
-            height: 210px;
+            width: 96.5%;
+            padding: 5px 0px 16px 0px;
             justify-content: center;
         }
-        
+        .mainTitle{
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            line-height: 17px;
+            margin-bottom: 8px;
+        }
+        .rimMakers{
+            padding: 57px 0px 0px;
+        }
         .showAllBtn{
             width: 60%;
         }
         .repBtn {
-            margin: 0px 0px 8px 0px;
+            margin: 0px 0px 20px 0px;
+        }
+        .replicaText{
+            width: 100%;
         }
         .repText{
-            display: none;
-        }
-        .replicaImage{
-            width: 264px;
-            height: 120px;
+            margin-top: 1px;
+            padding: 0px 20px;
+            margin-bottom: 28px;
         }
         .replicasCard{
-            width: 300px;
+            padding: 16px 0px 0px 0px ;
+            width: 88%;
+            margin-top: 44px;
+            margin-bottom: 2px;
             height: auto;
             flex-direction: column-reverse;
             align-items: center;
+            box-shadow:  0px 2px 4px 0 #51739833;
         }
-        .makers{ 
+        .makers{
             display: flex;
             padding: 0px;
             min-width: 236px;
@@ -658,22 +704,21 @@
             flex-direction: column;
         }
         .infoCard{
-            padding: 0px 0px 0px 8px;
+            padding: 0px 2px 0px 8px;
             margin: 0px auto;
             width: 350px;
             height: 160px;
             flex-direction: row;
             justify-content: flex-start;
+            box-shadow:  0px 2px 4px 0 #51739833;
         }
         .cardTitle{
+            height: 160px;
             z-index: 1;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
         }
-        .allTitle{
-            background-color: #ebf1f4;
-            z-index: 1;
-        }
+
         .searchResults{
             top: 2.9%;
             width: 222px;
@@ -682,24 +727,13 @@
         .popular{
             display: none
         }
+        
         search{
             width: 100%;
+            margin: 36px 0 8px
         }
     }
     @media(min-width: 501px) and (max-width: 810px){
-        .popular{
-            display: none
-        }
-        .makers{ 
-            display: flex;
-            padding: 0px;
-            min-width: 236px;
-            width: 100%;
-            flex-direction: column;
-        }
-        .infoCard{
-            margin: 0px auto;
-        }
         .darkOverlay{
             width: 100%;
             height: 3565px;
@@ -716,45 +750,99 @@
             height: 2800px;
         }
         .makers{
+            display: flex;
+            padding: 0px;
+            min-width: 236px;
+            width: 100%;
+            flex-direction: column;
+        }
+    }
+    @media(min-width: 501px) and (max-width: 1044px){
+        .popular{
+            padding-top: 12px;
+        }
+        .logoKosei{
+            width: 138px;
+            height: 42px;
+            margin: 14px 0px 6px 29px;
+        }
+        .logoMarcello{
+            margin: 14px 0px 6px 11px ;
+            width: 174px;
+            height: 42px;
+        }
+        .logoMKW{
+            margin: 14px 0px 6px 16px ;
+            width: 165px;
+            height: 42px;
+        }
+        .logoInzi{
+            margin: 18.5px 0px 10.5px 8px ;
+            width: 180px;
+            height: 31px;
+        }
+        .allTitle{
+            margin-left: 13px;
+            margin-top: 0px;
+            margin-bottom: 6px;
+            z-index: 1;
+        }
+        .rimMakers{
+            padding: 24px 0px 0px
+        }
+        .repText{
+            padding: 0 40px;
+        }
+        .repTitle{
+            margin: 4px 0px 16px 0px;
+        }
+        .replicaText{
+            width: 100%;
+            padding-bottom: 38px;
+        }
+        .makers{
             width: 80%;
             display: grid;
             justify-content: space-around;
             column-gap: 16px;
             grid-template-columns: auto auto;
         }
-    }
-    @media(min-width: 501px) and (max-width: 1044px){
-        .repBtn {
-            display: none;
-        }
-        .replicaText{
-            width: 100%;
-        }
         .replicasCard{
-            margin: 20px;
-            padding: 14px;
-            width: 90%;
-            height: auto;
-            flex-direction: column-reverse;
+            margin: 52px 14px 20px 14px ;
+            padding: 36px 32px 12px;
+            width: 88%;
+            height: 211px;
             align-items: center;
+        }
+        .repBtn{
+            margin-top: 16px;
+            padding: 9.5px 10px;
+        }
+        .replicaImage{
+            width: 336px;
+            height: 145px;
+            margin-bottom: 11px;
         }
         .showAllBtn{
             width: 60%;
         }
+        .mainTitle{
+            margin-bottom: 8px;
+        }
         .makers a{
-            margin-top: 20px;
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
         .cardTitle{
-            padding-top: 0px;
-            width: 170px;
-            display: flex;
+            margin: 0;
+            height: 160px;
+            z-index: 1;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
+            align-items: flex-start;
         }
         .infoCard{
-            padding: 0px 0px 0px 8px;
-            margin-bottom: 16px;
+            padding: 0px;
+            margin-bottom: 8px;
             width: 362px;
             height: 160px;
             flex-direction: row;

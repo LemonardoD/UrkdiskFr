@@ -175,8 +175,8 @@
         <div class="orderInfo">
             <img class="questImg" src={questImg} alt="questionSection">
             <div class="infoText">
-                <p class="t1">Есть вопросы?</p>
-                <p class="t2">Мы ответим на все</p>
+                <p class="t1">Есть вопрос?</p>
+                <p class="t2">Мы с удовольствием ответим на все!</p>
                 <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
                 <button  class="order question" on:click={clickAskQuest}>Заказать вопрос</button>
             </div>

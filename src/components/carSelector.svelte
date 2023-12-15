@@ -117,4 +117,10 @@
         justify-content: flex-start;
         align-items: center;
     }
+    @media(max-width: 500px){
+        .selectTitle {
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+    }
 </style>
