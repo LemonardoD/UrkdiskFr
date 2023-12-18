@@ -568,6 +568,10 @@
         }
     }
     @media(max-width: 600px){
+        .searchIcon {
+
+            position: absolute
+        }
         .hiden{
             display: none;
         }
@@ -692,8 +696,16 @@
             margin-top: 4px;
             margin-bottom: 4px;
         }
+        .searchIcon{
+            left: 30px;
+        }
+        ::placeholder {
+            padding-left: 50px;
+        }
         input{
-            width: 100%;
+            padding: 0;
+            width: calc(100% - 20px);
+            margin: 0px auto;
         }
         .selectImg{
             display: none;
@@ -769,7 +781,7 @@
             width: calc(100% - 20px);
         }
         search{
-            width: calc(109% - 20px);
+            width: 100%;
             margin: 36px 0 8px
         }
     }

@@ -573,6 +573,10 @@
         }
     }
     @media (min-width: 450px) and (max-width: 809px){
+
+        .infoLine {
+            height: 14px;
+        }
         .page{
             flex-direction: column;
             align-items: center;
@@ -600,6 +604,9 @@
     }
 
     @media (min-width: 350px) and (max-width: 449px){
+        .infoLine {
+            height: 12px;
+        }
         .page{
             flex-direction: column;
             align-items: center;
@@ -621,6 +628,7 @@
         }
         .sideCards{
             width: 350px;
+            height: auto;
         }
     }
 </style>
