@@ -13,7 +13,7 @@
 
 
     {#if pcd.length && configs[0].diameter.length}
-        <div class="linksGrid">
+        <div class="configsGrid linksGrid">
             {#each configs as rim}
                 <a href={`${url}/rim?diameter=${rim.diameter}&width=${rim.width}&pcd=${pcd}`} class="link">
                     <pre>{`${rim.diameter}’’ - диаметр, ${rim.width} - ширина;\n${pcd} - крепежные отверстия`}</pre>
@@ -81,5 +81,20 @@
         justify-content: space-around;
         grid-template-columns: auto auto auto;
         justify-items: center;
+    }
+    @media (min-width: 350px) and (max-width: 600px){
+        .link{
+            padding: 8px;
+        }
+        .linksGrid{
+            padding: 10px;
+        }
+        .configsGrid{
+            padding: 12px;
+            display: grid;
+            justify-content: space-around;
+            grid-template-columns: auto ;
+            justify-items: center;
+        }
     }
 </style>
