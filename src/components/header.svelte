@@ -108,7 +108,7 @@
         box-sizing: border-box;
         height: inherit;
         margin: 0px auto;
-        width: 100%;
+        width: calc(100% - 10px);
         max-width: 1024px;
         display: flex;
         flex-direction: row;
@@ -118,19 +118,16 @@
     } 
     @media (min-width: 300px) and (max-width: 499px) {
         .headerContent{
-            padding: 0px 9px;
+            width: calc(100% - 16px);
         }
-        .headerBar{
-            width: calc(100% - 10px);
-        }
-
+        
     }
-    @media (min-width: 500px) and (max-width: 1044px) {
+    @media (min-width: 500px) and (max-width: 1023px) {
         .headerContent{
-            padding: 0px 17px;
-        } 
+            width: calc(100% - 22px);
+        }
     }
-    @media (min-width: 1045px) {
+    @media (min-width: 1024px) {
         .headerContent{
             padding: 0px 14px;
         } 

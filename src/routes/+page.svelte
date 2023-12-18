@@ -114,7 +114,7 @@
             <div style="margin-top: 6px;">
                 <img class="selectImg" src={searchImg} alt="carSelect">
             </div>
-            <CarSelector withHeader={true} brands={brands} rimBrand="all"/>
+            <CarSelector withHeader={true} brands={brands} rimBrand="all" byCar={false}/>
         </div>
     </section>
     <section class="rimMakers">
