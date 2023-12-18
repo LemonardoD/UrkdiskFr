@@ -110,7 +110,7 @@
                     <p class="orText">ИЛИ</p>
                     <div class="line"/>
                 </div>
-                <input placeholder="Ваш номер телефона" required={true} maxlength="30" class={`inputField ${showPhoneError ? "error" : "normal"}`} type="text" 
+                <input placeholder="Ваш номер телефона" required={true} maxlength="30" class={`inputField ${showPhoneError ? "error" : "normal"}`} type="tel" 
                 bind:value={phoneNumber} name="tel">
                 <p class={showPhoneError ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
                 <button aria-label="submit-button" aria-labelledby="submit" class="orderBtn" on:click={askQuest}>Задать вопрос</button>

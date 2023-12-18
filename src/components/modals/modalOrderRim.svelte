@@ -117,7 +117,7 @@
             <div class="content">
                 <input placeholder="Ваше имя" class="inputField normal" bind:value={name} name="name"/>
                 <input placeholder="Ваш телефон(прим: 098 222 65 21)" required={true} maxlength="30" class={`inputField ${showPhoneError ? "error" : "normal"}`} 
-                type="text" bind:value={phoneNumber} name="tel">
+                type="tel" bind:value={phoneNumber} name="tel">
                 <p class={showPhoneError ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
                 <input placeholder="Ваш email" maxlength="90" required={true} class={`inputField ${emailError ? "error" : "normal"}`} type="email" 
                 bind:value={email} name="email">
