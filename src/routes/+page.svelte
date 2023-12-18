@@ -68,10 +68,12 @@
 
     $: {
         if (typeof document !== 'undefined') {
-            tick().then(() => {
-                document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
-                document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
-            });
+            if(window.innerWidth > 1024 ){     
+                tick().then(() => {
+                    document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+                    document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
+                });
+            }
         }
     }
 </script>
@@ -569,7 +571,6 @@
     }
     @media(max-width: 600px){
         .searchIcon {
-
             position: absolute
         }
         .hiden{
@@ -699,12 +700,10 @@
         .searchIcon{
             left: 30px;
         }
-        ::placeholder {
-            padding-left: 50px;
-        }
+        
         input{
-            padding: 0;
-            width: calc(100% - 20px);
+            padding: 0px 0px 0px 50px;
+            width: calc(100% - 70px);
             margin: 0px auto;
         }
         .selectImg{
@@ -754,6 +753,7 @@
             width: 100%;
             flex-direction: column;
         }
+        
         .infoCard{
             padding: 0px 1px 0px 6px;
             margin: 0px auto;
@@ -770,8 +770,9 @@
             align-items: flex-start;
         }
         .searchResults{
-            top: 2.9%;
-            width: 222px;
+            left: 55%;
+            top: 2.6%;
+            width: calc(100% - 20px);
             transform: translateX(-55%);
         }
         .popular{

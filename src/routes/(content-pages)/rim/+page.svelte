@@ -614,6 +614,10 @@
     }
 
     @media (min-width: 350px) and (max-width: 449px){
+        .secondaryRimImg{
+            width: 32px;
+            height: 32px;
+        }
         .btn1, .btn2{
             top: 45%;
             transform: translateY(-55%);
