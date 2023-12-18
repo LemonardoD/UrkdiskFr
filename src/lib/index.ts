@@ -133,7 +133,7 @@ const colors = {
 	Black: "Black",
 	"AM White": "AM White",
 	White: "White",
-	"Matt Bronze": "Matt Bronze",
+	"Matt Bronze": "MBR",
 	"AM Gun Metal": "AMGM",
 	"Gun Metal": "GM",
 	"BLANCO PURO": "BLP",

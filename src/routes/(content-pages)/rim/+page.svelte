@@ -143,7 +143,6 @@
                     <img class="secondaryRimImg" src={image} alt="rim" on:click={() => setMainImage(image)}>
                 {/each}
             </div>
-           
             <div class="infoLine">
                 <p class="standartText">Размер: </p>
                 <p class="rimTextSmall">{`${currentConfig.diameter}’’ диаметр и ${currentConfig.width}’’ ширина`}</p>
@@ -416,6 +415,7 @@
     }
 
     .images{
+        width: 100%;
         margin-top: 8px;
         margin-bottom: 15px;
         display: grid;
