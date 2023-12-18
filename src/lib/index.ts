@@ -138,8 +138,8 @@ const colors = {
 	"Gun Metal": "GM",
 	"BLANCO PURO": "BLP",
 	"Matt Gun": "MG",
-	"Matt GUN": "matt gun",
 	"Silver ": "silver",
 	Graphite: "Magnum",
 	"Gun Metal Matt": "GMM",
+	"AM Matt Bronze": "AMMBR",
 };

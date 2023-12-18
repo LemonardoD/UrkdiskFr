@@ -614,6 +614,9 @@
     }
 
     @media (min-width: 350px) and (max-width: 449px){
+        .images{
+            height: 36px;
+        }
         .secondaryRimImg{
             width: 32px;
             height: 32px;
