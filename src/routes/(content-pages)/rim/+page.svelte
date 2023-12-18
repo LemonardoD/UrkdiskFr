@@ -178,7 +178,7 @@
                 <p class="t1">Есть вопрос?</p>
                 <p class="t2">Мы с удовольствием ответим на все!</p>
                 <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
-                <button  class="order question" on:click={clickAskQuest}>Заказать вопрос</button>
+                <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
             </div>
         </div>
     </div>
@@ -557,6 +557,11 @@
         background-color: #fff;
     }
     @media (min-width: 810px) and (max-width: 1023px){
+        .btn1, .btn2{
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+        }
         .page{
             flex-direction: column;
             align-items: center;
@@ -566,6 +571,7 @@
         }
         .orderRim{
             width: 95%;
+            justify-content: center;
         }
         .sideCards{
             width: 656px;
@@ -573,7 +579,11 @@
         }
     }
     @media (min-width: 450px) and (max-width: 809px){
-
+        .btn1, .btn2{
+            top: 45%;
+            transform: translateY(-55%);
+            opacity: 1;
+        }
         .infoLine {
             height: 14px;
         }
@@ -586,8 +596,8 @@
         }
         .orderRim{
             width: 92%;
-            min-height: 750px;
             height: auto;
+            justify-content: center;
         }
         .mainRimImg{
             width: 420px;
@@ -604,6 +614,11 @@
     }
 
     @media (min-width: 350px) and (max-width: 449px){
+        .btn1, .btn2{
+            top: 45%;
+            transform: translateY(-55%);
+            opacity: 1;
+        }
         .infoLine {
             height: 12px;
         }
@@ -615,8 +630,8 @@
             width: 90%;
         }
         .orderRim{
-            min-height: 450px;
             height: auto;
+            justify-content: center;
         }
         .mainRimImg{
             width: 350px;
