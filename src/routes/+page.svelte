@@ -68,12 +68,15 @@
 
     $: {
         if (typeof document !== 'undefined') {
-            if(window.innerWidth > 1024 ){     
-                tick().then(() => {
-                    document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
-                    document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
-                });
-            }
+            tick().then(() => {
+                if(window.innerWidth > 1024 ){    
+                        document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+                        document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
+                    
+                } else {
+                    document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+                } 
+            })
         }
     }
 </script>

@@ -77,7 +77,9 @@
                     if(window.innerWidth > 1024 ){     
                         document.body.style.overflow = showOrderField ? 'hidden' : "auto";
                         document.body.style.margin = showOrderField ? '0 17px 0 0' : "0";
-                    }
+                    } else {
+                        document.body.style.overflow = showOrderField ? 'hidden' : "auto";
+                    } 
                 });
             }
             if (phoneNumber.length >= 9) {

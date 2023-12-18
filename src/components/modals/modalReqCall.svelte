@@ -50,7 +50,9 @@
                     if(window.innerWidth > 1024 ){
                         document.body.style.overflow = showReqCall ? 'hidden' : "auto";
                         document.body.style.margin = showReqCall ? '0 17px 0 0' : "0";
-                    }
+                    } else {
+                        document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+                    } 
                 });
             }
             if (phoneNumber.length >= 9) {
