@@ -5,5 +5,16 @@
 
 
 <Header ifMain={false}/>
-    <slot></slot>
+    <div class="loaderIndentation">
+        <slot></slot>
+    </div>
 <Footer/>
+
+
+<style>
+    @media (min-width: 350px) and (max-width: 550px){
+        .loaderIndentation{
+            margin-top: 52px;
+        }
+    }
+</style>

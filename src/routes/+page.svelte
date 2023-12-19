@@ -815,6 +815,9 @@
         }
     }
     @media(min-width: 601px) and (max-width: 1023px){
+        .searchResults{
+            width: 362px;
+        }
         .showMoreMakers{
             display: none;
         }
@@ -914,6 +917,7 @@
             display: none;
         }
         .searchResults{
+            width: 362px;
             max-height: calc(80vh - 50px);
         }
         .makers{ 
