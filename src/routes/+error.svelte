@@ -13,6 +13,11 @@
 <Footer/>
 
 <style>
+    @media(min-width: 350px) and (max-width: 1023px) {
+        .errContent{
+            padding: 18px;
+        }
+    }
     .page{
         margin: 0;
         display: flex;

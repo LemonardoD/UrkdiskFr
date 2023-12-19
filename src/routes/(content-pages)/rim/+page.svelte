@@ -615,6 +615,7 @@
 
     @media (min-width: 350px) and (max-width: 449px){
         .images{
+            grid-template-columns: auto auto auto auto auto auto;
             height: 36px;
         }
         .secondaryRimImg{
