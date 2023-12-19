@@ -164,7 +164,11 @@
         letter-spacing: 0.3px;
         background-color: #f4f9fa;
     }
-    
+    @media(min-width: 350px) and (max-width: 550px){
+        .card{
+            display: none;
+        }
+    }
     @media(max-width: 800px){
         .text{
             text-align: center;

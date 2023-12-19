@@ -39,7 +39,6 @@
             <p class="diameters">⌀{rimDiameters}’’</p>
             <div class="orderBtn">Заказать</div>
         </div>
-        
     </div>
 </a>
 
@@ -62,6 +61,9 @@
         cursor: pointer;
         text-decoration: none;
         margin-bottom: 16px;
+        width: 236px;
+        max-height: 354px;
+        height: auto;
     }
     .orderBtn:hover{
         opacity: 0.9;
@@ -69,7 +71,7 @@
     .orderBtn{
         margin-top: 11px;
         padding: 7px 12px 8px;
-        width: 188px;
+        width: calc(100% - 24px);
         font-family: inherit;
         font-size: 13px;
         letter-spacing: 0.5px;
@@ -86,6 +88,8 @@
         font-size: 15px;
         text-overflow: ellipsis;
         overflow: hidden;
+        white-space: nowrap;
+        width: 100%; 
         color: #507299;
         letter-spacing: 0.5px;
     }
@@ -109,22 +113,36 @@
         flex-direction: column;
         margin-top: 232px;
         padding: 0px 12px 14px;
-        width: 100%;
+        width: calc(100% - 24px);
         font-family: inherit;
     }
     .rimImage{
-        width: 236px;
-        height: auto;
+        object-fit: contain;
+        width: 100%;
+        height: 236px;
     }
     .rimCard{
         position: relative;
-        width: 236px;
-        height: 354px;
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         border-radius: 4px;
         box-shadow: #51739833 0px 2px 4px 0px;
         overflow: hidden;
         background-color: #fff;
+    }
+    @media(min-width: 350px) and (max-width: 800px){
+        .orderBtn{
+            display: none;
+        }
+        a{
+            margin: 4px 0px;
+            width: calc(100% - 8px);
+        }
+        .rimInfo{
+            margin-top: 229px;
+            padding: 0px 12px 12px;
+        }
     }
 </style>

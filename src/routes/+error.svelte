@@ -15,14 +15,16 @@
 <style>
     @media(min-width: 350px) and (max-width: 1023px) {
         .errContent{
-            padding: 18px;
+            margin-top: 56px;
+            margin-bottom: 10px;
         }
     }
     .page{
         margin: 0;
         display: flex;
         width: 100%;
-        height: 30vh;
+        height: auto;
+        min-height: 30vh;
         text-align: center;
         justify-content: center;
     }

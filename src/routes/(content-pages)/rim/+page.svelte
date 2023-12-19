@@ -19,7 +19,7 @@
     const carModel = $page.url.searchParams.get('carModel') || '';
     const carYear = $page.url.searchParams.get('carYear') || '';
 
-    let rimByCar = carBrand.length > 0 ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all` :"/rims?selectedDiameters=all"
+    let rimByCar = window.innerWidth < 550 ? `/search/${carBrand}/${carModel}/${carYear}` : carBrand.length > 0 ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all` :"/rims?selectedDiameters=all"
     let currentConfig: RimConfig
 
     export let data
@@ -612,7 +612,11 @@
             height: auto;
         }
     }
-
+    @media (min-width: 350px) and (max-width: 500px){
+        .page{
+            margin-top: 54px;
+        }
+    }
     @media (min-width: 350px) and (max-width: 449px){
         .images{
             grid-template-columns: auto auto auto auto auto auto;

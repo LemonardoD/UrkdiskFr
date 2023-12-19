@@ -10,35 +10,33 @@
     export let carYear ="";
 </script>
 
-
-
-    {#if pcd.length && configs[0].diameter.length}
-        <div class="configsGrid linksGrid">
-            {#each configs as rim}
-                <a href={`${url}/rim?diameter=${rim.diameter}&width=${rim.width}&pcd=${pcd}`} class="link">
-                    <pre>{`${rim.diameter}’’ - диаметр, ${rim.width} - ширина;\n${pcd} - крепежные отверстия`}</pre>
-                </a>
-            {/each}
-        </div>
-    {:else if array.length > 1}
-        <div class="linksGrid">
-            {#each array as el}
-                <a href={`${url}/${el}`} class="link">{el}</a>
-            {/each}
-        </div>
-    {:else if rims.length && rims[0].rimId.length}
-        <div class="linksGrid">
-            {#each rims as rim}
-                <a href={`/rim?id=${rim.rimId}&diameter=${rim.config[0].diameter}&width=${rim.config[0].width}&pcd=${rim.config[0].boltPattern}&carBrand=${carBrand}&carModel=${carModel}&carYear=${carYear}`} class="link">
-                    {rim.brand +" - "+rim.name}
-                </a>
-            {/each}
-        </div>
-    {:else}
-        <div class="dontFind">
-            <p>Диски не найдены</p>
-        </div>
-    {/if}  
+{#if pcd.length && configs[0].diameter.length}
+    <div class="configsGrid linksGrid">
+        {#each configs as rim}
+            <a href={`${url}/rim?diameter=${rim.diameter}&width=${rim.width}&pcd=${pcd}`} class="link">
+                <pre>{`${rim.diameter}’’ - диаметр, ${rim.width} - ширина;\n${pcd} - крепежные отверстия`}</pre>
+            </a>
+        {/each}
+    </div>
+{:else if rims.length && rims[0].rimId.length}
+    <div class="linksGrid">
+        {#each rims as rim}
+            <a href={`/rim?id=${rim.rimId}&diameter=${rim.config[0].diameter}&width=${rim.config[0].width}&pcd=${rim.config[0].boltPattern}&carBrand=${carBrand}&carModel=${carModel}&carYear=${carYear}`} class="link">
+                {rim.brand +" - "+rim.name}
+            </a>
+        {/each}
+    </div>
+{:else if array[0] !== ''}
+    <div class="linksGrid">
+        {#each array as el}
+            <a href={`${url}/${el}`} class="link">{el}</a>
+        {/each}
+    </div>
+{:else}
+    <div class="dontFind">
+        <p>Диски не найдены</p>
+    </div>
+{/if}  
 
 
 <style>
@@ -80,14 +78,15 @@
         display: grid;
         justify-content: space-around;
         grid-template-columns: auto auto auto;
-        justify-items: center;
+        justify-items: flex-start;
     }
     @media (min-width: 350px) and (max-width: 600px){
         .link{
-            padding: 8px;
+            font-size: 14px;
+            padding: 4px;
         }
         .linksGrid{
-            padding: 10px;
+            padding: 4px;
         }
         .configsGrid{
             padding: 12px;

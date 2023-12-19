@@ -24,7 +24,6 @@
     .header{
         padding: 0px;
         width: 100%;
-        min-height: 60px;
         height: auto;
         display: flex;
         flex-direction: row;

@@ -120,6 +120,9 @@
         .headerContent{
             width: calc(100% - 16px);
         }
+        .colored{
+            position: fixed;
+        }
         
     }
     @media (min-width: 500px) and (max-width: 1023px) {

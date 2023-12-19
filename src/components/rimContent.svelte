@@ -98,9 +98,11 @@
             flex-direction: column;
         }
         .rimContent{
-            width: 90%;
+            margin-top: 48px;
+            width: calc(100% - 8px);
             justify-content: space-evenly;
-            grid-template-columns: auto; 
+            grid-template-columns: 50% 50%;
+            justify-items: center; 
         }
     }
     @media(min-width: 555px) and (max-width: 1023px){
