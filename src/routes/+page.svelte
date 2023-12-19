@@ -567,7 +567,7 @@
         }
     }
     
-    @media(min-width: 400px) and (max-width: 1023px){
+    @media(min-width: 390px) and (max-width: 1023px){
         .infoCard{
             width: 353px;
         }
@@ -701,19 +701,20 @@
             margin-bottom: 4px;
         }
         .searchIcon{
-            left: 30px;
+            left: 24px;
         }
         
         input{
-            padding: 0px 0px 0px 50px;
-            width: calc(100% - 70px);
+            padding: 0px 0px 1px 50px;
+            width: calc(100% - 66px);
             margin: 0px auto;
         }
         .selectImg{
             display: none;
         }
         .selectByCar{
-            width: calc(100% - 20px);
+            min-height: 205px;
+            width: calc(100% - 16px);
             padding: 5px 0px 16px 0px;
             justify-content: center;
         }
@@ -721,7 +722,7 @@
             font-size: 14px;
             letter-spacing: 0.5px;
             line-height: 17px;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
         .rimMakers{
             padding: 57px 0px 0px;
