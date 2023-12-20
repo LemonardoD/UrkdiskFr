@@ -17,5 +17,5 @@
     <svelte:component this={loader} />
 {:else}
     <OptButtons number={3} url={path}/>
-    <LinkGroup url={path} array={years}/> 
+    <LinkGroup url={path} array={years.sort((a,b) => Number(b) - Number(a))}/> 
 {/if}
