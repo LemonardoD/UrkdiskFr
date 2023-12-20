@@ -137,7 +137,6 @@
             {/each}
         </div>
     </div>
-    <div class="mobileFiller"/>
     <div class="sideCards">
         <div class="orderRim">
             <p class="rimName">{`${rimInfo.brand} - ${rimInfo.name}`}</p>
@@ -169,7 +168,6 @@
                 <p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
             </div>
         </div>
-        <div class="mobileFiller"/>
         <div class="orderInfo">
             <img class="questImg" src={questImg} alt="questionSection">
             <div class="infoText">
@@ -563,9 +561,7 @@
         gap: 16px;
         display: flex;
     }
-    .mobileFiller{
-        display: none;
-    }
+    
     @media (min-width: 500px) and (max-width: 759px){
         .grButtons{
             display: flex;
@@ -590,12 +586,8 @@
         }
     }
     @media (min-width: 360px) and (max-width: 750px){
-        .mobileFiller{
-            display: block;
-            width: calc(100% - 12px);
-            background-color: #f0f0f0;
-            height: 16px;
-            border-radius: 2px;
+        .page{
+            margin: 0;
         }
         .orig{
             position: relative;
@@ -604,14 +596,13 @@
             gap: 0px;
             display: flex;
             flex-direction: column;
-            background-color: #fff;
-            width: calc(100% - 24px);
+            width: 100%;
             align-items: center;
         }
         .mainCard{
             width: 100%;
             height: auto;
-            box-shadow: none;
+            margin-bottom: 8px;
         }
         .btn1, .btn2{
             display: none;
@@ -621,16 +612,16 @@
             height: 14px;
         }
         .orderInfo{
+            box-shadow: 0 2px 6px 0 #51739833, 0 1px 4px 0 #51739833;
+            margin-top: 8px;
             padding: 12px;
             width: calc(100% - 24px);
-            box-shadow: none;
-            margin-top: 0px;
         }
         .orderRim{
+            box-shadow: 0 2px 4px 0 #51739833, 0 1px 6px 0 #51739833;
             padding: 12px;
             width: calc(100% - 24px);
             justify-content: center;
-            box-shadow: none;
         }
         .mainRimImg{
             width: 100%;
