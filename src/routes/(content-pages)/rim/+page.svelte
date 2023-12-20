@@ -8,7 +8,7 @@
     import ReqCall from "../../../components/modals/modalReqCall.svelte";
     import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
     import OrderRim from "../../../components/modals/modalOrderRim.svelte";
-	import { fitToCar, getColor, sleep } from '$lib';
+	import { fitToCar, sleep } from '$lib';
 	import { onMount } from 'svelte';
 
     const diameter = $page.url.searchParams.get('diameter');
@@ -108,9 +108,10 @@
 
 <div class=page>
     <!-- svelte-ignore a11y-missing-attribute -->
+    <div class='singleSlot'>
     <div class="mainCard">
         {#if photo}
-        <div class:firstLoad>
+            <div class:firstLoad>
                 <figure class="orig">
                     <img class="mainRimImg" src={photo} alt="" on:load={onLoad} >
                 </figure>
@@ -119,30 +120,27 @@
                         <img class="mainRimImg" src={newPhoto} alt="" on:load={onLoad}>
                     </figure>
                 {/if}
+            </div>
+            {/if}
+            {#if rimInfo.images.length > 1}
+                <button class="btn1" on:click={()=>{previousImg()}}>
+                    <img  class="arrows" src={lftArrow}>
+                </button>
+                <button class="btn2" on:click={()=>{nextImg()}}>
+                    <img  class="arrows" src={rghtArrow}>
+                </button>
+        {/if}
+        <div class="images">
+            {#each  rimInfo.images as image }
+            <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                <img class="secondaryRimImg" src={image} alt="rim" on:click={() => setMainImage(image)}>
+            {/each}
         </div>
-        {/if}
-        {#if rimInfo.images.length > 1}
-            <button class="btn1" on:click={()=>{previousImg()}}>
-                <img  class="arrows" src={lftArrow}>
-            </button>
-            <button class="btn2" on:click={()=>{nextImg()}}>
-                <img  class="arrows" src={rghtArrow}>
-            </button>
-        {/if}
     </div>
+    <div class="mobileFiller"/>
     <div class="sideCards">
         <div class="orderRim">
             <p class="rimName">{`${rimInfo.brand} - ${rimInfo.name}`}</p>
-            <div class="infoLine">
-                <p class="standartText">Цвет: </p>
-                <p class="rimTextSmall">{getColor(rimInfo.name)}</p>
-            </div>
-            <div class="images">
-                {#each  rimInfo.images as image }
-                <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-                    <img class="secondaryRimImg" src={image} alt="rim" on:click={() => setMainImage(image)}>
-                {/each}
-            </div>
             <div class="infoLine">
                 <p class="standartText">Размер: </p>
                 <p class="rimTextSmall">{`${currentConfig.diameter}’’ диаметр и ${currentConfig.width}’’ ширина`}</p>
@@ -171,16 +169,21 @@
                 <p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
             </div>
         </div>
+        <div class="mobileFiller"/>
         <div class="orderInfo">
             <img class="questImg" src={questImg} alt="questionSection">
             <div class="infoText">
                 <p class="t1">Есть вопрос?</p>
                 <p class="t2">Мы с удовольствием ответим на все!</p>
-                <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
-                <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
+                <div class="grButtons">
+                    <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
+                    <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
+                </div>
+                
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <style>
@@ -415,11 +418,9 @@
     }
 
     .images{
-        width: 100%;
-        margin-top: 8px;
-        margin-bottom: 15px;
+        padding: 16px;
         display: grid;
-        grid-template-columns: auto auto auto auto auto;
+        grid-template-columns: auto auto auto auto auto auto;
         align-content: space-evenly;
         justify-items: center;
         justify-content: start;
@@ -538,8 +539,7 @@
         height: 719px;
         display: flex;
         flex-direction: column;
-    }
-                
+    }   
     .page{
         gap: 16px;
         display: flex;
@@ -549,36 +549,98 @@
     }
     .mainCard{
         margin: 0px;
+        display: flex;
         position: relative;
         width: 656px;
-        height: 719px;
+        height: 750px;
         border-radius: 4px;
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;
+        flex-direction: column;
+        justify-content: space-between;
     }
-    @media (min-width: 810px) and (max-width: 1023px){
-        .btn1, .btn2{
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 1;
+    .singleSlot{
+        gap: 16px;
+        display: flex;
+    }
+    .mobileFiller{
+        display: none;
+    }
+    @media (min-width: 360px) and (max-width: 750px){
+        .mobileFiller{
+            display: block;
+            width: calc(100% - 12px);
+            background-color: #f0f0f0;
+            height: 16px;
+            border-radius: 2px;
         }
-        .page{
+        .orig{
+            position: relative;
+        }
+        .singleSlot{
+            gap: 0px;
+            display: flex;
             flex-direction: column;
+            background-color: #fff;
+            width: calc(100% - 24px);
             align-items: center;
         }
+        .mainCard{
+            width: 100%;
+            height: auto;
+            box-shadow: none;
+        }
+        .btn1, .btn2{
+            display: none;
+        }
+        .question, .call{
+            font-size: 13px;
+            letter-spacing: 0;
+            width: 48%;
+        }
+        .grButtons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .infoLine {
+            height: 14px;
+        }
         .orderInfo{
-            width: 95%;
+            padding: 12px;
+            width: calc(100% - 24px);
+            box-shadow: none;
+            margin-top: 0px;
         }
         .orderRim{
-            width: 95%;
+            padding: 12px;
+            width: calc(100% - 24px);
             justify-content: center;
+            box-shadow: none;
         }
-        .sideCards{
-            width: 656px;
+        .mainRimImg{
+            width: 100%;
             height: auto;
         }
+        .sideCards{
+            width: 100%;
+            height: auto;
+            align-items: center;
+        }
+        .images{
+            grid-template-columns: auto auto auto auto auto auto;
+            height: 36px;
+        }
+        .secondaryRimImg{
+            width: 32px;
+            height: 32px;
+        }
     }
-    @media (min-width: 450px) and (max-width: 809px){
+    @media (min-width: 760px) and (max-width: 1023px){
+        .singleSlot{
+            gap: 0px;
+            justify-content: space-evenly
+        }
         .btn1, .btn2{
             top: 45%;
             transform: translateY(-55%);
@@ -592,45 +654,31 @@
             align-items: center;
         }
         .orderInfo{
-            width: 92%;
+            width: 85%;
         }
         .orderRim{
-            width: 92%;
+            width: 85%;
             height: auto;
             justify-content: center;
         }
         .mainRimImg{
-            width: 420px;
-            height: 420px;
+            width: 405px;
+            height: 405px;
         }
         .mainCard{
-            width: 420px;
-            height: 440px;
+            margin-left: 10px;
+            width: 405px;
+            height: 520px;
         }
         .sideCards{
-            width: 420px;
+            align-items: center;
+            width: 45%;
             height: auto;
         }
     }
-    @media (min-width: 350px) and (max-width: 500px){
-        .page{
-            margin-top: 54px;
-        }
-    }
-    @media (min-width: 350px) and (max-width: 449px){
-        .images{
-            grid-template-columns: auto auto auto auto auto auto;
-            height: 36px;
-        }
-        .secondaryRimImg{
-            width: 32px;
-            height: 32px;
-        }
-        .btn1, .btn2{
-            top: 45%;
-            transform: translateY(-55%);
-            opacity: 1;
-        }
+    
+    /* @media (min-width: 350px) and (max-width: 449px){
+      
         .infoLine {
             height: 12px;
         }
@@ -639,7 +687,7 @@
             align-items: center;
         }
         .orderInfo{
-            width: 90%;
+            width: calc(100% - 24px);
         }
         .orderRim{
             height: auto;
@@ -657,5 +705,5 @@
             width: 350px;
             height: auto;
         }
-    }
+    } */
 </style>

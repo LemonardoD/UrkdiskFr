@@ -12,7 +12,7 @@
 
 
 <style>
-    @media (min-width: 350px) and (max-width: 550px){
+    @media (min-width: 350px) and (max-width: 450px){
         .loaderIndentation{
             margin-top: 52px;
         }
