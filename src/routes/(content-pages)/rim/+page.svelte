@@ -566,6 +566,29 @@
     .mobileFiller{
         display: none;
     }
+    @media (min-width: 500px) and (max-width: 759px){
+        .grButtons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .question, .call{
+            font-size: 12px;
+            letter-spacing: 0;
+            width: 48%;
+        }
+    }
+    @media (min-width: 350px) and (max-width: 499px){
+        .grButtons{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+        .question, .call{
+            width: 90%;
+        }
+    }
     @media (min-width: 360px) and (max-width: 750px){
         .mobileFiller{
             display: block;
@@ -593,16 +616,7 @@
         .btn1, .btn2{
             display: none;
         }
-        .question, .call{
-            font-size: 13px;
-            letter-spacing: 0;
-            width: 48%;
-        }
-        .grButtons{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
+        
         .infoLine {
             height: 14px;
         }
