@@ -18,16 +18,15 @@
         </div>
     {:else}
         <slot></slot>
-        <Footer/>
     {/if}
 </div>
-
+<Footer/>
 
 
 <style>
     .loaderWrap{
         display: flex;
-        min-height: 40vh;
+        min-height: 800px;
         align-items: center;
     }
     @media (min-width: 350px) and (max-width: 450px){
