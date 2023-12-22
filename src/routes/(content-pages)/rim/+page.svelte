@@ -166,7 +166,7 @@
             <div class="priceInfo">
                 <p class="priceSingle">{`${currentConfig.price} грн`}</p>
                 <p class="priceAll">{`${currentConfig.price*4} грн за комплект*`}</p>
-                <button  class="order product" on:click={clickOrderRim}>ЗАКАЗАТЬ В 1 КЛИК</button>
+                <button  class="product order" on:click={clickOrderRim}>ЗАКАЗАТЬ В 1 КЛИК</button>
                 <p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
             </div>
         </div>
@@ -174,12 +174,11 @@
             <img class="questImg" src={questImg} alt="questionSection">
             <div class="infoText">
                 <p class="t1">Есть вопрос?</p>
-                <p class="t2">Мы с удовольствием ответим на все!</p>
+                <p class="t2">Мы ответим на все</p>
                 <div class="grButtons">
-                    <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
-                    <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
+                    <button  class="call order" on:click={clickReqCall}>Заказать звонок</button>
+                    <button  class="question order" on:click={clickAskQuest}>Задать вопрос</button>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -187,6 +186,17 @@
 </div>
 
 <style>
+
+	
+    @font-face {
+        font-family: 'HelveticaNeue';
+        src: url("/fonts/HelveticaNeueCyr-Roman.woff2") format('woff2');
+    }
+    @font-face {
+        font-family: 'HelveticaNeue-Medium';
+        src: url("/fonts/HelveticaNeueCyr-Medium.woff2") format('woff2');
+    }
+
     .big{
         font-size: 18px;
     }
@@ -223,8 +233,7 @@
         letter-spacing: 0.5px;
         text-align: left;
         color: #000;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 500;
+        font-family: 'HelveticaNeue-Medium', sans-serif;
     }
     .clientCar{
         margin-top: 8px;
@@ -232,8 +241,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 70%;
+        width: 90%;
         padding: 12px;
+        height: 26px;
         border-radius: 2px;
         border: solid 1px #ccc;
         background-color: #f7f7f7;
@@ -246,10 +256,9 @@
     .endBlocTxt{
         height: 14px;
         margin-top: 8px;
-        margin-bottom: 16px;
+        margin-bottom: 4px;
         letter-spacing: 0.43px;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 300;
+        font-family: 'HelveticaNeue', sans-serif;
         font-size: 12.5px;
         color: #a0a0a0;
     }
@@ -257,17 +266,17 @@
         margin-top: 0;
         margin-bottom: 24px;
         letter-spacing: 0.5px;
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue', sans-serif;
         font-size: 14px;
         color: #888888;
     }
     .priceSingle{
+        height: 28px;
         margin-top: 20px;
         margin-bottom: 2px;
         color: #000;
         letter-spacing: 0.86px;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 500;
+        font-family: 'HelveticaNeue-Medium', sans-serif;
         font-size: 24px;
     }
     .priceInfo{
@@ -280,8 +289,8 @@
     }
     .configsForTwo{
         width: 100%;
-        margin-top: 8px;
-        margin-bottom: 20px;
+        margin-top: 4px;
+        margin-bottom: 16px;
         display: grid;
         justify-content: flex-start;
         grid-template-columns: auto auto; 
@@ -289,22 +298,22 @@
     }
     .configsForOne{
         width: 100%;
-        margin-top: 8px;
-        margin-bottom: 20px;
+        margin-top: 4px;
+        margin-bottom: 16px;
         display: grid;
         justify-content: flex-start;
         margin-bottom: 12px;
     }
     .configs{
         width: 100%;
-        margin-top: 8px;
-        margin-bottom: 20px;
+        margin-top: 4px;
+        margin-bottom: 16px;
         display: grid;
         justify-content: space-evenly;
         grid-template-columns: auto auto auto; 
     }
     .elText{
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue-Medium', sans-serif;
         margin: 0;
         letter-spacing: 1.2px;
     }
@@ -322,7 +331,8 @@
         display: flex;
         cursor: pointer;
         margin: 4px;
-        width: 80px; 
+        height: 20px;
+        width: 68px; 
         text-align: center;
         padding: 11px 8px;
         border-radius: 2px;
@@ -350,11 +360,10 @@
     .rimTextSmall{
         margin: 0px 0px 0px 8px ;
         color: #000000;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 500;
+        font-family:"HelveticaNeue-Medium", sans-serif;
     }
     .standartText{
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue', sans-serif;
         color: #888888;
     }
     .rimName{
@@ -362,8 +371,7 @@
         height: 28px;
         margin-bottom: 20px;
         margin-top: 0;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 500;
+        font-family: "HelveticaNeue-Medium", sans-serif;
         font-size: 23px;
         text-align: left;
         color: #000;
@@ -452,14 +460,14 @@
         opacity: 0.8;
     }
     .question{
+        margin-top: 8px;
         width: 100%;
         height: 30px;
         background-color: #ebf1f4;
         color: #425f8f;
-        height: 32px;
     }
     .product{
-        
+        margin-top: 0px;
         width: 288px;
         height: 40px;
         background-color: #507298;
@@ -467,16 +475,15 @@
         height: 40px;
     }
     .call{
+        margin-top: 8px;
         width: 100%;
         height: 30px;
         background-color: #507298;
         color: #fff;
-        height: 32px;
     }
     .order{
         cursor: pointer;
-        margin-top: 8px;
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue', sans-serif;
         font-size: 14px;
         letter-spacing: 0.5px;
         opacity: 1;
@@ -484,22 +491,21 @@
         border-radius: 2px;
     }
     .t2{
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue', sans-serif;
         text-align: center;
         width: 100%;
         margin-top: 2px;
-        margin-bottom: 4px;
+        margin-bottom: 0px;
         font-size: 13px;
         color: #757575;
         letter-spacing: 0.5px;
     }
     .t1{
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: 'HelveticaNeue', sans-serif;
         text-align: center;
         margin-top: 4px;
         margin-bottom: 2px;
         font-size: 15px;
-        font-weight: 400;
         letter-spacing: 0.6px;
         color: #000;
     }
@@ -511,8 +517,8 @@
     .orderInfo{
         align-items: center;
         display: flex;
-        width: 320px;
-        height: 145px;
+        width: 288px;
+        height: 116px;
         margin: 16px 0px 0px 0px;
         padding: 17px 16px 12px;
         object-fit: contain;
@@ -522,11 +528,10 @@
     }
     .orderRim{
         display: flex;
-        width: 320px;
-        min-height: 350px;
+        width: 288px;
         height: auto;
         margin: 0px;
-        padding: 17px 16px 12px;
+        padding: 16px 16px 12px;
         border-radius: 4px;
         box-shadow: 0 2px 4px 0 #51739833;
         background-color: #fff;
@@ -536,7 +541,7 @@
         flex-wrap: wrap;
     }
     .sideCards{
-        height: 719px;
+        height: 750px;
         display: flex;
         flex-direction: column;
     }   
