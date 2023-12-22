@@ -246,7 +246,7 @@
         margin-top: 8px;
         border-radius: 4px;
         display: flex;
-        left: 50%;
+        left: 49.6%;
         transform: translateX(-50%);
         position: relative;
         overflow: hidden;
@@ -918,7 +918,7 @@
         }
         .searchResults{
             width: 362px;
-            max-height: calc(80vh - 50px);
+            max-height: calc(80vh - 48px);
         }
         .makers{ 
             padding: 12px 0px 0px;
