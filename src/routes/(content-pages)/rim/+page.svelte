@@ -246,7 +246,7 @@
         margin-bottom: 4px;
         letter-spacing: 0.43px;
         font-family: inherit;
-        font-size: 12.5px;
+        font-size: 12px;
         color: #a0a0a0;
     }
     .priceAll{
