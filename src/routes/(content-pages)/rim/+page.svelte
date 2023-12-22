@@ -634,11 +634,11 @@
         }
         .images{
             grid-template-columns: auto auto auto auto auto auto;
-            height: 36px;
+            height: 44px;
         }
         .secondaryRimImg{
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
         }
     }
     @media (min-width: 760px) and (max-width: 1023px){

@@ -14,7 +14,7 @@
 <style>
     @media (min-width: 350px) and (max-width: 450px){
         .loaderIndentation{
-            margin-top: 52px;
+            margin-top: 49px;
         }
     }
 </style>
