@@ -159,7 +159,7 @@
                     <p class="standartText forYourCar">Подходят для вашей машины</p>
                     <div class="clientCar">
                         <p class="carInfo">{`${carBrand} ${carModel} ${carYear}`}</p>
-                        <a href={rimByCar} class="standartText change">изменить</a>
+                        <a href={rimByCar} class="change">изменить</a>
                     </div>
                 </div>
             {/if}
@@ -186,17 +186,6 @@
 </div>
 
 <style>
-
-	
-    @font-face {
-        font-family: 'HelveticaNeue';
-        src: url("/fonts/HelveticaNeueCyr-Roman.woff2") format('woff2');
-    }
-    @font-face {
-        font-family: 'HelveticaNeue-Medium';
-        src: url("/fonts/HelveticaNeueCyr-Medium.woff2") format('woff2');
-    }
-    
     .big{
         font-size: 18px;
     }
@@ -220,11 +209,7 @@
 		opacity: 1;
 	}
 	
-    a.standartText{
-        margin: 0;
-        text-decoration: none;
-    }
-    a:hover{
+    a.change{
         text-decoration: underline;
     }
     .carInfo{
@@ -233,7 +218,8 @@
         letter-spacing: 0.5px;
         text-align: left;
         color: #000;
-        font-family: 'HelveticaNeue-Medium', sans-serif;
+        font-weight: 500;
+        font-family: inherit;
     }
     .clientCar{
         margin-top: 8px;
@@ -241,9 +227,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 90%;
-        padding: 12px;
-        height: 26px;
+        max-width: 90%;
+        width: fit-content;
+        padding: 0px 12px;
+        height: 38px;
         border-radius: 2px;
         border: solid 1px #ccc;
         background-color: #f7f7f7;
@@ -258,7 +245,7 @@
         margin-top: 8px;
         margin-bottom: 4px;
         letter-spacing: 0.43px;
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
         font-size: 12.5px;
         color: #a0a0a0;
     }
@@ -266,7 +253,7 @@
         margin-top: 0;
         margin-bottom: 24px;
         letter-spacing: 0.5px;
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
         font-size: 14px;
         color: #888888;
     }
@@ -276,7 +263,8 @@
         margin-bottom: 2px;
         color: #000;
         letter-spacing: 0.86px;
-        font-family: 'HelveticaNeue-Medium', sans-serif;
+        font-family: inherit;
+         font-weight: 500;
         font-size: 24px;
     }
     .priceInfo{
@@ -313,7 +301,8 @@
         grid-template-columns: auto auto auto; 
     }
     .elText{
-        font-family: 'HelveticaNeue-Medium', sans-serif;
+        font-family: inherit;
+         font-weight: 500;
         margin: 0;
         letter-spacing: 1.2px;
     }
@@ -346,8 +335,10 @@
         margin: 0;
     }
     .change{
+        margin-left: 4px;
         letter-spacing: 0.43px;
         font-size: 12px;
+        color: #666666;
     }
     .standartText, .rimTextSmall {
         margin: 0;
@@ -360,10 +351,11 @@
     .rimTextSmall{
         margin: 0px 0px 0px 8px ;
         color: #000000;
-        font-family:"HelveticaNeue-Medium", sans-serif;
+        font-family: inherit;
+        font-weight: 500;
     }
     .standartText{
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
         color: #888888;
     }
     .rimName{
@@ -371,7 +363,8 @@
         height: 28px;
         margin-bottom: 20px;
         margin-top: 0;
-        font-family: "HelveticaNeue-Medium", sans-serif;
+        font-family: inherit;
+        font-weight: 500;
         font-size: 23px;
         text-align: left;
         color: #000;
@@ -483,7 +476,8 @@
     }
     .order{
         cursor: pointer;
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
+        font-weight: 500;
         font-size: 14px;
         letter-spacing: 0.5px;
         opacity: 1;
@@ -491,7 +485,7 @@
         border-radius: 2px;
     }
     .t2{
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
         text-align: center;
         width: 100%;
         margin-top: 2px;
@@ -501,7 +495,7 @@
         letter-spacing: 0.5px;
     }
     .t1{
-        font-family: 'HelveticaNeue', sans-serif;
+        font-family: inherit;
         text-align: center;
         margin-top: 4px;
         margin-bottom: 2px;

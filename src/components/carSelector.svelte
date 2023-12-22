@@ -2,7 +2,6 @@
 	import { getCarYears, getCarModels } from "$lib";
 	import { page } from "$app/stores";
 	import { onMount } from "svelte";
-	import { goto } from "$app/navigation";
 
     import InputEl from "../components/searchField.svelte"
 
@@ -56,9 +55,9 @@
     {#if withHeader}
         <p class="selectTitle">Подбор по авто</p>
     {/if}
-    <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands}/>
-    <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models}/>
-    <InputEl bind:selected={selectedYear} disabledVal="Год" array={years}/>
+    <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands.sort()}/>
+    <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models.sort()}/>
+    <InputEl bind:selected={selectedYear} disabledVal="Год" array={years.sort((el1, el2) =>{ return el2 - el1})}/>
     <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain" : byCar ? "messageSecondaryByCar" :"messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
     <button class="searchByCarBtn {withHeader ? "main" : "rimSec"}" on:click={findByCar}>Подобрать</button>
 </div>
