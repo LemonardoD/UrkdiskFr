@@ -255,6 +255,7 @@
         letter-spacing: 0.5px;
         font-family: inherit;
         font-size: 14px;
+        height: 16px;
         color: #888888;
     }
     .priceSingle{
@@ -500,6 +501,7 @@
         margin-top: 4px;
         margin-bottom: 2px;
         font-size: 15px;
+        font-weight: 500;
         letter-spacing: 0.6px;
         color: #000;
     }
