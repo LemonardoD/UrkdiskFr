@@ -1,15 +1,9 @@
 <script lang="ts">
-	import { onMount } from "svelte";
     import { page } from "$app/stores";
 	import type { RimInfo } from "../../../types";
-    import Loader from "../../../lib/icons/loader.svelte";
 	import RimContent from "../../../components/rimContent.svelte";
     import SearchCard from "../../../components/searchSection.svelte";
 
-    let loader = Loader
-    let loaded =false
-
-    
     export let data
     const {brands, rimInfo} = data
 
@@ -24,13 +18,6 @@
     let selected: boolean[] = [];
     let selectedDiameters: string[] = urlDiameters === "all" ? rimInfo.diameters : urlDiameters.split(',')
     let filteredRimList: RimInfo[]
-
-    
-    onMount(() => {
-        loaded = true
-        
-    });
-    
 
     const handleDiameterChange = (event: { detail: { selected: never[]; }; }) => {
         selected = event.detail.selected;
@@ -67,8 +54,4 @@
 
 
 <SearchCard on:diameterChange={handleDiameterChange} title="на авто" byCar={false} brands={brands} diameters={rimInfo.diameters}/>
-{#if !loaded}
-    <svelte:component this={loader} />
-{:else}
-    <RimContent rimData={filteredRimList}/>
-{/if}
+<RimContent rimData={filteredRimList}/>

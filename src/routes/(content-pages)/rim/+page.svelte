@@ -48,8 +48,10 @@
         newUrl.searchParams.set('pcd', config.boltPattern);
         history.replaceState(history.state, '', newUrl.toString());
         currentConfig = config
-        fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config)
-        
+        if(carBrand.length > 0 && carModel.length > 0  && carYear.length > 0  ){
+            fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config)
+        }
+       
     };
     
     const setMainImage = (imageUrl:string) => {

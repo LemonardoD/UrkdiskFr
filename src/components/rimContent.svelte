@@ -1,17 +1,16 @@
 <script lang="ts">
 	import type { RimInfo } from "../types";
 	import RimCard from "./rimCard.svelte";
-
+   
     export let rimData: RimInfo[]
-
+   
     let rimInfo: RimInfo[]
     let currentPage = 1
 
     $:{
-        rimInfo = rimData
-        rimInfo = rimInfo.slice(0, currentPage*40)
+        rimInfo = rimData.slice(0, currentPage*40)
     }
-
+   
 </script>
 
 {#if rimInfo.length === 0}
@@ -36,8 +35,6 @@
         <button class="showMoreBtn" on:click={ ()=>{currentPage+=1}}>Показать еще</button>
     </div>
 {/if}
-
-
 
 <style> 
     .dontFind{
