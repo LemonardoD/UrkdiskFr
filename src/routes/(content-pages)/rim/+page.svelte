@@ -196,7 +196,7 @@
         font-family: 'HelveticaNeue-Medium';
         src: url("/fonts/HelveticaNeueCyr-Medium.woff2") format('woff2');
     }
-
+    
     .big{
         font-size: 18px;
     }

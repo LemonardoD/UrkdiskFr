@@ -30,6 +30,9 @@
         align-items: center;
     }
     @media (min-width: 350px) and (max-width: 450px){
+        .loaderWrap{
+            min-height: 400px;
+        }
         .loaderIndentation{
             margin-top: 49px;
         }
