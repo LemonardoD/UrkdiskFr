@@ -27,7 +27,7 @@
 <style>
     .loaderWrap{
         display: flex;
-        min-height: 150px;
+        min-height: 40vh;
         align-items: center;
     }
     @media (min-width: 350px) and (max-width: 450px){
