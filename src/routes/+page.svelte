@@ -106,10 +106,10 @@
     </div>
 {/if}
 <Header ifMain={true}/>
-    <div class="topBackground"/>
-    <section class="searchSec">
+    <!-- <div class="topBackground"/>
+    <section class="searchSec"> -->
         <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions --><!-- svelte-ignore a11y-no-static-element-interactions -->
-        <search on:click={onInput}>
+       <!--  <search on:click={onInput}>
             <img class="searchIcon" src={SearchIcon} alt="Search">
             <input placeholder="Поиск по дискам" type="text" name="searchBar"
             bind:value={inputValue}
@@ -183,10 +183,10 @@
             <svelte:component this={loader} />
         </div>
         {:else}
-            <!-- <div style="margin-top: 2px;">
+            <div style="margin-top: 2px;">
                 <RimContent rimData={popularRims}/>
             </div>
-            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a> -->
+            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a>
         {/if}
     </section>
     <div class="orderInfo">
@@ -197,7 +197,7 @@
             <button  class="order call" on:click={clickReqCall}>Заказать звонок</button>
             <button  class="order question" on:click={clickAskQuest}>Задать вопрос</button>
         </div>
-    </div>
+    </div> -->
 <Footer/>
 
 <style>
