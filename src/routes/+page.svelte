@@ -66,28 +66,28 @@
         loaded = true
     });
 
-    $: {
-        if (typeof document !== 'undefined') {
-            tick().then(() => {
-                if(window.innerWidth > 1024 ){
-                        document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
-                        document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
+    // $: {
+    //     if (typeof document !== 'undefined') {
+    //         tick().then(() => {
+    //             if(window.innerWidth > 1024 ){
+    //                     document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+    //                     document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
                     
-                } else {
-                    document.body.style.overflow = showReqCall ? 'hidden' : "auto";
-                } 
-            })
-        }
-    }
+    //             } else {
+    //                 document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+    //             } 
+    //         })
+    //     }
+    // }
 </script>
 
 
-<AskQuestion bind:showAskQuest = {showAskQuest}/>
-<ReqCall bind:showReqCall = {showReqCall}/>
+<!-- <AskQuestion bind:showAskQuest = {showAskQuest}/>
+<ReqCall bind:showReqCall = {showReqCall}/> -->
 
-<!-- {#if isInputFocused} -->
+{#if isInputFocused}
   <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions --> 
-    <!-- <div class="darkOverlay" on:click={offInput}>
+    <div class="darkOverlay" on:click={offInput}>
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
@@ -104,7 +104,7 @@
             </div>
         {/if}
     </div>
-{/if} -->
+{/if}
 <Header ifMain={true}/>
     <!-- <div class="topBackground"/>
     <section class="searchSec"> -->
