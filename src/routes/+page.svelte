@@ -92,7 +92,7 @@
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
-                    <a class="searchResult" target="_blank" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
+                    <a class="searchResult" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
                         <div class="suggestedResult">
                             <img  class="suggestedImg" src={result.image} alt="rimImage">
                             <div class=suggestedInfo>
