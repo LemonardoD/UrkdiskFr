@@ -20,7 +20,7 @@
                 <li><a target="_self" href="/rims/Marcello?selectedDiameters=all">Диски Marcello</a></li>
                 <li><a target="_self" href="/rims/MKW?selectedDiameters=all">Диски MKW</a></li>
                 <li><a target="_self" href="/rims/Replica?selectedDiameters=all">Диски Replica</a></li>
-                <li><a target="_self" href="/search">Подбор дисков по авто</a></li>
+                <li><a  href="/search">Подбор дисков по авто</a></li>
                 <li><a target="_self" href="/about-us">О нас</a></li>
             </ul>
         </nav>
