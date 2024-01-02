@@ -15,6 +15,7 @@ export const load: PageLoad = async ({ fetch }) => {
 				referrerPolicy: "no-referrer",
 			});
 			if (apiResponse.status !== 200) {
+				console.log(apiResponse);
 				throw error(apiResponse.status);
 			}
 			const apiInfo: { message: string[] } = await apiResponse.json();
@@ -32,6 +33,7 @@ export const load: PageLoad = async ({ fetch }) => {
 				referrerPolicy: "no-referrer",
 			});
 			if (apiResponse.status !== 200) {
+				console.log(apiResponse);
 				throw error(apiResponse.status);
 			}
 			const apiInfo: { message: RimInfo[] } = await apiResponse.json();
