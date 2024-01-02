@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link
+			rel="icon"
+			href="%sveltekit.assets%/favicon.ico"
+		/>
+		<link
+			href="http://fonts.googleapis.com/css?family=Rubik"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="http://fonts.googleapis.com/css?family=Roboto"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		%sveltekit.head%
+	</head>
+	<style>
+		body {
+			background-color: #f0f0f0;
+			font-family: "Roboto", sans-serif;
+			margin: 0;
+		}
+	</style>
+	<body>
+		<div id="page">
+			<div class="errContent">
+				{#if $page.error}
+				<h1>%sveltekit.error.message%</h1>
+				<h2>%sveltekit.status%</h2>
+				{/if}
+			</div>
+		</div>
+	</body>
+</html>
