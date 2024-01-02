@@ -3,22 +3,22 @@
     import Footer from "../../components/footer.svelte"
     import Loader from "../../lib/icons/loader.svelte";
     import { navigating } from "$app/stores";
-	import { loading } from "$lib/loading";
+	// import { loading } from "$lib/loading";
     
-    $: $loading = !!$navigating
+    // $: $loading = !!$navigating
     const loader =  Loader
 </script>
 
 
 <Header ifMain={false}/>
 <div class="loaderIndentation">
-    {#if $loading}
+    <!-- {#if $loading}
         <div class="loaderWrap">
             <svelte:component this={loader}/>
-        </div>
-    {:else}
+        </div> 
+    {:else} -->
         <slot></slot>
-    {/if}
+    <!-- {/if} -->
 </div>
 <Footer/>
 
