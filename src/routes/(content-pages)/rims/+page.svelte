@@ -53,5 +53,5 @@
 
 
 
-<SearchCard on:diameterChange={handleDiameterChange} title="на авто" byCar={false} brands={brands} diameters={rimInfo.diameters}/>
+<SearchCard on:diameterChange={handleDiameterChange} title="на авто" byCar={false} brands={brands} diameters={rimInfo.diameters} allBrands={true}/>
 <RimContent rimData={filteredRimList}/>

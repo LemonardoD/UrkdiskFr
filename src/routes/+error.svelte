@@ -1,12 +1,14 @@
 <script>
     import Header from "../components/header.svelte"
     import Footer from "../components/footer.svelte"
+    import { page } from '$app/stores';
 </script>
 
 
 <Header ifMain={false}/>
 <div class="page">
     <div class="errContent">
+        <p>{$page.error.message}</p>
         <p class="errMessage">Извините, что-то пошло не так. Попробуйте позже.</p>
     </div>
 </div>

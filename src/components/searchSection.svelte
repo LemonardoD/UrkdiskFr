@@ -7,6 +7,7 @@
     export let title: string
     export let brands: string[]
     export let diameters: string[]
+    export let allBrands = false
     export let rimBrand = "all"
     export let ifSearch = false
 
@@ -44,7 +45,7 @@
         <div class="searchBycar">
             <div class="fieldTitle">Авто</div>
             <div class="fieldSection selCar">
-                <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand} byCar={byCar}/>
+                <CarSelector withHeader={false} brands={brands} rimBrand={rimBrand} byCar={byCar} allBrands={allBrands}/>
             </div>
         </div>
         <div class="diameters">

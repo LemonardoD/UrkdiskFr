@@ -9,6 +9,7 @@
     export let withHeader: boolean
     export let rimBrand: string
     export let byCar: boolean
+    export let allBrands: boolean
 
     let models: string[] = [];
     let years: number[] = [];
@@ -58,7 +59,7 @@
     <InputEl bind:selected={selectedBrand} disabledVal="Марка" change={fetchModels} array={brands.sort()}/>
     <InputEl bind:selected={selectedModel} disabledVal="Модель" change={fetchYears} array={models.sort()}/>
     <InputEl bind:selected={selectedYear} disabledVal="Год" array={years.sort((el1, el2) =>{ return el2 - el1})}/>
-    <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain" : byCar ? "messageSecondaryByCar" :"messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
+    <p class={fieldsError ? `errorMessage ${withHeader ? "messageMain": allBrands? "allBrandsErrmessage" : byCar ? "messageSecondaryByCar" :"messageSecondary"}` : "hideErrMessage"}>Пожалуйста, заполните все поля</p>
     <button class="searchByCarBtn {withHeader ? "main" : "rimSec"}" on:click={findByCar}>Подобрать</button>
 </div>
 
@@ -71,6 +72,9 @@
     }
     .messageSecondary{
         bottom: 54px
+    }
+    .allBrandsErrmessage{
+        bottom: 74px
     }
     .hideErrMessage{
         display: none;
