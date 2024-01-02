@@ -183,10 +183,10 @@
             <svelte:component this={loader} />
         </div>
         {:else}
-            <div style="margin-top: 2px;">
+            <!-- <div style="margin-top: 2px;">
                 <RimContent rimData={popularRims}/>
             </div>
-            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a>
+            <a href="/rims?selectedDiameters=all" class="showAllBtn">Показать все</a> -->
         {/if}
     </section>
     <div class="orderInfo">
