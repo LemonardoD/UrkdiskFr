@@ -67,18 +67,17 @@
     });
 
     $: {
-        // if (typeof document !== 'undefined') {
-        //     tick().then(() => {
-        //         if(window.innerWidth > 1024 ){    
+        if (typeof document !== 'undefined') {
+            tick().then(() => {
+                if(window.innerWidth > 1024 ){
+                        document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+                        document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
                     
-        //                 document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
-        //                 document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
-                    
-        //         } else {
-        //             document.body.style.overflow = showReqCall ? 'hidden' : "auto";
-        //         } 
-        //     })
-        // }
+                } else {
+                    document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+                } 
+            })
+        }
     }
 </script>
 
@@ -92,7 +91,7 @@
         {#if searchResults.length > 0}
             <div class="searchResults">
                 {#each searchResults as result }
-                    <a class="searchResult" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
+                    <a class="searchResult" target="_blank" href={`/rim?id=${result.rimId}&diameter=${result.config[0].diameter}&width=${result.config[0].width}&pcd=${result.config[0].boltPattern}`}>
                         <div class="suggestedResult">
                             <img  class="suggestedImg" src={result.image} alt="rimImage">
                             <div class=suggestedInfo>

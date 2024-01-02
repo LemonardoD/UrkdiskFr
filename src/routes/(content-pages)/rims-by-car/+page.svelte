@@ -13,7 +13,7 @@
     const changeDiameters = (diameters: string[]) => {
         const newUrl = new URL($page.url);
         newUrl.searchParams.set('selectedDiameters', diameters.join(',') || "all");
-        // history.replaceState(history.state, '', newUrl.toString());
+        history.replaceState(history.state, '', newUrl.toString());
     };
     
     let selected: boolean[] = [];

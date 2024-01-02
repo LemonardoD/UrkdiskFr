@@ -18,8 +18,8 @@
     const carBrand = $page.url.searchParams.get('carBrand') || '';
     const carModel = $page.url.searchParams.get('carModel') || '';
     const carYear = $page.url.searchParams.get('carYear') || '';
-    let rimByCar ="/search"
-    //let rimByCar = typeof window !== 'undefined' && window.innerWidth < 550 ? `/search` : carBrand.length > 0 ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all` :"/rims?selectedDiameters=all"
+    
+    let rimByCar = typeof window !== 'undefined' && window.innerWidth < 550 ? `/search` : carBrand.length > 0 ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all` :"/rims?selectedDiameters=all"
     let currentConfig: RimConfig
 
     export let data

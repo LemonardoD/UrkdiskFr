@@ -33,8 +33,8 @@
         if (selectedBrand.length === 0|| selectedModel.length === 0 || selectedYear.length === 0) {
             fieldsError = true
         } else {
-            // if(typeof window !== 'undefined')
-            // window.location.href=`/rims-by-car?brand=${selectedBrand}&model=${selectedModel}&year=${selectedYear}&rimBrand=${rimBrand}`
+            if(typeof window !== 'undefined')
+            window.location.href=`/rims-by-car?brand=${selectedBrand}&model=${selectedModel}&year=${selectedYear}&rimBrand=${rimBrand}`
         }
     }
 
