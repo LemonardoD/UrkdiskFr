@@ -23,7 +23,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"lodash": "^4.17.21",
-		"sanitize.css": "^13.0.0"
+		"lodash": "^4.17.21"
 	}
 }
