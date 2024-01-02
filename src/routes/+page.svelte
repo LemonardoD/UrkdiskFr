@@ -67,19 +67,18 @@
     });
 
     $: {
-        if (typeof document !== 'undefined') {
-            tick().then(() => {
-                document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
-                // if(window.innerWidth > 1024 ){    
+        // if (typeof document !== 'undefined') {
+        //     tick().then(() => {
+        //         if(window.innerWidth > 1024 ){    
                     
-                //         document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
-                //         document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
+        //                 document.body.style.overflow = isInputFocused ? 'hidden' : "auto";
+        //                 document.body.style.margin = isInputFocused ? '0 17px 0 0' : "0";
                     
-                // } else {
-                //     document.body.style.overflow = showReqCall ? 'hidden' : "auto";
-                // } 
-            })
-        }
+        //         } else {
+        //             document.body.style.overflow = showReqCall ? 'hidden' : "auto";
+        //         } 
+        //     })
+        // }
     }
 </script>
 
