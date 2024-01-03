@@ -2,6 +2,8 @@ import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 import type { OneRimInfo } from "../../../api/types";
 
+export const ssr = false;
+
 export const load: PageLoad = async ({ fetch, url }) => {
 	const id = url.searchParams.get("id");
 
