@@ -7,12 +7,7 @@
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				if (window.innerWidth > 1024 && document.documentElement.scrollHeight > document.documentElement.clientHeight) {
-					document.body.style.overflow = showModal ? "hidden" : "auto";
-					document.body.style.margin = showModal ? "0 17px 0 0" : "0";
-				} else {
-					document.body.style.overflow = showModal ? "hidden" : "auto";
-				}
+				document.body.style.overflow = showModal ? "hidden" : "auto";
 			});
 		}
 	}

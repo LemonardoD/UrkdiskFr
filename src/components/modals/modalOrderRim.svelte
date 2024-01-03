@@ -31,7 +31,7 @@
 	const orderRim = async () => {
 		if (!emailRegex.test(email)) {
 			emailError = true;
-		} else if (phoneNumber.length < 9) {
+		} else if (phoneNumber.replaceAll(" ", "").length < 9) {
 			showPhoneError = true;
 		} else {
 			await aiApi.sendOrderToApi({
@@ -53,12 +53,7 @@
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				if (window.innerWidth > 1024) {
-					document.body.style.overflow = showOrderField ? "hidden" : "auto";
-					document.body.style.margin = showOrderField ? "0 17px 0 0" : "0";
-				} else {
-					document.body.style.overflow = showOrderField ? "hidden" : "auto";
-				}
+				document.body.style.overflow = showOrderField ? "hidden" : "auto";
 			});
 		}
 		if (phoneNumber.replaceAll(" ", "").length <= 9) {

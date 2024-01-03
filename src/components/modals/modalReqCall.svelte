@@ -15,7 +15,7 @@
 	};
 
 	const phoneCall = async () => {
-		if (phoneNumber.length < 9) {
+		if (phoneNumber.replaceAll(" ", "").length < 9) {
 			showError = true;
 		} else {
 			await aiApi.sendOrderPhCall({ phone: phoneNumber });
@@ -27,12 +27,7 @@
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				if (window.innerWidth > 1024) {
-					document.body.style.overflow = showReqCall ? "hidden" : "auto";
-					document.body.style.margin = showReqCall ? "0 17px 0 0" : "0";
-				} else {
-					document.body.style.overflow = showReqCall ? "hidden" : "auto";
-				}
+				document.body.style.overflow = showReqCall ? "hidden" : "auto";
 			});
 		}
 		if (phoneNumber.replaceAll(" ", "").length >= 9) {
