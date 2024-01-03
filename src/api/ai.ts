@@ -7,7 +7,6 @@ import type {
 	OrderQuestBody,
 	OrderRimBody,
 	RimAndDiameterInfoResp,
-	RimInfo,
 	RimInfoResp,
 	SearchByCarBody,
 	SearchByConfig,
@@ -17,8 +16,7 @@ class Ai extends HttpClient {
 	private static instanceCached: Ai;
 
 	private constructor() {
-		super("http://localhost:3000");
-		// super("https://ukrdisk-be.fly.dev/");
+		super("https://ukrdisk-be.fly.dev/");
 	}
 
 	static getInstance = () => {
