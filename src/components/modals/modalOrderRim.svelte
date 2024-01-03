@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { error } from "@sveltejs/kit";
 	import { tick } from "svelte";
-	import type { OneRimInfo, OrderConfig, RimConfig } from "../../api/typesypes";
 	import logoIcon from "../../lib/icons/logo.webp";
+	import type { OneRimInfo, RimConfig } from "../../lib/types";
+	import { emailRegex } from "$lib";
+	import { aiApi } from "../../api";
 
 	export let showOrderField: boolean;
 	export let rimInfo: OneRimInfo;
 	export let rimConfig: RimConfig;
 	export let rimlink: string;
-
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 	let name = "";
 	let phoneNumber = "";
@@ -18,34 +17,6 @@
 	let showTHXField = false;
 	let showPhoneError = false;
 	let emailError = false;
-
-	const sendOrderToApi = async (name: string, phone: string, email: string, config: RimConfig, url: string, rimId: string) => {
-		let requestData: {
-			name: string;
-			phone: string;
-			email: string;
-			orderConfig: OrderConfig;
-		};
-
-		if (name.length > 0) {
-			requestData = { name, phone, email, orderConfig: { ...config, link: url, rimId: rimId } };
-		} else {
-			requestData = { name: "Не указано", phone, email, orderConfig: { ...config, link: url, rimId: rimId } };
-		}
-		const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/order/rims`, {
-			method: "POST",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(requestData),
-			referrerPolicy: "no-referrer",
-		});
-		if (apiResponse.status !== 200) {
-			throw error(apiResponse.status, apiResponse.statusText);
-		}
-		return;
-	};
 
 	const clickOutside = () => {
 		showTHXField = false;
@@ -63,7 +34,7 @@
 		} else if (phoneNumber.length < 9) {
 			showPhoneError = true;
 		} else {
-			await sendOrderToApi(name, phoneNumber, email, rimConfig, rimlink, rimInfo.rimId);
+			await aiApi.sendOrderToApi({ name, phone: phoneNumber, email, config: rimConfig, url: rimlink, rimId: rimInfo.rimId });
 			showOrderField = false;
 			showTHXField = true;
 			emailError = false;

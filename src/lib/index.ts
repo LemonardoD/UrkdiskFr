@@ -1,62 +1,36 @@
-import { error } from "@sveltejs/kit";
 import isEqual from "lodash/isEqual";
-import type { RimConfig, RimInfo } from "../api/types";
+import type { RimConfig, RimInfo } from "./types";
+import { aiApi } from "../api";
 
-export const getCarModels = async (brand: string) => {
-	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/car/models/${brand}`, {
-		method: "GET",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		redirect: "error",
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status);
-	}
-	const apiInfo: { message: string[] } = await apiResponse.json();
-
-	return apiInfo.message;
-};
 export const clickHandle = (show: boolean) => {
 	return !show;
 };
 
-export const getCarYears = async (brand: string, model: string) => {
-	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/car/years/${brand}/${model}`, {
-		method: "GET",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		redirect: "error",
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status);
-	}
-	const apiInfo: { message: number[] } = await apiResponse.json();
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-	return apiInfo.message;
+export const changeDiameters = (diameters: string[], url: URL) => {
+	const newUrl = new URL(url);
+	newUrl.searchParams.set("selectedDiameters", diameters.join(",") || "all");
+	history.replaceState(history.state, "", newUrl.toString());
 };
 
-export const searchRims = async (rimName: string) => {
-	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/search/by-naming/${rimName}`, {
-		method: "GET",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		redirect: "error",
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status);
-	}
-	const apiInfo: { message: RimInfo[] } = await apiResponse.json();
-
-	return apiInfo.message;
+export const filterRimList = (list: RimInfo[], selectedDiameters: string[]) => {
+	return list
+		.map(rim => {
+			const filteredConfigs = rim.config.filter(config => selectedDiameters.includes(config.diameter));
+			if (filteredConfigs.length > 0) {
+				const minPrice = [...new Set(filteredConfigs.map(config => config.price))];
+				const diameters = [...new Set(filteredConfigs.map(config => config.diameter))];
+				return {
+					...rim,
+					config: filteredConfigs,
+					minPrice: minPrice,
+					diameters,
+				};
+			}
+			return null;
+		})
+		.filter((rim): rim is RimInfo => rim !== null);
 };
 
 export const fitToCar = async (
@@ -72,20 +46,9 @@ export const fitToCar = async (
 		year: Number(carYear),
 		rimBrand: rimBrand,
 	};
-	const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/search/by-car`, {
-		method: "POST",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(requestData),
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status, apiResponse.statusText);
-	}
-	const apiInfo: { message: { rimList: RimInfo[]; diameters: string[] } } = await apiResponse.json();
+	const apiInfo = await aiApi.getByCar(requestData);
 	const { rimList } = apiInfo.message;
+
 	let fit = false;
 	rimList.forEach(rim => {
 		rim.config.forEach(config => {

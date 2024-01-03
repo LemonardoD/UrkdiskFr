@@ -15,18 +15,17 @@
 	import MKWIcon from "../lib/icons/MKW.png";
 	import replicaImg from "../lib/icons/replica.webp";
 	import Loader from "../lib/icons/loader.svelte";
-	import { onMount } from "svelte";
 	import ReqCall from "../components/modals/modalReqCall.svelte";
 	import AskQuestion from "../components/modals/modalAskQuestion.svelte";
 	import questImg from "../lib/icons/questionsImg.webp";
-	import type { RimInfo } from "../api/types";
+	import type { RimInfo } from "../lib/types";
 	import { aiApi } from "../api";
 	import { clickHandle } from "$lib";
 
 	let loader = Loader;
+	export let data;
+	const { brands, popularRims } = data;
 
-	let brands: string[] = [];
-	let popular: RimInfo[] = [];
 	let userInput = "";
 	let inputValue = "";
 	let isInputFocused = false;
@@ -54,13 +53,6 @@
 			searchResults = [];
 		}
 	};
-
-	onMount(async () => {
-		const brandResp = await aiApi.getBrands();
-		const popularResp = await aiApi.getPopularRims();
-		brands = brandResp.message;
-		popular = popularResp.message;
-	});
 </script>
 
 <AskQuestion bind:showAskQuest />
@@ -229,13 +221,13 @@
 </section>
 <section class="popular">
 	<p class="mainTitle">Популярные модели</p>
-	{#if !popular.length}
+	{#if !popularRims.length}
 		<div class="loader">
 			<svelte:component this={loader} />
 		</div>
 	{:else}
 		<div style="margin-top: 2px;">
-			<RimContent rimData={popular} />
+			<RimContent rimData={popularRims} />
 		</div>
 		<a
 			href="/rims?selectedDiameters=all"

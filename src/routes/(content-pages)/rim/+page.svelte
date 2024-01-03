@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import isEqual from "lodash/isEqual";
-	import type { RimConfig } from "../../../api/typesypes";
 	import lftArrow from "../../../lib/icons/left-arrow.png";
 	import rghtArrow from "../../../lib/icons/right-arrow.png";
 	import questImg from "../../../lib/icons/questionsImg.webp";
 	import ReqCall from "../../../components/modals/modalReqCall.svelte";
 	import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
 	import OrderRim from "../../../components/modals/modalOrderRim.svelte";
-	import { fitToCar, sleep } from "$lib";
+	import { clickHandle, fitToCar, sleep } from "$lib";
 	import { onMount } from "svelte";
+	import type { RimConfig } from "../../../lib/types";
 
 	const diameter = $page.url.searchParams.get("diameter");
 	const width = $page.url.searchParams.get("width");
@@ -28,19 +28,18 @@
 	let currentConfig: RimConfig;
 
 	export let data;
-	const { rimInfo } = data;
 
 	let fitToClientCar: boolean;
 	let showReqCall = false;
 	let showAskQuest = false;
 	let showOrderField = false;
-	let photo = rimInfo.images[0];
-	let newPhoto = rimInfo.images[0];
+	let photo = data.images[0];
+	let newPhoto = data.images[0];
 	let firstLoad = true;
 	let crossFading = false;
 	let currentIndex = 0;
 
-	rimInfo.config.forEach(el => {
+	data.config.forEach(el => {
 		if (el.boltPattern === pcd && el.diameter === diameter && el.width === width) {
 			currentConfig = el;
 		}
@@ -54,43 +53,33 @@
 		history.replaceState(history.state, "", newUrl.toString());
 		currentConfig = config;
 		if (carBrand.length > 0 && carModel.length > 0 && carYear.length > 0) {
-			fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, config);
+			fitToClientCar = await fitToCar(data.brand, carBrand, carModel, carYear, config);
 		}
 	};
 
 	const setMainImage = (imageUrl: string) => {
 		newPhoto = imageUrl;
-		currentIndex = rimInfo.images.indexOf(imageUrl);
+		currentIndex = data.images.indexOf(imageUrl);
 	};
 
 	const nextImg = () => {
-		if (currentIndex + 1 < rimInfo.images.length) {
-			newPhoto = rimInfo.images[currentIndex + 1];
+		if (currentIndex + 1 < data.images.length) {
+			newPhoto = data.images[currentIndex + 1];
 			currentIndex += 1;
 		} else {
-			newPhoto = rimInfo.images[0];
+			newPhoto = data.images[0];
 			currentIndex = 0;
 		}
 	};
 
 	const previousImg = () => {
 		if (currentIndex - 1 >= 0) {
-			newPhoto = rimInfo.images[currentIndex - 1];
+			newPhoto = data.images[currentIndex - 1];
 			currentIndex -= 1;
 		} else {
-			newPhoto = rimInfo.images.slice(-1)[0];
-			currentIndex = rimInfo.images.length - 1;
+			newPhoto = data.images.slice(-1)[0];
+			currentIndex = data.images.length - 1;
 		}
-	};
-
-	const clickReqCall = () => {
-		showReqCall = !showReqCall;
-	};
-	const clickAskQuest = () => {
-		showAskQuest = !showAskQuest;
-	};
-	const clickOrderRim = () => {
-		showOrderField = !showOrderField;
 	};
 
 	const onLoad = async () => {
@@ -101,7 +90,7 @@
 	};
 	onMount(async () => {
 		if (carBrand.length && carModel.length && carYear.length) {
-			fitToClientCar = await fitToCar(rimInfo.brand, carBrand, carModel, carYear, currentConfig);
+			fitToClientCar = await fitToCar(data.brand, carBrand, carModel, carYear, currentConfig);
 		} else {
 			fitToClientCar = false;
 		}
@@ -110,7 +99,7 @@
 
 <OrderRim
 	bind:showOrderField
-	{rimInfo}
+	rimInfo={data}
 	rimConfig={currentConfig}
 	rimlink={$page.url.href}
 />
@@ -146,7 +135,7 @@
 					{/if}
 				</div>
 			{/if}
-			{#if rimInfo.images.length > 1}
+			{#if data.images.length > 1}
 				<button
 					class="btn1"
 					on:click={() => {
@@ -171,7 +160,7 @@
 				</button>
 			{/if}
 			<div class="images">
-				{#each rimInfo.images as image}
+				{#each data.images as image}
 					<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 					<img
 						class="secondaryRimImg"
@@ -184,13 +173,13 @@
 		</div>
 		<div class="sideCards">
 			<div class="orderRim">
-				<p class="rimName">{`${rimInfo.brand} - ${rimInfo.name}`}</p>
+				<p class="rimName">{`${data.brand} - ${data.name}`}</p>
 				<div class="infoLine">
 					<p class="standartText">Размер:</p>
 					<p class="rimTextSmall">{`${currentConfig.diameter}’’ диаметр и ${currentConfig.width}’’ ширина`}</p>
 				</div>
-				<div class={rimInfo.config.length > 2 ? "configs" : rimInfo.config.length === 1 ? "configsForOne" : "configsForTwo"}>
-					{#each rimInfo.config as el}
+				<div class={data.config.length > 2 ? "configs" : data.config.length === 1 ? "configsForOne" : "configsForTwo"}>
+					{#each data.config as el}
 						<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 						<div
 							on:click={() => {
@@ -220,7 +209,9 @@
 					<p class="priceAll">{`${currentConfig.price * 4} грн за комплект*`}</p>
 					<button
 						class="product order"
-						on:click={clickOrderRim}>ЗАКАЗАТЬ В 1 КЛИК</button
+						on:click={() => {
+							showOrderField = clickHandle(showOrderField);
+						}}>ЗАКАЗАТЬ В 1 КЛИК</button
 					>
 					<p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
 				</div>
@@ -237,11 +228,15 @@
 					<div class="grButtons">
 						<button
 							class="call order"
-							on:click={clickReqCall}>Заказать звонок</button
+							on:click={() => {
+								showReqCall = clickHandle(showReqCall);
+							}}>Заказать звонок</button
 						>
 						<button
 							class="question order"
-							on:click={clickAskQuest}>Задать вопрос</button
+							on:click={() => {
+								showAskQuest = clickHandle(showAskQuest);
+							}}>Задать вопрос</button
 						>
 					</div>
 				</div>

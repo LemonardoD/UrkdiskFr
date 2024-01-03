@@ -44,3 +44,33 @@ export interface ConfigOptions {
 export type CarDetailsResp = {
 	message: string[];
 };
+
+export type RimInfoResp = {
+	message: RimInfo[];
+};
+
+export type SearchByCarBody = {
+	brand: string;
+	model: string;
+	year: number;
+	rimBrand: string;
+};
+
+export type RimAndDiameterInfoResp = { message: { rimList: RimInfo[]; diameters: string[] } };
+
+export type DiameterEventChange = { detail: { selected: boolean[] } };
+
+export type SearchByConfig = {
+	diameter: string;
+	width: string;
+	mountingHoles: string;
+};
+
+export type OrderRimBody = { name: string; phone: string; email: string; config: RimConfig; url: string; rimId: string };
+
+export type OrderPhCallBody = { phone: string };
+export type OrderQuestBody = {
+	question: string;
+	phone: string;
+	email?: string;
+};

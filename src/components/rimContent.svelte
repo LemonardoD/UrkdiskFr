@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RimInfo } from "../api/typesypes";
+	import type { RimInfo } from "../lib/types";
 	import RimCard from "./rimCard.svelte";
 
 	export let rimData: RimInfo[];

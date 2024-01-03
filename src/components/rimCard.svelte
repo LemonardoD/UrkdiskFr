@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { RimConfig } from "../api/typesypes";
+	import type { RimConfig } from "../lib/types";
 
 	export let rimId: string;
 	export let diameters: string[];

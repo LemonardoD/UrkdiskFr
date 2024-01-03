@@ -1,28 +1,12 @@
-import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
-import type { OneRimInfo } from "../../../api/types";
+import { aiApi } from "../../../api";
 
 export const ssr = false;
 
-export const load: PageLoad = async ({ fetch, url }) => {
+export const load: PageLoad = async ({ url }) => {
 	const id = url.searchParams.get("id");
 
-	const getRimByCOnfig = async () => {
-		const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/rims/by-id/${id}`, {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			referrerPolicy: "no-referrer",
-		});
-		if (apiResponse.status !== 200) {
-			throw error(apiResponse.status, apiResponse.statusText);
-		}
-		const apiInfo: { message: OneRimInfo } = await apiResponse.json();
+	const apiResp = await aiApi.getRimById(id!);
 
-		return { rimInfo: apiInfo.message };
-	};
-
-	return await getRimByCOnfig();
+	return apiResp.message;
 };

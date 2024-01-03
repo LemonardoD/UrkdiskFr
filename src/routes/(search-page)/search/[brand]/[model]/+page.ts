@@ -1,24 +1,8 @@
-import { error } from "@sveltejs/kit";
 import type { PageLoad } from "../../../.././$types";
+import { aiApi } from "../../../../../api";
 
-export const load: PageLoad = async ({ fetch, params }) => {
-	const getCaryYears = async (brand: string, model: string) => {
-		const apiResponse = await fetch(`https://ukrdisk-be.fly.dev/car/years/${brand}/${model}`, {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			redirect: "error",
-			referrerPolicy: "no-referrer",
-		});
-		if (apiResponse.status !== 200) {
-			throw error(apiResponse.status, apiResponse.statusText);
-		}
-		const apiInfo: { message: string[] } = await apiResponse.json();
+export const ssr = false;
 
-		return { years: apiInfo.message };
-	};
-
-	return await getCaryYears(params.brand, params.model);
+export const load: PageLoad = async ({ params }) => {
+	return { years: (await aiApi.getYears(params.brand, params.model)).message };
 };
