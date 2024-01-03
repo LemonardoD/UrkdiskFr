@@ -17,7 +17,8 @@ class Ai extends HttpClient {
 	private static instanceCached: Ai;
 
 	private constructor() {
-		super("https://ukrdisk-be.fly.dev/");
+		super("http://localhost:3000");
+		// super("https://ukrdisk-be.fly.dev/");
 	}
 
 	static getInstance = () => {

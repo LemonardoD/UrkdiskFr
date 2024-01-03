@@ -34,7 +34,12 @@
 		} else if (phoneNumber.length < 9) {
 			showPhoneError = true;
 		} else {
-			await aiApi.sendOrderToApi({ name, phone: phoneNumber, email, config: rimConfig, url: rimlink, rimId: rimInfo.rimId });
+			await aiApi.sendOrderToApi({
+				name,
+				phone: phoneNumber,
+				email,
+				orderConfig: { ...rimConfig, link: rimlink, rimId: rimInfo.rimId },
+			});
 			showOrderField = false;
 			showTHXField = true;
 			emailError = false;
@@ -56,7 +61,7 @@
 				}
 			});
 		}
-		if (phoneNumber.length >= 9) {
+		if (phoneNumber.replaceAll(" ", "").length <= 9) {
 			showPhoneError = false;
 		}
 		if (emailRegex.test(email)) {

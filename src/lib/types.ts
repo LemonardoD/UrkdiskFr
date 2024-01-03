@@ -65,10 +65,21 @@ export type SearchByConfig = {
 	width: string;
 	mountingHoles: string;
 };
+export interface OrderConfigDTO {
+	width: string;
+	offset: number;
+	diameter: string;
+	boltPattern: string;
+	centralBore: number | null;
+	price: number;
+	rimId: string;
+	link: string;
+}
 
-export type OrderRimBody = { name: string; phone: string; email: string; config: RimConfig; url: string; rimId: string };
+export type OrderRimBody = { name: string; phone: string; email: string; orderConfig: OrderConfigDTO };
 
 export type OrderPhCallBody = { phone: string };
+
 export type OrderQuestBody = {
 	question: string;
 	phone: string;

@@ -35,7 +35,7 @@
 				}
 			});
 		}
-		if (phoneNumber.length >= 9) {
+		if (phoneNumber.replaceAll(" ", "").length >= 9) {
 			showError = false;
 		}
 	}

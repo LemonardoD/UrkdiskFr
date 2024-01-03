@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tick } from "svelte";
 	import { aiApi } from "../../api";
-	import { emailRegex } from "$lib";
+	import { clickHandle, emailRegex } from "$lib";
 
 	export let showAskQuest: boolean;
 
@@ -30,7 +30,7 @@
 	};
 
 	const clickOutside = () => {
-		showAskQuest = !showAskQuest;
+		showAskQuest = clickHandle(showAskQuest);
 		phoneNumber = "";
 		question = "";
 		email = "";
@@ -44,11 +44,11 @@
 			questionError = true;
 		} else if (email.length > 0 && !emailRegex.test(email)) {
 			emailError = true;
-		} else if (phoneNumber.length < 9) {
+		} else if (phoneNumber.replaceAll(" ", "").length <= 9) {
 			showPhoneError = true;
 		} else {
 			await sendQuestToApi(question, phoneNumber, email);
-			showAskQuest = !showAskQuest;
+			showAskQuest = clickHandle(showAskQuest);
 			emailError = false;
 			showPhoneError = false;
 			questionError = false;
