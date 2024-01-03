@@ -40,3 +40,7 @@ export interface ConfigOptions {
 	pcd: string;
 	rims: { width: string; diameter: string }[];
 }
+
+export type CarDetailsResp = {
+	message: string[];
+};

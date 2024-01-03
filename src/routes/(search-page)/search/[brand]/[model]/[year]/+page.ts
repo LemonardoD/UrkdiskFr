@@ -1,6 +1,6 @@
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "../../../../.././$types";
-import type { ConfigOptions } from "../../../../../../types";
+import type { ConfigOptions } from "../../../../../../api/types";
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const getCarConfig = async (brand: string, model: string, year: string) => {

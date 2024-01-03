@@ -1,6 +1,6 @@
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "../../$types";
-import type { RimInfo } from "../../../types";
+import type { RimInfo } from "../../../api/types";
 
 export const load: PageLoad = async ({ fetch, url }) => {
 	const requestData = {

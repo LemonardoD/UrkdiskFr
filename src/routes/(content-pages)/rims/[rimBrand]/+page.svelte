@@ -1,58 +1,61 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { RimInfo } from "../../../../types";
+	import type { RimInfo } from "../../../../api/typesypes";
 	import RimContent from "../../../../components/rimContent.svelte";
-    import SearchCard from "../../../../components/searchSection.svelte";
+	import SearchCard from "../../../../components/searchSection.svelte";
 
-    export let data
-    const {brands, rimInfo, rimBrand} = data
+	export let data;
+	const { brands, rimInfo, rimBrand } = data;
 
-    let urlDiameters = $page.url.searchParams.get("selectedDiameters") || "all"
+	let urlDiameters = $page.url.searchParams.get("selectedDiameters") || "all";
 
-    const changeDiameters = (diameters: string[]) => {
-        const newUrl = new URL($page.url);
-        newUrl.searchParams.set('selectedDiameters', diameters.join(',') || "all");
-        history.replaceState(history.state, '', newUrl.toString());
-    };
+	const changeDiameters = (diameters: string[]) => {
+		const newUrl = new URL($page.url);
+		newUrl.searchParams.set("selectedDiameters", diameters.join(",") || "all");
+		history.replaceState(history.state, "", newUrl.toString());
+	};
 
-    let selected: boolean[] = [];
-    let selectedDiameters: string[] = urlDiameters === "all" ? rimInfo.diameters : urlDiameters.split(',')
-    let filteredRimList: RimInfo[]
+	let selected: boolean[] = [];
+	let selectedDiameters: string[] = urlDiameters === "all" ? rimInfo.diameters : urlDiameters.split(",");
+	let filteredRimList: RimInfo[];
 
-    const handleDiameterChange = (event: { detail: { selected: boolean[]; }; }) => {
-        selected = event.detail.selected;
-        const newlySelectedDiameters = rimInfo.diameters.filter((o, i) => selected[i]);
-        changeDiameters(newlySelectedDiameters);
-    };
+	const handleDiameterChange = (event: { detail: { selected: boolean[] } }) => {
+		selected = event.detail.selected;
+		const newlySelectedDiameters = rimInfo.diameters.filter((o, i) => selected[i]);
+		changeDiameters(newlySelectedDiameters);
+	};
 
-   $:{  
-        selectedDiameters = rimInfo.diameters.filter((o, i) => selected[i])
-        if (selectedDiameters.length > 0) {
-            filteredRimList = rimInfo.rimList.map((rim) => {
-                const filteredConfigs = rim.config.filter((config) =>
-                    selectedDiameters.includes(config.diameter)
-                );
-                if (filteredConfigs.length > 0) {
-                    const minPrice = [...new Set(filteredConfigs.map((config) => config.price))]
-                    const diameters = [...new Set(filteredConfigs.map((config) => config.diameter))];
-                    return {
-                        ...rim,
-                        config: filteredConfigs,
-                        minPrice: minPrice,
-                        diameters,
-                    };
-                }
-                return null;
-            }).filter((rim): rim is RimInfo => rim !== null)
-        } else {
-            filteredRimList = rimInfo.rimList
-        }
-   }
+	$: {
+		selectedDiameters = rimInfo.diameters.filter((o, i) => selected[i]);
+		if (selectedDiameters.length > 0) {
+			filteredRimList = rimInfo.rimList
+				.map(rim => {
+					const filteredConfigs = rim.config.filter(config => selectedDiameters.includes(config.diameter));
+					if (filteredConfigs.length > 0) {
+						const minPrice = [...new Set(filteredConfigs.map(config => config.price))];
+						const diameters = [...new Set(filteredConfigs.map(config => config.diameter))];
+						return {
+							...rim,
+							config: filteredConfigs,
+							minPrice: minPrice,
+							diameters,
+						};
+					}
+					return null;
+				})
+				.filter((rim): rim is RimInfo => rim !== null);
+		} else {
+			filteredRimList = rimInfo.rimList;
+		}
+	}
 </script>
 
-
-
-<SearchCard on:diameterChange={handleDiameterChange} byCar={false} title={rimBrand} brands={brands} diameters={rimInfo.diameters} rimBrand={rimBrand}/>
-<RimContent rimData={filteredRimList}/>   
-
-
+<SearchCard
+	on:diameterChange={handleDiameterChange}
+	byCar={false}
+	title={rimBrand}
+	{brands}
+	diameters={rimInfo.diameters}
+	{rimBrand}
+/>
+<RimContent rimData={filteredRimList} />

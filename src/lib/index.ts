@@ -1,6 +1,6 @@
 import { error } from "@sveltejs/kit";
 import isEqual from "lodash/isEqual";
-import type { RimConfig, RimInfo } from "../types";
+import type { RimConfig, RimInfo } from "../api/types";
 
 export const getCarModels = async (brand: string) => {
 	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/car/models/${brand}`, {
@@ -20,40 +20,8 @@ export const getCarModels = async (brand: string) => {
 	return apiInfo.message;
 };
 
-export const getCarYears = async (brand: string, model: string) => {
-	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/car/years/${brand}/${model}`, {
-		method: "GET",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		redirect: "error",
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status);
-	}
-	const apiInfo: { message: number[] } = await apiResponse.json();
-
-	return apiInfo.message;
-};
-
-export const searchRims = async (rimName: string) => {
-	const apiResponse = await fetch(` https://ukrdisk-be.fly.dev/search/by-naming/${rimName}`, {
-		method: "GET",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		redirect: "error",
-		referrerPolicy: "no-referrer",
-	});
-	if (apiResponse.status !== 200) {
-		throw error(apiResponse.status);
-	}
-	const apiInfo: { message: RimInfo[] } = await apiResponse.json();
-
-	return apiInfo.message;
+export const clickHandle = (show: boolean) => {
+	return !show;
 };
 
 export const fitToCar = async (
