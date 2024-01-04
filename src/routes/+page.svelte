@@ -19,50 +19,29 @@
 	import AskQuestion from "../components/modals/modalAskQuestion.svelte";
 	import questImg from "../lib/icons/questionsImg.webp";
 	import type { RimInfo } from "../lib/types";
-	import { aiApi } from "../api";
-	import { clickHandle } from "$lib";
+	import { isActiveOrderCall, isActiveOrderQuestion, isInputFocused } from "$lib/stores";
+	import { handleInput, offInput, onInput } from "$lib/mainPageHelpers";
 
 	let loader = Loader;
+
 	export let data;
 	const { brands, popularRims } = data;
 
-	let userInput = "";
 	let inputValue = "";
-	let isInputFocused = false;
 	let searchResults: RimInfo[] = [];
-	let showReqCall = false;
-	let showAskQuest = false;
 	let showMoreMakers = false;
-
-	const onInput = () => {
-		inputValue = userInput;
-		isInputFocused = true;
-	};
-	const offInput = () => {
-		userInput = inputValue;
-		isInputFocused = false;
-		inputValue = "";
-	};
-	const handleInput = async (event: Event) => {
-		const inputEvent = event as InputEvent & { target: HTMLInputElement };
-		inputValue = inputEvent.target.value;
-		if (inputValue.length > 0) {
-			const apiSearch = await aiApi.search(inputValue);
-			searchResults = apiSearch.message;
-		} else {
-			searchResults = [];
-		}
-	};
 </script>
 
-<AskQuestion bind:showAskQuest />
-<ReqCall bind:showReqCall />
+<AskQuestion />
+<ReqCall />
 
-{#if isInputFocused}
+{#if $isInputFocused}
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="darkOverlay"
-		on:click={offInput}
+		on:click={() => {
+			inputValue = offInput(inputValue);
+		}}
 	>
 		{#if searchResults.length > 0}
 			<div class="searchResults">
@@ -93,7 +72,11 @@
 <div class="topBackground" />
 <section class="searchSec">
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-noninteractive-element-interactions --><!-- svelte-ignore a11y-no-static-element-interactions -->
-	<search on:click={onInput}>
+	<search
+		on:click={() => {
+			inputValue = onInput();
+		}}
+	>
 		<img
 			class="searchIcon"
 			src={SearchIcon}
@@ -104,7 +87,11 @@
 			type="text"
 			name="searchBar"
 			bind:value={inputValue}
-			on:input={handleInput}
+			on:input={async event => {
+				const result = await handleInput(event);
+				inputValue = result.userInput;
+				searchResults = result.searchResult;
+			}}
 		/>
 	</search>
 	<div class="selectByCar">
@@ -247,13 +234,13 @@
 		<button
 			class="order call"
 			on:click={() => {
-				showReqCall = clickHandle(showReqCall);
+				isActiveOrderCall.update(el => !el);
 			}}>Заказать звонок</button
 		>
 		<button
 			class="order question"
 			on:click={() => {
-				showAskQuest = clickHandle(showAskQuest);
+				isActiveOrderQuestion.update(el => !el);
 			}}>Задать вопрос</button
 		>
 	</div>

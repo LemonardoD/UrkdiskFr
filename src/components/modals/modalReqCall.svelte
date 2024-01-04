@@ -1,46 +1,37 @@
 <script lang="ts">
 	import { tick } from "svelte";
 	import { aiApi } from "../../api";
-	import { clickHandle } from "$lib";
-
-	export let showReqCall: boolean;
+	import { isActiveOrderCall, phoneErr } from "$lib/stores";
+	import { clickOutsidePhCall } from "$lib/modalHelpers";
 
 	let phoneNumber = "";
-	let showError = false;
 
-	const clickOutside = () => {
-		showReqCall = clickHandle(showReqCall);
-		phoneNumber = "";
-		showError = false;
-	};
-
-	const phoneCall = async () => {
+	export const phoneCall = async () => {
 		if (phoneNumber.replaceAll(" ", "").length < 9) {
-			showError = true;
+			phoneErr.set(true);
 		} else {
 			await aiApi.sendOrderPhCall({ phone: phoneNumber });
-			showReqCall = clickHandle(showReqCall);
-			phoneNumber = "";
-			showError = false;
+			clickOutsidePhCall();
 		}
 	};
+
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				document.body.style.overflow = showReqCall ? "hidden" : "auto";
+				document.body.style.overflow = $isActiveOrderCall ? "hidden" : "auto";
 			});
 		}
 		if (phoneNumber.replaceAll(" ", "").length >= 9) {
-			showError = false;
+			phoneErr.set(false);
 		}
 	}
 </script>
 
-{#if showReqCall}
+{#if $isActiveOrderCall}
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="overlay"
-		on:click={clickOutside}
+		on:click={clickOutsidePhCall}
 	/>
 	<div class="modal">
 		<div class="modalCard">
@@ -52,12 +43,12 @@
 					placeholder="Ваш номер телефона"
 					required={true}
 					maxlength="20"
-					class={`inputField ${showError ? "error" : "normal"}`}
+					class={`inputField ${$phoneErr ? "error" : "normal"}`}
 					type="tel"
 					bind:value={phoneNumber}
 					name="tel"
 				/>
-				<p class={showError ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
+				<p class={$phoneErr ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
 				<button
 					aria-label="submit-button"
 					aria-labelledby="submit"

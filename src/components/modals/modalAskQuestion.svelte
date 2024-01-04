@@ -1,86 +1,49 @@
 <script lang="ts">
 	import { tick } from "svelte";
-	import { aiApi } from "../../api";
-	import { clickHandle, emailRegex } from "$lib";
-
-	export let showAskQuest: boolean;
+	import { emailErr, isActiveOrderQuestion, phoneErr, questionErr } from "$lib/stores";
+	import { clickOutsideQuestion, sendQuestToApi, emailRegex } from "$lib/modalHelpers";
 
 	let phoneNumber = "";
 	let email = "";
 	let question = "";
 
-	let showPhoneError = false;
-	let emailError = false;
-	let questionError = false;
-
-	const sendQuestToApi = async (question: string, phone: string, email: string) => {
-		let requestData: {
-			question: string;
-			phone: string;
-			email?: string;
-		};
-
-		if (email.length > 0) {
-			requestData = { question, phone, email };
-		} else {
-			requestData = { question, phone };
-		}
-		await aiApi.sendOrderQuest(requestData);
-		return;
-	};
-
-	const clickOutside = () => {
-		showAskQuest = clickHandle(showAskQuest);
-		phoneNumber = "";
-		question = "";
-		email = "";
-		questionError = false;
-		showPhoneError = false;
-		emailError = false;
-	};
-
 	const askQuest = async () => {
 		if (question.length < 5) {
-			questionError = true;
+			questionErr.set(true);
 		} else if (email.length > 0 && !emailRegex.test(email)) {
-			emailError = true;
+			emailErr.set(true);
 		} else if (phoneNumber.replaceAll(" ", "").length <= 9) {
-			showPhoneError = true;
+			phoneErr.set(true);
 		} else {
 			await sendQuestToApi(question, phoneNumber, email);
-			showAskQuest = clickHandle(showAskQuest);
-			emailError = false;
-			showPhoneError = false;
-			questionError = false;
-			phoneNumber = "";
-			question = "";
-			email = "";
+			isActiveOrderQuestion.update(el => !el);
+			clickOutsideQuestion();
 		}
 	};
 
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				document.body.style.overflow = showAskQuest ? "hidden" : "auto";
+				document.body.style.overflow = $isActiveOrderQuestion ? "hidden" : "auto";
 			});
 		}
 		if (phoneNumber.length >= 9) {
-			showPhoneError = false;
+			phoneErr.set(false);
 		}
 		if (question.length > 5) {
-			questionError = false;
+			questionErr.set(false);
 		}
 		if (email.length === 0 || emailRegex.test(email)) {
-			emailError = false;
+			emailErr.set(false);
 		}
 	}
 </script>
 
-{#if showAskQuest}
+{#if $isActiveOrderQuestion}
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="overlay"
-		on:click={clickOutside}
+		on:click={clickOutsideQuestion}
 	/>
 	<div class="modal">
 		<div class="modalCard">
@@ -92,20 +55,20 @@
 					placeholder="Напишите ваш вопрос"
 					required={true}
 					minlength="5"
-					class={`inputFieldText ${questionError ? "error" : "normal"}`}
+					class={`inputFieldText ${$questionErr ? "error" : "normal"}`}
 					bind:value={question}
 					name="quest"
 				/>
-				<p class={questionError ? "errorMessage questMessage" : "hideErrMessage"}>Пожалуйста, введите больше символов</p>
+				<p class={$questionErr ? "errorMessage questMessage" : "hideErrMessage"}>Пожалуйста, введите больше символов</p>
 				<input
 					placeholder="Ваш email(не обязательно)"
 					maxlength="90"
-					class={`inputField ${emailError ? "error" : "normal"}`}
+					class={`inputField ${$emailErr ? "error" : "normal"}`}
 					type="email"
 					bind:value={email}
 					name="email"
 				/>
-				<p class={emailError ? "errorMessage emailMessage" : "hideErrMessage"}>Пожалуйста, введите верний формат почты</p>
+				<p class={$emailErr ? "errorMessage emailMessage" : "hideErrMessage"}>Пожалуйста, введите верний формат почты</p>
 				<div class="or">
 					<div class="line" />
 					<p class="orText">ИЛИ</p>
@@ -115,14 +78,12 @@
 					placeholder="Ваш номер телефона"
 					required={true}
 					maxlength="30"
-					class={`inputField ${showPhoneError ? "error" : "normal"}`}
+					class={`inputField ${$phoneErr ? "error" : "normal"}`}
 					type="tel"
 					bind:value={phoneNumber}
 					name="tel"
 				/>
-				<p class={showPhoneError ? "errorMessage phMessage" : "hideErrMessage"}>
-					Пожалуйста, введите номер формата 098 222 65 21
-				</p>
+				<p class={$phoneErr ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
 				<button
 					aria-label="submit-button"
 					aria-labelledby="submit"

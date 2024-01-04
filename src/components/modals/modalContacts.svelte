@@ -1,24 +1,22 @@
 <script lang="ts">
-	import { clickHandle } from "$lib";
+	import { isContactActive } from "$lib/stores";
 	import { tick } from "svelte";
-
-	export let showModal: boolean;
 
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				document.body.style.overflow = showModal ? "hidden" : "auto";
+				document.body.style.overflow = $isContactActive ? "hidden" : "auto";
 			});
 		}
 	}
 </script>
 
-{#if showModal}
+{#if $isContactActive}
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="overlay"
 		on:click={() => {
-			showModal = clickHandle(showModal);
+			isContactActive.update(el => !el);
 		}}
 	/>
 	<div class={"modal"}>
@@ -49,7 +47,7 @@
 					aria-labelledby="submit"
 					class="closeBtn"
 					on:click={() => {
-						showModal = clickHandle(showModal);
+						isContactActive.update(el => !el);
 					}}>Закрыть</button
 				>
 			</div>

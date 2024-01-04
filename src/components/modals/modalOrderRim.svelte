@@ -2,10 +2,10 @@
 	import { tick } from "svelte";
 	import logoIcon from "../../lib/icons/logo.webp";
 	import type { OneRimInfo, RimConfig } from "../../lib/types";
-	import { emailRegex } from "$lib";
 	import { aiApi } from "../../api";
+	import { emailErr, isActiveOrderRim, phoneErr, showTHXField } from "$lib/stores";
+	import { clickOutsideOrderRim, emailRegex } from "$lib/modalHelpers";
 
-	export let showOrderField: boolean;
 	export let rimInfo: OneRimInfo;
 	export let rimConfig: RimConfig;
 	export let rimlink: string;
@@ -14,25 +14,11 @@
 	let phoneNumber = "";
 	let email = "";
 
-	let showTHXField = false;
-	let showPhoneError = false;
-	let emailError = false;
-
-	const clickOutside = () => {
-		showTHXField = false;
-		showOrderField = false;
-		phoneNumber = "";
-		name = "";
-		email = "";
-		showPhoneError = false;
-		emailError = false;
-	};
-
 	const orderRim = async () => {
 		if (!emailRegex.test(email)) {
-			emailError = true;
+			emailErr.set(true);
 		} else if (phoneNumber.replaceAll(" ", "").length < 9) {
-			showPhoneError = true;
+			phoneErr.set(true);
 		} else {
 			await aiApi.sendOrderToApi({
 				name,
@@ -40,36 +26,31 @@
 				email,
 				orderConfig: { ...rimConfig, link: rimlink, rimId: rimInfo.rimId },
 			});
-			showOrderField = false;
-			showTHXField = true;
-			emailError = false;
-			showPhoneError = false;
-			phoneNumber = "";
-			email = "";
-			name = "";
+			clickOutsideOrderRim();
+			showTHXField.set(true);
 		}
 	};
 
 	$: {
 		if (typeof document !== "undefined") {
 			tick().then(() => {
-				document.body.style.overflow = showOrderField ? "hidden" : "auto";
+				document.body.style.overflow = $isActiveOrderRim ? "hidden" : "auto";
 			});
 		}
 		if (phoneNumber.replaceAll(" ", "").length <= 9) {
-			showPhoneError = false;
+			phoneErr.set(false);
 		}
 		if (emailRegex.test(email)) {
-			emailError = false;
+			emailErr.set(false);
 		}
 	}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
-{#if showOrderField}
+{#if $isActiveOrderRim}
 	<div
 		class="overlay"
-		on:click={clickOutside}
+		on:click={clickOutsideOrderRim}
 	/>
 	<div class="modal">
 		<div class="modalCard">
@@ -113,24 +94,22 @@
 					placeholder="Ваш телефон(прим: 098 222 65 21)"
 					required={true}
 					maxlength="30"
-					class={`inputField ${showPhoneError ? "error" : "normal"}`}
+					class={`inputField ${$phoneErr ? "error" : "normal"}`}
 					type="tel"
 					bind:value={phoneNumber}
 					name="tel"
 				/>
-				<p class={showPhoneError ? "errorMessage phMessage" : "hideErrMessage"}>
-					Пожалуйста, введите номер формата 098 222 65 21
-				</p>
+				<p class={$phoneErr ? "errorMessage phMessage" : "hideErrMessage"}>Пожалуйста, введите номер формата 098 222 65 21</p>
 				<input
 					placeholder="Ваш email"
 					maxlength="90"
 					required={true}
-					class={`inputField ${emailError ? "error" : "normal"}`}
+					class={`inputField ${$emailErr ? "error" : "normal"}`}
 					type="email"
 					bind:value={email}
 					name="email"
 				/>
-				<p class={emailError ? "errorMessage emailMessage" : "hideErrMessage"}>Пожалуйста, введите верний формат почты</p>
+				<p class={$emailErr ? "errorMessage emailMessage" : "hideErrMessage"}>Пожалуйста, введите верний формат почты</p>
 				<button
 					aria-label="submit-button"
 					aria-labelledby="submit"
@@ -142,15 +121,15 @@
 	</div>
 	<button
 		class="cancelBth"
-		on:click={clickOutside}>Отменить</button
+		on:click={clickOutsideOrderRim}>Отменить</button
 	>
 {/if}
 
-{#if showTHXField}
+{#if $showTHXField}
 	<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="overlay"
-		on:click={clickOutside}
+		on:click={clickOutsideOrderRim}
 	/>
 	<div class="modalTXH">
 		<div class="modalCardTHX">

@@ -1,14 +1,11 @@
 <script>
 	import ReqCall from "../../../components/modals/modalReqCall.svelte";
 	import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
-	import { clickHandle } from "$lib";
-
-	let showAskQuest = false;
-	let showReqCall = false;
+	import { isActiveOrderCall, isActiveOrderQuestion } from "$lib/stores";
 </script>
 
-<AskQuestion bind:showAskQuest />
-<ReqCall bind:showReqCall />
+<AskQuestion />
+<ReqCall />
 
 <div class="content">
 	<p class="titleText">О нас</p>
@@ -30,13 +27,13 @@
 		Закажите обратный звонок
 		<button
 			on:click={() => {
-				showReqCall = clickHandle(showReqCall);
+				isActiveOrderCall.update(el => !el);
 			}}>здесь</button
 		><br />
 		Напишите нам прямо
 		<button
 			on:click={() => {
-				showAskQuest = clickHandle(showAskQuest);
+				isActiveOrderQuestion.update(el => !el);
 			}}>на сайте</button
 		><br />
 		Свяжитесь с нами напрямую:<br />

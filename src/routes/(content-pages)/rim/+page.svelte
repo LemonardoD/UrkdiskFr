@@ -7,129 +7,79 @@
 	import ReqCall from "../../../components/modals/modalReqCall.svelte";
 	import AskQuestion from "../../../components/modals/modalAskQuestion.svelte";
 	import OrderRim from "../../../components/modals/modalOrderRim.svelte";
-	import { clickHandle, fitToCar, sleep } from "$lib";
 	import { onMount } from "svelte";
-	import type { RimConfig } from "../../../lib/types";
+	import {
+		isActiveOrderRim,
+		isActiveOrderCall,
+		isActiveOrderQuestion,
+		currentPhoto,
+		crossFading,
+		currentConfig,
+		fitToClientCar,
+		clientCar,
+	} from "$lib/stores";
+	import {
+		changeConfig,
+		fitToCar,
+		nextImg,
+		onLoad,
+		previousImg,
+		setCurrentConfig,
+		setMainImage,
+		url4ChangeCar,
+	} from "$lib/rimByIdHelper";
 
-	const diameter = $page.url.searchParams.get("diameter");
-	const width = $page.url.searchParams.get("width");
-	const pcd = $page.url.searchParams.get("pcd");
-
-	const carBrand = $page.url.searchParams.get("carBrand") || "";
-	const carModel = $page.url.searchParams.get("carModel") || "";
-	const carYear = $page.url.searchParams.get("carYear") || "";
-
-	let rimByCar =
-		typeof window !== "undefined" && window.innerWidth < 550
-			? `/search`
-			: carBrand.length > 0
-			  ? `/rims-by-car?brand=${carBrand}&model=${carModel}&year=${carYear}&rimBrand=all&selectedDiameters=all`
-			  : "/rims?selectedDiameters=all";
-	let currentConfig: RimConfig;
+	let rimByCar = url4ChangeCar($page.url);
 
 	export let data;
 
-	let fitToClientCar: boolean;
-	let showReqCall = false;
-	let showAskQuest = false;
-	let showOrderField = false;
 	let photo = data.images[0];
-	let newPhoto = data.images[0];
-	let firstLoad = true;
-	let crossFading = false;
-	let currentIndex = 0;
 
-	data.config.forEach(el => {
-		if (el.boltPattern === pcd && el.diameter === diameter && el.width === width) {
-			currentConfig = el;
-		}
-	});
+	$currentPhoto = data.images[0];
+	setCurrentConfig(data.config, $page.url);
 
-	const changeConfig = async (config: RimConfig) => {
-		const newUrl = new URL($page.url);
-		newUrl.searchParams.set("diameter", config.diameter);
-		newUrl.searchParams.set("width", config.width);
-		newUrl.searchParams.set("pcd", config.boltPattern);
-		history.replaceState(history.state, "", newUrl.toString());
-		currentConfig = config;
-		if (carBrand.length > 0 && carModel.length > 0 && carYear.length > 0) {
-			fitToClientCar = await fitToCar(data.brand, carBrand, carModel, carYear, config);
-		}
-	};
-
-	const setMainImage = (imageUrl: string) => {
-		newPhoto = imageUrl;
-		currentIndex = data.images.indexOf(imageUrl);
-	};
-
-	const nextImg = () => {
-		if (currentIndex + 1 < data.images.length) {
-			newPhoto = data.images[currentIndex + 1];
-			currentIndex += 1;
-		} else {
-			newPhoto = data.images[0];
-			currentIndex = 0;
-		}
-	};
-
-	const previousImg = () => {
-		if (currentIndex - 1 >= 0) {
-			newPhoto = data.images[currentIndex - 1];
-			currentIndex -= 1;
-		} else {
-			newPhoto = data.images.slice(-1)[0];
-			currentIndex = data.images.length - 1;
-		}
-	};
-
-	const onLoad = async () => {
-		crossFading = true;
-		await sleep(150);
-		photo = newPhoto;
-		crossFading = false;
-	};
 	onMount(async () => {
-		if (carBrand.length && carModel.length && carYear.length) {
-			fitToClientCar = await fitToCar(data.brand, carBrand, carModel, carYear, currentConfig);
+		if (typeof $page.url.searchParams.get("carBrand") === "string") {
+			await fitToCar(data.brand, $page.url, $currentConfig);
 		} else {
-			fitToClientCar = false;
+			fitToClientCar.set(false);
 		}
 	});
 </script>
 
 <OrderRim
-	bind:showOrderField
 	rimInfo={data}
-	rimConfig={currentConfig}
+	rimConfig={$currentConfig}
 	rimlink={$page.url.href}
 />
-<AskQuestion bind:showAskQuest />
-<ReqCall bind:showReqCall />
+<AskQuestion />
+<ReqCall />
 
 <div class="page">
 	<!-- svelte-ignore a11y-missing-attribute -->
 	<div class="singleSlot">
 		<div class="mainCard">
 			{#if photo}
-				<div class:firstLoad>
+				<div class="firstLoad">
 					<figure class="orig">
 						<img
 							class="mainRimImg"
 							src={photo}
 							alt=""
-							on:load={onLoad}
+							on:load={async () => {
+								photo = await onLoad();
+							}}
 						/>
 					</figure>
-					{#if newPhoto !== photo}
-						<figure
-							class="new"
-							class:crossFading
-						>
+					{#if $currentPhoto !== photo}
+						<figure class={`new ${$crossFading ? "crossFading" : ""} `}>
 							<img
 								class="mainRimImg"
-								src={newPhoto}
+								src={$currentPhoto}
 								alt=""
-								on:load={onLoad}
+								on:load={async () => {
+									photo = await onLoad();
+								}}
 							/>
 						</figure>
 					{/if}
@@ -139,7 +89,7 @@
 				<button
 					class="btn1"
 					on:click={() => {
-						previousImg();
+						previousImg(data.images);
 					}}
 				>
 					<img
@@ -150,7 +100,7 @@
 				<button
 					class="btn2"
 					on:click={() => {
-						nextImg();
+						nextImg(data.images);
 					}}
 				>
 					<img
@@ -166,7 +116,7 @@
 						class="secondaryRimImg"
 						src={image}
 						alt="rim"
-						on:click={() => setMainImage(image)}
+						on:click={() => setMainImage(image, data.images)}
 					/>
 				{/each}
 			</div>
@@ -176,27 +126,27 @@
 				<p class="rimName">{`${data.brand} - ${data.name}`}</p>
 				<div class="infoLine">
 					<p class="standartText">Размер:</p>
-					<p class="rimTextSmall">{`${currentConfig.diameter}’’ диаметр и ${currentConfig.width}’’ ширина`}</p>
+					<p class="rimTextSmall">{`${$currentConfig.diameter}’’ диаметр и ${$currentConfig.width}’’ ширина`}</p>
 				</div>
 				<div class={data.config.length > 2 ? "configs" : data.config.length === 1 ? "configsForOne" : "configsForTwo"}>
 					{#each data.config as el}
 						<!-- svelte-ignore a11y-click-events-have-key-events --><!-- svelte-ignore a11y-no-static-element-interactions -->
 						<div
 							on:click={() => {
-								changeConfig(el);
+								changeConfig(el, $page.url, data.brand);
 							}}
-							class={isEqual(currentConfig, el) ? "active configEl" : "normal configEl"}
+							class={isEqual($currentConfig, el) ? "active configEl" : "normal configEl"}
 						>
 							<p class="elText big">{`${el.diameter}’’/`}</p>
 							<p class="elText small">{`${el.width.includes(".0") || el.width.includes(".5") ? el.width : el.width + ".0"}`}</p>
 						</div>
 					{/each}
 				</div>
-				{#if carBrand.length && carModel.length && carYear.length && fitToClientCar}
+				{#if $fitToClientCar}
 					<div class="fitToyourCar">
 						<p class="standartText forYourCar">Подходят для вашей машины</p>
 						<div class="clientCar">
-							<p class="carInfo">{`${carBrand} ${carModel} ${carYear}`}</p>
+							<p class="carInfo">{$clientCar}</p>
 							<a
 								href={rimByCar}
 								class="change">изменить</a
@@ -205,12 +155,12 @@
 					</div>
 				{/if}
 				<div class="priceInfo">
-					<p class="priceSingle">{`${currentConfig.price} грн`}</p>
-					<p class="priceAll">{`${currentConfig.price * 4} грн за комплект*`}</p>
+					<p class="priceSingle">{`${$currentConfig.price} грн`}</p>
+					<p class="priceAll">{`${$currentConfig.price * 4} грн за комплект*`}</p>
 					<button
 						class="product order"
 						on:click={() => {
-							showOrderField = clickHandle(showOrderField);
+							isActiveOrderRim.update(el => !el);
 						}}>ЗАКАЗАТЬ В 1 КЛИК</button
 					>
 					<p class="endBlocTxt">*Вам перезвонит менеджер и уточнит детали</p>
@@ -229,13 +179,13 @@
 						<button
 							class="call order"
 							on:click={() => {
-								showReqCall = clickHandle(showReqCall);
+								isActiveOrderCall.update(el => !el);
 							}}>Заказать звонок</button
 						>
 						<button
 							class="question order"
 							on:click={() => {
-								showAskQuest = clickHandle(showAskQuest);
+								isActiveOrderQuestion.update(el => !el);
 							}}>Задать вопрос</button
 						>
 					</div>

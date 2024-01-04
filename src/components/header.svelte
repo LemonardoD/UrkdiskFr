@@ -1,13 +1,12 @@
 <script lang="ts">
 	import logoIcon from "../lib/icons/logo.webp";
 	import ContactModal from "../components/modals/modalContacts.svelte";
-	import { clickHandle } from "$lib";
+	import { isContactActive } from "$lib/stores";
 
 	export let ifMain: boolean;
-	let showModal = false;
 </script>
 
-<ContactModal bind:showModal />
+<ContactModal />
 <header class={ifMain ? "headerBar nonColored" : "headerBar colored"}>
 	<div class="headerContent">
 		<div>
@@ -28,7 +27,7 @@
 				aria-labelledby="Контакты"
 				class="contactBtn"
 				on:click={() => {
-					showModal = clickHandle(showModal);
+					isContactActive.update(el => !el);
 				}}>Контакты</button
 			>
 		</div>

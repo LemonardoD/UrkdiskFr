@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import { rimDiametersOnCard } from "$lib/rimsHelpers";
 	import type { RimConfig } from "../lib/types";
 
 	export let rimId: string;
@@ -25,12 +26,7 @@
 
 	$: {
 		rimName = brand + " - " + name;
-		rimDiameters =
-			diameters.length > 2
-				? `${diameters[0]}’’ - ${diameters[diameters.length - 1]}`
-				: diameters.length === 2
-				  ? `${diameters[0]}’’, ⌀${diameters[diameters.length - 1]}`
-				  : diameters[0];
+		rimDiameters = rimDiametersOnCard(diameters);
 		rimPrice = price[0];
 	}
 </script>

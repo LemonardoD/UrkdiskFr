@@ -1,4 +1,5 @@
 <script>
+	// @ts-nocheck
 	import { page } from "$app/stores";
 	import Loader from "../../../../../lib/icons/whiteLoader.svelte";
 	import LinkGroup from "../../../../../components/searchLinks.svelte";
