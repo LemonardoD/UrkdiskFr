@@ -7,7 +7,6 @@ abstract class HttpClient {
 	public constructor(baseURL: string | undefined, contentType = "application/json") {
 		this.instance = axios.create({
 			baseURL,
-			method: "GET",
 			headers: {
 				"Content-Type": contentType,
 			},

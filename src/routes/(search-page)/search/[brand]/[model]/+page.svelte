@@ -4,7 +4,10 @@
 	import Loader from "../../../../../lib/icons/whiteLoader.svelte";
 	import LinkGroup from "../../../../../components/searchLinks.svelte";
 	import OptButtons from "../../../../../components/optionButtons.svelte";
+	import { navigating } from "$app/stores";
+	import { loading } from "$lib/stores";
 
+	$: $loading = !!$navigating;
 	let loader = Loader;
 
 	export let data;
